@@ -1,3 +1,4 @@
+using ExpensesApp.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,7 +12,7 @@ namespace ExpensesApp
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
+            MainPage = new LoginPage();
 		}
 
 		protected override void OnStart ()
