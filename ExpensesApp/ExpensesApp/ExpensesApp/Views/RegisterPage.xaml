@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExpensesApp.Views.RegisterPage"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        <StackLayout
+            Margin="20,20"
+            BindingContext="{Binding Register}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Name"/>
+                <Entry
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="{Binding Name}"/>
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Last Name"/>
+                <Entry
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding LastName}"/>
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="User"/>
+                <Entry
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{Binding User}"/>
+                
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Text="Password"/>
+                <Entry
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsPassword="True"
+                    Text="{Binding Password,Mode=TwoWay}"/>
+
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Text="Email"/>
+                <Entry
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Text="{Binding Email}"/>
+                
+            </Grid>
+            <StackLayout>
+                <Button
+                    VerticalOptions="FillAndExpand"
+                    Text="Save"
+                    Command="{Binding SaveUserCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

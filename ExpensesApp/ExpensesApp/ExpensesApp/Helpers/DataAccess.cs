@@ -17,9 +17,16 @@ namespace ExpensesApp.Helpers
 
         public DataAccess()
         {
-            var config = DependencyService.Get<IConfig>();
-            this.connection = new SQLiteConnection(config.Platform, Path.Combine(config.DirectoryDB, "Expenses.db3"));
-            this.connection.CreateTable<UserLocal>();
+            try
+            {
+                var config = DependencyService.Get<IConfig>();
+                this.connection = new SQLiteConnection(config.Platform, Path.Combine(config.DirectoryDB, "Expenses.db3"));
+                this.connection.CreateTable<UserLocal>();
+            }
+            catch(Exception e)
+            {
+                var a = e.Message;
+            }
         }
 
         public void Insert<T>(T model)

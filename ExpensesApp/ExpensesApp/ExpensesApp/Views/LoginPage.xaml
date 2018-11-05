@@ -46,6 +46,10 @@
                         HorizontalOptions="FillAndExpand"
                         Text="Entrar"
                         Command="{Binding LoginCommand}"/>
+                    <Button
+                        HorizontalOptions="FillAndExpand"
+                        Text="Register"
+                        Command="{Binding RegisterCommand}"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

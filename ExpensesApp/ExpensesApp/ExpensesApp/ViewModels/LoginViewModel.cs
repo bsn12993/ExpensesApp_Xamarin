@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using ExpensesApp.Views;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -74,6 +75,14 @@ namespace ExpensesApp.ViewModels
                 return new RelayCommand(Login);
             }
         }
+        
+        public ICommand RegisterCommand
+        {
+            get
+            {
+                return new RelayCommand(Register);
+            }
+        }
         #endregion
 
         #region Methods
@@ -85,10 +94,17 @@ namespace ExpensesApp.ViewModels
                 return;
             }
             this.IsRunning = true;
-            await Application.Current.MainPage.DisplayAlert("Success", "login", "Accept");
             this.Pass = string.Empty;
             this.IsRunning = false;
+            Application.Current.MainPage = new MasterPage();
         }
+
+
+        private void Register()
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+        }
+
         #endregion
     }
 }
