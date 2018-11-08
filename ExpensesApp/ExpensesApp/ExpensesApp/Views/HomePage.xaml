@@ -1,37 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ExpensesApp.Views.HomePage">
+             x:Class="ExpensesApp.Views.HomePage"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Home">
     <ContentPage.Content>
-        <StackLayout
-            Margin="20,20">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
+        <ScrollView
+            BindingContext="{Binding Categories}">
+            <StackLayout
+                Margin="20,20">
                 <Label
-                    Grid.Row="0"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="FillAndExpand"
+                    HorizontalOptions="CenterAndExpand"
                     FontAttributes="Bold"
                     FontSize="Medium"
                     Text="Total"/>
                 <Label
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="FillAndExpand"
+                    HorizontalOptions="CenterAndExpand"
                     FontAttributes="Bold"
                     FontSize="Medium"
                     Text="10000"/>
                 <Label
-                    Grid.ColumnSpan="2"
-                    Grid.Row="2"
                     HorizontalOptions="CenterAndExpand"
                     FontAttributes="Bold"
                     FontSize="Medium"
                     Text="Gastos"/>
-            </Grid>
-        </StackLayout>
+                <Label
+                    HorizontalOptions="CenterAndExpand"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    Text=""/>
+                <ListView
+                    ItemsSource="{Binding Categories}"
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        HorizontalOptions="StartAndExpand"
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        Text="{Binding Name}"/>
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="EndAndExpand"
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        Text="{Binding Total}"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

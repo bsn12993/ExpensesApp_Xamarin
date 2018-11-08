@@ -1,6 +1,10 @@
-﻿using System;
+﻿using ExpensesApp.Views;
+using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
@@ -9,5 +13,15 @@ namespace ExpensesApp.ViewModels
         public string Icon { get; set; }
         public string Title { get; set; }
         public string PageName { get; set; }
+
+        public ICommand NavigateCommand
+        {
+            get { return new RelayCommand(Navigate); }
+        }
+
+        private void Navigate()
+        {
+             
+        }
     }
 }

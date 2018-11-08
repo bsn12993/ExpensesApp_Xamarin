@@ -62,6 +62,8 @@ namespace ExpensesApp.ViewModels
         public LoginViewModel()
         {
             this.IsRunning = false;
+            this.User = "aa";
+            this.Pass = "aa";
         }
         #endregion
 
@@ -96,6 +98,7 @@ namespace ExpensesApp.ViewModels
             this.IsRunning = true;
             this.Pass = string.Empty;
             this.IsRunning = false;
+            MainViewModel.GetInstance().Categories.LoadCategories();
             Application.Current.MainPage = new MasterPage();
         }
 

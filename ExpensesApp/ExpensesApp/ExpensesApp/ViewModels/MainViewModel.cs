@@ -10,11 +10,21 @@ namespace ExpensesApp.ViewModels
         public LoginViewModel Login { get; set; }
         public RegisterViewModel Register { get; set; }
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
+        public HomeViewModel Categories { get; set; }
+
+        private static MainViewModel instance;
+        public static MainViewModel GetInstance()
+        {
+            if (instance == null) return new MainViewModel();
+            else return instance;
+        }
 
         public MainViewModel()
         {
+            instance = this;
             Login = new LoginViewModel();
             Register = new RegisterViewModel();
+            Categories = new HomeViewModel();
             this.LoadMenu();
         }
 
@@ -33,6 +43,14 @@ namespace ExpensesApp.ViewModels
                 PageName = "",
                 Title = "Agregar Gastos"
             });
+            this.Menu.Add(new MenuItemViewModel
+            {
+                Icon = "",
+                PageName = "CategoryPage",
+                Title = "Categorias"
+            });
         }
+
+  
     }
 }
