@@ -21,7 +21,15 @@ namespace ExpensesApp.ViewModels
 
         private void Navigate()
         {
-             
+            App.Master.IsPresented = false;
+            if (this.PageName.Equals("LoginPage"))
+            {
+
+            }
+            else if (this.PageName.Equals("CategoryPage")) 
+            {
+                App.Navigator.PushAsync(new CategoryPage());
+            }
         }
     }
 }

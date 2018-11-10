@@ -10,7 +10,7 @@
         <NavigationPage
             x:Name="Navigator">
             <x:Arguments>
-                <pages:HomeTabbedPage/>
+                <pages:HomePage/>
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

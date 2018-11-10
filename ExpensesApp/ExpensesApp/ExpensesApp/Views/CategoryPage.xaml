@@ -10,19 +10,20 @@
                 Margin="20,20"
                 BindingContext="{Binding Categories}">
                 <ListView
+                    IsPullToRefreshEnabled="True"
                     ItemsSource="{Binding Categories}"
                     HasUnevenRows="True"
                     SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid>
+                                <Grid
+                                    BackgroundColor="Silver">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <StackLayout
                                         Grid.Column="0"
-                                        BackgroundColor="Silver"
                                         VerticalOptions="Center">
                                         <Label
                                             FontAttributes="Bold"
