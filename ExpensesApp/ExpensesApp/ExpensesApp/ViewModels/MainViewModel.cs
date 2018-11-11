@@ -55,6 +55,18 @@ namespace ExpensesApp.ViewModels
                 PageName = "CategoryPage",
                 Title = "Categorias"
             });
+            this.Menu.Add(new MenuItemViewModel
+            {
+                Icon = "",
+                PageName = "CategoryPage",
+                Title = "Perfil"
+            });
+            this.Menu.Add(new MenuItemViewModel
+            {
+                Icon = "",
+                PageName = "LoginPage",
+                Title = "Salir"
+            });
         }
 
         public void LoadCategories()

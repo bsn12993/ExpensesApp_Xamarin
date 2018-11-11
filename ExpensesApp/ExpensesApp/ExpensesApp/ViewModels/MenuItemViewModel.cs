@@ -24,7 +24,7 @@ namespace ExpensesApp.ViewModels
             App.Master.IsPresented = false;
             if (this.PageName.Equals("LoginPage"))
             {
-
+                Application.Current.MainPage = new LoginPage();
             }
             else if (this.PageName.Equals("CategoryPage")) 
             {
