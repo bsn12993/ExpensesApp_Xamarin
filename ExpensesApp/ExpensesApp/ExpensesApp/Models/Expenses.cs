@@ -8,5 +8,6 @@ namespace ExpensesApp.Models
     {
         public Category Category { get; set; }
         public decimal Total { get; set; }
+        public DateTime Date { get; set; }
     }
 }
