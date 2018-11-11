@@ -30,6 +30,10 @@ namespace ExpensesApp.ViewModels
             {
                 App.Navigator.PushAsync(new CategoryPage());
             }
+            else if (this.PageName.Equals("AddExpensePage"))
+            {
+                App.Navigator.PushAsync(new AddExpensePage());
+            }
         }
     }
 }

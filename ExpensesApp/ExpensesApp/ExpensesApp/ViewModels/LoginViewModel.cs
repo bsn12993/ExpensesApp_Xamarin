@@ -98,7 +98,7 @@ namespace ExpensesApp.ViewModels
             this.IsRunning = true;
             this.Pass = string.Empty;
             this.IsRunning = false;
-            MainViewModel.GetInstance().Categories.LoadCategories();
+            MainViewModel.GetInstance().LoadCategories();
             Application.Current.MainPage = new MasterPage();
         }
 

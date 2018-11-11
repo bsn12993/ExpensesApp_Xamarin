@@ -6,7 +6,7 @@
              Title="Home">
     <ContentPage.Content>
         <ScrollView
-            BindingContext="{Binding Categories}">
+            BindingContext="{Binding Home}">
             <StackLayout
                 Margin="20,20">
                 <Label
@@ -30,7 +30,7 @@
                     FontSize="Medium"
                     Text=""/>
                 <ListView
-                    ItemsSource="{Binding Categories}"
+                    ItemsSource="{Binding Expenses}"
                     HasUnevenRows="True"
                     SeparatorVisibility="None">
                     <ListView.ItemTemplate>
@@ -46,7 +46,7 @@
                                         HorizontalOptions="StartAndExpand"
                                         FontAttributes="Bold"
                                         FontSize="Medium"
-                                        Text="{Binding Name}"/>
+                                        Text="{Binding Category.Name}"/>
                                     <Label
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"

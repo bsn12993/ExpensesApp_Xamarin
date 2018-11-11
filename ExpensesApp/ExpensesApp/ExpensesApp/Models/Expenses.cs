@@ -4,8 +4,9 @@ using System.Text;
 
 namespace ExpensesApp.Models
 {
-    public class Category
+    public class Expenses
     {
-        public string Name { get; set; }
+        public Category Category { get; set; }
+        public decimal Total { get; set; }
     }
 }

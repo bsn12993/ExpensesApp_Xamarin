@@ -2,42 +2,42 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 
 namespace ExpensesApp.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Category> Categories { get; set; }
+        public ObservableCollection<Expenses> Expenses
+        {
+            get { return this.expenses; }
+            set
+            {
+                if (this.expenses != value)
+                {
+                    this.expenses = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Expenses)));
+                }
+            }
+        }
+
+        public ObservableCollection<Expenses> expenses;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public HomeViewModel()
         {
-           
-        }
-
-        public void LoadCategories()
-        {
-            this.Categories = new ObservableCollection<Category>();
-            this.Categories.Add(new Category
+            MainViewModel.GetInstance().LoadCategories();
+            this.Expenses = new ObservableCollection<Expenses>();
+            foreach(var i in MainViewModel.GetInstance().Categories)
             {
-                Name = "Gasolina",
-                Total = 100.00M
-            });
-            this.Categories.Add(new Category
-            {
-                Name = "Comida",
-                Total = 100.00M
-            });
-            this.Categories.Add(new Category
-            {
-                Name = "Vestido",
-                Total = 100.00M
-            });
-            this.Categories.Add(new Category
-            {
-                Name = "Casa",
-                Total = 100.00M
-            });
+                this.Expenses.Add(new Models.Expenses
+                {
+                    Category = new Category { Name = i.Name },
+                    Total = 11M
+                });
+            }
         }
     }
 }
