@@ -12,9 +12,10 @@ namespace ExpensesApp.ViewModels
         public RegisterViewModel Register { get; set; }
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
         public ObservableCollection<Category> Categories { get; set; }
+        public CategoryViewModel CategoryItem { get; set; }
         public HomeViewModel Home { get; set; }
         public ExpenseViewModel Expense { get; set; }
-        public CategoryViewModel Category { get; set; }
+        public CategoriesViewModel Category { get; set; }
 
         private static MainViewModel instance;
         public static MainViewModel GetInstance()
@@ -30,7 +31,7 @@ namespace ExpensesApp.ViewModels
             Register = new RegisterViewModel();
             Expense = new ExpenseViewModel();
             Home = new HomeViewModel();
-            Category = new CategoryViewModel();
+            Category = new CategoriesViewModel();
             this.LoadMenu();
         }
 
@@ -40,7 +41,7 @@ namespace ExpensesApp.ViewModels
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "",
-                PageName = "",
+                PageName = "HomePage",
                 Title = "Dashboard"
             });
             this.Menu.Add(new MenuItemViewModel
@@ -52,7 +53,7 @@ namespace ExpensesApp.ViewModels
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "",
-                PageName = "CategoryPage",
+                PageName = "CategoriesPage",
                 Title = "Categorias"
             });
             this.Menu.Add(new MenuItemViewModel

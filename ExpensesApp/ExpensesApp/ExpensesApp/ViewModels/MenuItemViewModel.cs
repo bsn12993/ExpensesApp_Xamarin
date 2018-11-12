@@ -26,9 +26,9 @@ namespace ExpensesApp.ViewModels
             {
                 Application.Current.MainPage = new LoginPage();
             }
-            else if (this.PageName.Equals("CategoryPage")) 
+            else if (this.PageName.Equals("CategoriesPage")) 
             {
-                App.Navigator.PushAsync(new CategoryPage());
+                App.Navigator.PushAsync(new CategoriesPage());
             }
             else if (this.PageName.Equals("AddExpensePage"))
             {

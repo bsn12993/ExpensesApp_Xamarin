@@ -77,6 +77,32 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set
+            {
+                if (this.isRunning != value)
+                {
+                    this.isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                }
+            }
+        }
+
+        public bool IsVisible
+        {
+            get { return this.isVisible; }
+            set
+            {
+                if (this.isVisible != value)
+                {
+                    this.isVisible = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsVisible)));
+                }
+            }
+        }
         #endregion
 
         #region Attributes
@@ -85,6 +111,8 @@ namespace ExpensesApp.ViewModels
         private string user;
         private string email;
         private string password;
+        private bool isRunning;
+        private bool isVisible;
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -100,20 +128,29 @@ namespace ExpensesApp.ViewModels
 
         private void SaveUser()
         {
-            if(!string.IsNullOrEmpty(this.Name) && !string.IsNullOrEmpty(this.lastName) && !string.IsNullOrEmpty(this.User)
+            if (!string.IsNullOrEmpty(this.Name) && !string.IsNullOrEmpty(this.lastName) && !string.IsNullOrEmpty(this.User)
                 && !string.IsNullOrEmpty(this.Password) && !string.IsNullOrEmpty(this.Email))
             {
-                var insert = new DataService().Insert(new UserLocal
-                {
-                    Name = this.Name,
-                    LastName = this.LastName,
-                    User = this.User,
-                    Password = this.Password,
-                    Email = this.Email
-                });
 
-                Application.Current.MainPage.DisplayAlert("Success", "Se ha registrado " + insert.FullName, "Ok");
+                //var insert = new DataService().Insert(new UserLocal
+                //{
+                //    Name = this.Name,
+                //    LastName = this.LastName,
+                //    User = this.User,
+                //    Password = this.Password,
+                //    Email = this.Email
+                //});
+                this.IsRunning = true;
+                this.IsVisible = true;
+                Application.Current.MainPage.DisplayAlert("Success", "Se ha registrado ", "Ok");
+                this.Name = string.Empty;
+                this.LastName = string.Empty;
+                this.Email = string.Empty;
+                this.Password = string.Empty;
             }
+            else Application.Current.MainPage.DisplayAlert("Error", "Campos vacios", "Ok");
+            this.IsRunning = false;
+            this.IsVisible = false;
         }
         #endregion
     }

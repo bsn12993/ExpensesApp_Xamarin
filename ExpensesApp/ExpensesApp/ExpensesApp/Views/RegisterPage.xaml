@@ -20,7 +20,7 @@
                     <Entry
                     Grid.Row="0"
                     Grid.Column="1"
-                    Text="{Binding Name}"/>
+                    Text="{Binding Name,Mode=TwoWay}"/>
 
                     <Label
                     Grid.Row="1"
@@ -29,7 +29,7 @@
                     <Entry
                     Grid.Row="1"
                     Grid.Column="1"
-                    Text="{Binding LastName}"/>
+                    Text="{Binding LastName,Mode=TwoWay}"/>
 
                     <Label
                     Grid.Row="2"
@@ -38,7 +38,7 @@
                     <Entry
                     Grid.Row="2"
                     Grid.Column="1"
-                    Text="{Binding User}"/>
+                    Text="{Binding User,Mode=TwoWay}"/>
 
                     <Label
                     Grid.Row="3"
@@ -57,10 +57,12 @@
                     <Entry
                     Grid.Row="4"
                     Grid.Column="1"
-                    Text="{Binding Email}"/>
+                    Text="{Binding Email,Mode=TwoWay}"/>
 
                 </Grid>
-
+                <ActivityIndicator
+                    IsRunning="{Binding IsRunning}"
+                    IsVisible="{Binding IsVisible}"/>
                 <Button
                     VerticalOptions="End"
                     HorizontalOptions="FillAndExpand"
