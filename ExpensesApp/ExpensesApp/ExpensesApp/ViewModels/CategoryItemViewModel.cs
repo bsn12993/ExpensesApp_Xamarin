@@ -20,7 +20,8 @@ namespace ExpensesApp.ViewModels
         {
             Category category = this;
             MainViewModel.GetInstance().CategoryItem = new CategoryViewModel(category);
-            App.Current.MainPage.Navigation.PushAsync(new CategoryPage());
+            App.Navigator.PushAsync(new CategoryPage());
+            //App.Current.MainPage.Navigation.PushAsync(new CategoryPage());
         }
     }
 }

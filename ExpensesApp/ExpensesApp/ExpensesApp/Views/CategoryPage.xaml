@@ -7,10 +7,29 @@
         <StackLayout
             BindingContext="{Binding CategoryItem}"
             Margin="5,20,5,20">
-            <Label 
-                Text="{Binding Category.Name}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="StartAndExpand" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label 
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="Categoria"
+                    FontSize="Medium"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="FillAndExpand" />
+                <Entry
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Text="{Binding Category.Name}"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="FillAndExpand"/>
+            </Grid>
+            <Button
+                Text="Save"
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="FillAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
