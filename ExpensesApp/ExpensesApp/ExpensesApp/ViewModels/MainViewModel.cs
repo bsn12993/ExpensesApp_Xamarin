@@ -59,7 +59,7 @@ namespace ExpensesApp.ViewModels
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "",
-                PageName = "CategoryPage",
+                PageName = "ProfilePage",
                 Title = "Perfil"
             });
             this.Menu.Add(new MenuItemViewModel
