@@ -1,47 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ExpensesApp.Views.CategoriesPage"
+             x:Class="ExpensesApp.Views.ExpensesPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
-             Title="Category">
+             Title="Expenses">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout
-                Margin="20,20"
-                BindingContext="{Binding Category}">
+            BindingContext="{Binding Expenses}"
+            Margin="5,20">
                 <ListView
-                    IsPullToRefreshEnabled="True"
-                    ItemsSource="{Binding Categories}"
-                    HasUnevenRows="True"
-                    SeparatorVisibility="None">
+                ItemsSource="{Binding Expenses}"
+                HasUnevenRows="True"
+                SeparatorVisibility="None"
+                IsPullToRefreshEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Frame
-                                    BackgroundColor="Silver"
-                                    CornerRadius="20"
-                                    HasShadow="True"
-                                    Margin="5">
+                                BackgroundColor="Silver"
+                                CornerRadius="20"
+                                HasShadow="True"
+                                Margin="5">
                                     <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectCategoryCommand}"/>
+                                        <TapGestureRecognizer Command="{Binding SelectExpenseCommand}"/>
                                     </Frame.GestureRecognizers>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <StackLayout
-                                            Grid.Column="0"
-                                            VerticalOptions="Center">
+                                        Grid.Column="0"
+                                        VerticalOptions="Center">
                                             <Label
-                                                FontAttributes="Bold"
-                                                FontSize="Medium"
-                                                TextColor="Black"
-                                                Text="{Binding Name}"/>
+                                            FontAttributes="Bold"
+                                            FontSize="Medium"
+                                            TextColor="Black"
+                                            Text="{Binding Category.Name}"/>
+                                            <Label
+                                            Text="{Binding Date}"
+                                            TextColor="Black"/>
                                         </StackLayout>
                                         <Image
-                                            Grid.Column="1"
-                                            HorizontalOptions="End"
-                                            Source="ic_chev"/>
+                                        Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        Source="ic_chev"/>
                                     </Grid>
                                 </Frame>
                             </ViewCell>

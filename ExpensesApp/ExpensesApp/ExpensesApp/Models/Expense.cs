@@ -4,10 +4,11 @@ using System.Text;
 
 namespace ExpensesApp.Models
 {
-    public class Expenses
+    public class Expense
     {
+        public int id_Expense { get; set; }
         public Category Category { get; set; }
-        public decimal Total { get; set; }
-        public DateTime Date { get; set; }
+        public decimal Mount { get; set; } 
+        public string Date { get; set; }
     }
 }

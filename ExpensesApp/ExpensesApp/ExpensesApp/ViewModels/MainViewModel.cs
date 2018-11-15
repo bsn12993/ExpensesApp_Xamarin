@@ -15,6 +15,7 @@ namespace ExpensesApp.ViewModels
         public CategoryViewModel CategoryItem { get; set; }
         public HomeViewModel Home { get; set; }
         public ExpenseViewModel Expense { get; set; }
+        public ExpensesViewModel Expenses { get; set; }
         public CategoriesViewModel Category { get; set; }
 
         private static MainViewModel instance;
@@ -32,6 +33,7 @@ namespace ExpensesApp.ViewModels
             Expense = new ExpenseViewModel();
             Home = new HomeViewModel();
             Category = new CategoriesViewModel();
+            Expenses = new ExpensesViewModel();
             this.LoadMenu();
         }
 
@@ -43,6 +45,12 @@ namespace ExpensesApp.ViewModels
                 Icon = "",
                 PageName = "HomePage",
                 Title = "Dashboard"
+            });
+            this.Menu.Add(new MenuItemViewModel
+            {
+                Icon = "",
+                PageName = "ExpensesPage",
+                Title = "Gastos"
             });
             this.Menu.Add(new MenuItemViewModel
             {
@@ -60,7 +68,7 @@ namespace ExpensesApp.ViewModels
             {
                 Icon = "",
                 PageName = "HistoryPage",
-                Title = "Hitorial"
+                Title = "Historial"
             });
             this.Menu.Add(new MenuItemViewModel
             {

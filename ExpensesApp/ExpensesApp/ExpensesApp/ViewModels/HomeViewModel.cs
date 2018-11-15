@@ -9,7 +9,7 @@ namespace ExpensesApp.ViewModels
 {
     public class HomeViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Expenses> Expenses
+        public ObservableCollection<ExpensesEnc> Expenses
         {
             get { return this.expenses; }
             set
@@ -22,17 +22,17 @@ namespace ExpensesApp.ViewModels
             }
         }
 
-        public ObservableCollection<Expenses> expenses;
+        public ObservableCollection<ExpensesEnc> expenses;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public HomeViewModel()
         {
             MainViewModel.GetInstance().LoadCategories();
-            this.Expenses = new ObservableCollection<Expenses>();
+            this.Expenses = new ObservableCollection<ExpensesEnc>();
             foreach(var i in MainViewModel.GetInstance().Categories)
             {
-                this.Expenses.Add(new Models.Expenses
+                this.Expenses.Add(new Models.ExpensesEnc
                 {
                     Category = new Category { Name = i.Name },
                     Total = 11M
