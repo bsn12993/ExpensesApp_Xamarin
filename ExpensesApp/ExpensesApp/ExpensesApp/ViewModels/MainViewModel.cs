@@ -59,6 +59,12 @@ namespace ExpensesApp.ViewModels
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "",
+                PageName = "HistoryPage",
+                Title = "Hitorial"
+            });
+            this.Menu.Add(new MenuItemViewModel
+            {
+                Icon = "",
                 PageName = "ProfilePage",
                 Title = "Perfil"
             });

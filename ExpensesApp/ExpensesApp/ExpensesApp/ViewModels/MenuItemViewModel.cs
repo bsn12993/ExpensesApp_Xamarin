@@ -34,6 +34,10 @@ namespace ExpensesApp.ViewModels
             {
                 App.Navigator.PushAsync(new AddExpensePage());
             }
+            else if (this.PageName.Equals("HistoryPage"))
+            {
+                App.Navigator.PushAsync(new HistoryPage());
+            }
             else if (this.PageName.Equals("ProfilePage"))
             {
                 App.Navigator.PushAsync(new ProfilePage());
