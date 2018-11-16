@@ -8,6 +8,7 @@ namespace ExpensesApp.ViewModels
 {
     public class MainViewModel
     {
+        #region Properties
         public LoginViewModel Login { get; set; }
         public RegisterViewModel Register { get; set; }
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
@@ -17,14 +18,18 @@ namespace ExpensesApp.ViewModels
         public ExpenseViewModel Expense { get; set; }
         public ExpensesViewModel Expenses { get; set; }
         public CategoriesViewModel Category { get; set; }
+        #endregion
 
+        #region Singleton
         private static MainViewModel instance;
         public static MainViewModel GetInstance()
         {
             if (instance == null) return new MainViewModel();
             else return instance;
         }
+        #endregion
 
+        #region Constructor
         public MainViewModel()
         {
             instance = this;
@@ -36,7 +41,9 @@ namespace ExpensesApp.ViewModels
             Expenses = new ExpensesViewModel();
             this.LoadMenu();
         }
+        #endregion
 
+        #region Methods
         public void LoadMenu()
         {
             this.Menu = new ObservableCollection<MenuItemViewModel>();
@@ -89,21 +96,25 @@ namespace ExpensesApp.ViewModels
             this.Categories = new ObservableCollection<Category>();
             this.Categories.Add(new Category
             {
+                Id_Category = 1,
                 Name = "Gasolina"
             });
             this.Categories.Add(new Category
             {
+                Id_Category = 2,
                 Name = "Comida"
             });
             this.Categories.Add(new Category
             {
+                Id_Category = 3,
                 Name = "Vestido"
             });
             this.Categories.Add(new Category
             {
+                Id_Category = 4,
                 Name = "Casa"
             });
         }
-
+        #endregion
     }
 }

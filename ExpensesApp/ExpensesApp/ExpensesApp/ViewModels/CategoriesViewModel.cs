@@ -13,6 +13,7 @@ namespace ExpensesApp.ViewModels
 {
     public class CategoriesViewModel : INotifyPropertyChanged
     {
+        #region Properties
         public ObservableCollection<CategoryItemViewModel> Categories
         {
             get { return this.categories; }
@@ -25,17 +26,25 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+        #endregion
 
+        #region Attributes
         public ObservableCollection<CategoryItemViewModel> categories;
+        #endregion
 
+        #region Event
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        #region Constructor
         public CategoriesViewModel()
         {
             MainViewModel.GetInstance().LoadCategories();
             this.Categories = new ObservableCollection<CategoryItemViewModel>(ToCategoryItemViewModel());
         }
+        #endregion
 
+        #region Methods
         public IEnumerable<CategoryItemViewModel> ToCategoryItemViewModel()
         {
             return MainViewModel.GetInstance().Categories.Select(c => new CategoryItemViewModel
@@ -44,6 +53,6 @@ namespace ExpensesApp.ViewModels
                 Name = c.Name
             });
         }
-
+        #endregion
     }
 }

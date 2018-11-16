@@ -1,4 +1,5 @@
 ﻿using ExpensesApp.Models;
+using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,19 @@ namespace ExpensesApp.ViewModels
 {
     public class ExpenseItemViewModel : Expense
     {
+        #region Properties
         public ICommand SelectExpenseCommand
         {
             get { return new RelayCommand(SelectExpense); }
         }
+        #endregion
 
+        #region Methods
         private void SelectExpense()
         {
-            Application.Current.MainPage.DisplayAlert("aa", "aa", "Ok");
+            MainViewModel.GetInstance().Expense = new ExpenseViewModel(this);
+            App.Navigator.PushAsync(new EditExpensePage());
         }
+        #endregion
     }
 }

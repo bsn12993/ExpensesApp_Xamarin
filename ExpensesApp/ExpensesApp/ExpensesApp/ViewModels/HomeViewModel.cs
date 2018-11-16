@@ -9,6 +9,7 @@ namespace ExpensesApp.ViewModels
 {
     public class HomeViewModel : INotifyPropertyChanged
     {
+        #region Properties
         public ObservableCollection<ExpensesEnc> Expenses
         {
             get { return this.expenses; }
@@ -21,11 +22,17 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+        #endregion
 
+        #region Attributes
         public ObservableCollection<ExpensesEnc> expenses;
+        #endregion
 
+        #region Event
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        #region Constructor
         public HomeViewModel()
         {
             MainViewModel.GetInstance().LoadCategories();
@@ -39,5 +46,6 @@ namespace ExpensesApp.ViewModels
                 });
             }
         }
+        #endregion
     }
 }

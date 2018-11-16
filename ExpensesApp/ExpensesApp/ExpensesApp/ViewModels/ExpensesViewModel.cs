@@ -8,8 +8,11 @@ namespace ExpensesApp.ViewModels
 {
     public class ExpensesViewModel
     {
+        #region Properties
         public ObservableCollection<ExpenseItemViewModel> Expenses { get; set; }
+        #endregion
 
+        #region Constructor
         public ExpensesViewModel()
         {
             this.Expenses = new ObservableCollection<ExpenseItemViewModel>();
@@ -21,5 +24,6 @@ namespace ExpensesApp.ViewModels
                 Date = DateTime.Now.Date.ToShortDateString()
             });
         }
+        #endregion
     }
 }

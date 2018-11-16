@@ -68,5 +68,13 @@ namespace ExpensesApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "No se permiten campos vacios", "Accept");
             }
         }
+
+
+        public ExpenseViewModel(Expense expense)
+        {
+            MainViewModel.GetInstance().LoadCategories();
+            this.Categories = MainViewModel.GetInstance().Categories;
+            this.Mount = expense.Mount.ToString();
+        }
     }
 }
