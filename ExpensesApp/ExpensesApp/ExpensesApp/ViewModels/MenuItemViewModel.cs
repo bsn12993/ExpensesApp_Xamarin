@@ -46,6 +46,10 @@ namespace ExpensesApp.ViewModels
             {
                 App.Navigator.PushAsync(new ExpensesPage());
             }
+            else if (this.PageName.Equals("IncomePage"))
+            {
+                App.Navigator.PushAsync(new IncomePage());
+            }
         }
     }
 }

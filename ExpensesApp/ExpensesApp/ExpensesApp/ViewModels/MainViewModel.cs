@@ -62,6 +62,12 @@ namespace ExpensesApp.ViewModels
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "",
+                PageName = "IncomePage",
+                Title = "Agregar Ingresao"
+            });
+            this.Menu.Add(new MenuItemViewModel
+            {
+                Icon = "",
                 PageName = "AddExpensePage",
                 Title = "Agregar Gastos"
             });
