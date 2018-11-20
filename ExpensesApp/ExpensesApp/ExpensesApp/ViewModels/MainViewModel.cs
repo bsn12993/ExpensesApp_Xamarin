@@ -18,6 +18,7 @@ namespace ExpensesApp.ViewModels
         public ExpenseViewModel Expense { get; set; }
         public ExpensesViewModel Expenses { get; set; }
         public CategoriesViewModel Category { get; set; }
+        public IncomeViewModel Income { get; set; }
         #endregion
 
         #region Singleton
@@ -39,6 +40,7 @@ namespace ExpensesApp.ViewModels
             Home = new HomeViewModel();
             Category = new CategoriesViewModel();
             Expenses = new ExpensesViewModel();
+            Income = new IncomeViewModel();
             this.LoadMenu();
         }
         #endregion

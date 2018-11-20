@@ -20,7 +20,8 @@ namespace ExpensesApp.Helpers
             try
             {
                 var config = DependencyService.Get<IConfig>();
-                this.connection = new SQLiteConnection(config.Platform, Path.Combine(config.DirectoryDB, "Expenses.db3"));
+                this.connection = new SQLiteConnection(config.Platform, 
+                    Path.Combine(config.DirectoryDB, "Expenses.db3"));
                 this.connection.CreateTable<UserLocal>();
             }
             catch(Exception e)

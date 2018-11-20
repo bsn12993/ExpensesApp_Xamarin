@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ExpensesApp.Views.IncomePage"
-             
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Income">
     <ContentPage.Content>
         <StackLayout
+            BindingContext="{Binding Income}"
             Padding="10,20,10,5">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -21,14 +22,16 @@
                     Placeholder="Ingresa monto"
                     Grid.Column="1"
                     Grid.Row="0"
+                    Text="{Binding Income}"
                     Keyboard="Numeric"
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="FillAndExpand"/>
             </Grid>
             <Button
-                    Text="Save"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="FillAndExpand"/>
+                Text="Save"
+                Command="{Binding SaveIncomeCommand}"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="FillAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

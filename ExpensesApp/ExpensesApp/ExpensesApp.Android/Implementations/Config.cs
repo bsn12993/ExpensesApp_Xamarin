@@ -2,6 +2,7 @@
 
 using ExpensesApp.Interfaces;
 using SQLite.Net.Interop;
+using System.IO;
 
 [assembly: Xamarin.Forms.Dependency(typeof(ExpensesApp.Droid.Implementations.Config))]
 namespace ExpensesApp.Droid.Implementations
@@ -16,7 +17,7 @@ namespace ExpensesApp.Droid.Implementations
             {
                 if (string.IsNullOrEmpty(directoryDB))
                 {
-                    directoryDB = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    directoryDB = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "databases");
                 }
                 return directoryDB;
             }

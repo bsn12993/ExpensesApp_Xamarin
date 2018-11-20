@@ -132,14 +132,14 @@ namespace ExpensesApp.ViewModels
                 && !string.IsNullOrEmpty(this.Password) && !string.IsNullOrEmpty(this.Email))
             {
 
-                //var insert = new DataService().Insert(new UserLocal
-                //{
-                //    Name = this.Name,
-                //    LastName = this.LastName,
-                //    User = this.User,
-                //    Password = this.Password,
-                //    Email = this.Email
-                //});
+                var insert = new DataService().Insert(new UserLocal
+                {
+                    Name = this.Name,
+                    LastName = this.LastName,
+                    User = this.User,
+                    Password = this.Password,
+                    Email = this.Email
+                });
                 this.IsRunning = true;
                 this.IsVisible = true;
                 Application.Current.MainPage.DisplayAlert("Success", "Se ha registrado ", "Ok");
