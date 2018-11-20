@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -95,6 +96,15 @@ namespace ExpensesApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "login", "Accept");
                 return;
             }
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("http://localhost:1718/");
+            var r = httpClient.GetStringAsync("api/users");
+            if (r.IsCompleted)
+            {
+                var a = r.Result;
+            }
+
             this.IsRunning = true;
             this.Pass = string.Empty;
             this.IsRunning = false;
