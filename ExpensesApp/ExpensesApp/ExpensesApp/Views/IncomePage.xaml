@@ -27,7 +27,7 @@
                     Text="{Binding Income}"
                     Keyboard="Numeric"
                     VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="StartAndExpand"/>
+                    HorizontalOptions="FillAndExpand"/>
             </Grid>
             <Button
                 Text="Save"

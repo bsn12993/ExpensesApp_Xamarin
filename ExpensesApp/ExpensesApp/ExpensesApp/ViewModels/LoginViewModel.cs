@@ -1,4 +1,5 @@
-﻿using ExpensesApp.Services;
+﻿using ExpensesApp.Models;
+using ExpensesApp.Services;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -100,7 +101,12 @@ namespace ExpensesApp.ViewModels
                 return;
             }
 
-            var api = ApiServices.GetList<object>("http://192.168.0.104:8082/", "api", "users/all");
+            var connectivity = await ApiServices.CheckConnection();
+            if (connectivity.IsSuccess)
+            {
+
+            }
+            var api = ApiServices.GetList<object>("http://192.168.15.10:8082", "api/", "users/all");
 
             this.IsRunning = true;
             this.Pass = string.Empty;

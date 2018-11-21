@@ -13,19 +13,19 @@
                     WidthRequest="100"
                     Source="xamarin"/>
                 <Label
-                    Margin="10,0,10,10"
+                    Margin="10,0"
                     Text="Usuario"
                     FontAttributes="Bold"
-                    FontSize="Small"
-                    TextColor="Black"
-                    VerticalOptions="StartAndExpand"/>
+                    FontSize="Large"
+                    TextColor="White"
+                    VerticalOptions="Start"/>
                 <Label
-                    Margin="10,0,10,10"
+                    Margin="10,0"
                     Text="correo@correo.com"
-                    TextColor="Black"
+                    TextColor="White"
                     FontAttributes="Bold"
                     FontSize="Small"
-                    VerticalOptions="StartAndExpand"/>
+                    VerticalOptions="Start"/>
             </StackLayout>
             <StackLayout
                 Padding="5,20,5,5">

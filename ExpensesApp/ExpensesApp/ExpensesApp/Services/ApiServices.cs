@@ -22,7 +22,7 @@ namespace ExpensesApp.Services
                 };
             }
 
-            //var isReachable = await CrossConnectivity.Current.IsReachable("google.com");
+            var isReachable = await CrossConnectivity.Current.IsReachable("google.com");
             //if (!isReachable)
             //{
             //    return new Response
