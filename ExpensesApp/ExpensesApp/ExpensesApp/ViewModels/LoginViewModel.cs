@@ -101,12 +101,12 @@ namespace ExpensesApp.ViewModels
                 return;
             }
 
-            var connectivity = await ApiServices.CheckConnection();
-            if (connectivity.IsSuccess)
-            {
+            //var connectivity = await ApiServices.CheckConnection();
+            //if (connectivity.IsSuccess)
+            //{
 
-            }
-            var api = ApiServices.GetList<object>("http://192.168.15.10:8082", "api/", "users/all");
+            //}
+            //var api = ApiServices.GetList<object>("http://192.168.15.10:8082", "api/", "users/all");
 
             this.IsRunning = true;
             this.Pass = string.Empty;

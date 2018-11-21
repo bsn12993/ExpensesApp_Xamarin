@@ -1,4 +1,6 @@
 ﻿using ExpensesApp.Models;
+using Microcharts;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,6 +48,9 @@ namespace ExpensesApp.ViewModels
                 });
             }
         }
+        #endregion
+
+        #region Methods
         #endregion
     }
 }
