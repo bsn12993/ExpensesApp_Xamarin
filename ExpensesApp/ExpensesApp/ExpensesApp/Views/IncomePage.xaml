@@ -16,8 +16,10 @@
                 <Label Text="Ingreso"
                        Grid.Column="0"
                        Grid.Row="0"
+                       FontSize="Medium"
+                       TextColor="Black"
                        VerticalOptions="CenterAndExpand" 
-                       HorizontalOptions="CenterAndExpand" />
+                       HorizontalOptions="StartAndExpand" />
                 <Entry
                     Placeholder="Ingresa monto"
                     Grid.Column="1"
@@ -25,12 +27,12 @@
                     Text="{Binding Income}"
                     Keyboard="Numeric"
                     VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="FillAndExpand"/>
+                    HorizontalOptions="StartAndExpand"/>
             </Grid>
             <Button
                 Text="Save"
                 Command="{Binding SaveIncomeCommand}"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="End"
                 HorizontalOptions="FillAndExpand"/>
         </StackLayout>
     </ContentPage.Content>

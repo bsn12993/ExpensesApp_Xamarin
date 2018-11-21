@@ -51,49 +51,49 @@ namespace ExpensesApp.ViewModels
             this.Menu = new ObservableCollection<MenuItemViewModel>();
             this.Menu.Add(new MenuItemViewModel
             {
-                Icon = "",
+                Icon = "ic_home",
                 PageName = "HomePage",
                 Title = "Dashboard"
             });
             this.Menu.Add(new MenuItemViewModel
             {
-                Icon = "",
+                Icon = "ic_list",
                 PageName = "ExpensesPage",
                 Title = "Gastos"
             });
             this.Menu.Add(new MenuItemViewModel
             {
-                Icon = "",
+                Icon = "ic_add",
                 PageName = "IncomePage",
-                Title = "Agregar Ingresao"
+                Title = "Agregar Ingreso"
             });
             this.Menu.Add(new MenuItemViewModel
             {
-                Icon = "",
+                Icon = "ic_add",
                 PageName = "AddExpensePage",
                 Title = "Agregar Gastos"
             });
             this.Menu.Add(new MenuItemViewModel
             {
-                Icon = "",
+                Icon = "ic_list",
                 PageName = "CategoriesPage",
                 Title = "Categorias"
             });
             this.Menu.Add(new MenuItemViewModel
             {
-                Icon = "",
+                Icon = "ic_history",
                 PageName = "HistoryPage",
                 Title = "Historial"
             });
             this.Menu.Add(new MenuItemViewModel
             {
-                Icon = "",
+                Icon = "ic_info",
                 PageName = "ProfilePage",
                 Title = "Perfil"
             });
             this.Menu.Add(new MenuItemViewModel
             {
-                Icon = "",
+                Icon = "ic_close",
                 PageName = "LoginPage",
                 Title = "Salir"
             });

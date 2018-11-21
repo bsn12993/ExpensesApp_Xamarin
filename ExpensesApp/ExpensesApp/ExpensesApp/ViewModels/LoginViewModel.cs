@@ -1,4 +1,5 @@
-﻿using ExpensesApp.Views;
+﻿using ExpensesApp.Services;
+using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,7 @@ namespace ExpensesApp.ViewModels
         private string user { get; set; }
         private string pass { get; set; }
         private bool isRunning { get; set; }
+        private ApiServices ApiServices = null;
         #endregion
 
         #region Contructor
@@ -65,6 +67,7 @@ namespace ExpensesApp.ViewModels
             this.IsRunning = false;
             this.User = "aa";
             this.Pass = "aa";
+            ApiServices = new ApiServices();
         }
         #endregion
 
@@ -97,13 +100,7 @@ namespace ExpensesApp.ViewModels
                 return;
             }
 
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("http://localhost:1718/");
-            var r = httpClient.GetStringAsync("api/users");
-            if (r.IsCompleted)
-            {
-                var a = r.Result;
-            }
+            var api = ApiServices.GetList<object>("http://192.168.0.104:8082/", "api", "users/all");
 
             this.IsRunning = true;
             this.Pass = string.Empty;

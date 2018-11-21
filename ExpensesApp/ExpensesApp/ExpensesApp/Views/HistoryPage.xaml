@@ -18,18 +18,24 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Text="Categoria"
+                        FontSize="Medium"
+                        TextColor="Black"
                         VerticalOptions="CenterAndExpand"
                         HorizontalOptions="CenterAndExpand"/>
                     <Label
                         Grid.Row="0"
                         Grid.Column="1"
                         Text="Monto"
+                        FontSize="Medium"
+                        TextColor="Black"
                         VerticalOptions="CenterAndExpand"
                         HorizontalOptions="CenterAndExpand"/>
                     <Label
                         Grid.Row="0"
                         Grid.Column="2"
                         Text="Fecha"
+                        FontSize="Medium"
+                        TextColor="Black"
                         VerticalOptions="CenterAndExpand"
                         HorizontalOptions="CenterAndExpand"/>
                 </Grid>
