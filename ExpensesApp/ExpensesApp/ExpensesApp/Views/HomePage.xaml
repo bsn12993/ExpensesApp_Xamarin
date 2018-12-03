@@ -19,7 +19,7 @@
                     HorizontalOptions="CenterAndExpand"
                     FontAttributes="Bold"
                     FontSize="Medium"
-                    Text="10000"/>
+                    Text="{Binding Total}"/>
                 <Label
                     HorizontalOptions="CenterAndExpand"
                     FontAttributes="Bold"

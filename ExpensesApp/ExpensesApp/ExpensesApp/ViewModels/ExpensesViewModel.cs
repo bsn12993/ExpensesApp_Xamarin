@@ -18,7 +18,7 @@ namespace ExpensesApp.ViewModels
             this.Expenses = new ObservableCollection<ExpenseItemViewModel>();
             this.Expenses.Add(new ExpenseItemViewModel
             {
-                Category = new Category { Id_Category = 1, Name = "Gasolina" },
+                Category = new Category { Category_Id = 1, Name = "Gasolina" },
                 id_Expense = 1,
                 Mount = 11M,
                 Date = DateTime.Now.Date.ToShortDateString()

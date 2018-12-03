@@ -5,6 +5,7 @@ using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -67,8 +68,8 @@ namespace ExpensesApp.ViewModels
         public LoginViewModel()
         {
             this.IsRunning = false;
-            this.User = "aa";
-            this.Pass = "aa";
+            this.User = "bsn_12903@hotmail.com";
+            this.Pass = "bsn12993*";
         }
         #endregion
 
@@ -95,9 +96,11 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void Login()
         {
+            this.IsRunning = true;
             if(string.IsNullOrEmpty(this.User) || string.IsNullOrEmpty(this.Pass))
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "login", "Accept");
+                this.IsRunning = false;
                 return;
             }
 
@@ -105,20 +108,32 @@ namespace ExpensesApp.ViewModels
             if (!connectivity.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Configura el acceso a internet", "Ok");
+                this.IsRunning = false;
                 return;
             }
 
-            var validateUser = await ApiServices.GetInstance().GetList<UserLocal>($"api/users/validate/{this.User.Encrypt()}/{this.Pass.Encrypt()}");
+            var validateUser = await ApiServices.GetInstance().GetItem<User>($"api/users/validate/{this.User.Encrypt()}/{this.Pass.Encrypt()}");
             if (!validateUser.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", validateUser.Message, "Ok");
+                this.IsRunning = false;
                 return;
             }
 
-            this.IsRunning = true;
+            var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
+            if (!category.IsSuccess)
+            {
+
+            }
+
             this.Pass = string.Empty;
             this.IsRunning = false;
-            MainViewModel.GetInstance().LoadCategories();
+            //MainViewModel.GetInstance().LoadCategories();
+            MainViewModel.GetInstance().GetUser = (User)validateUser.Result;
+            MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
+            MainViewModel.GetInstance().Categories = new ObservableCollection<Category>((List<Category>)category.Result);
+            MainViewModel.GetInstance().Home = new HomeViewModel();
+            MainViewModel.GetInstance().Category = new CategoriesViewModel();
             Application.Current.MainPage = new MasterPage();
         }
 

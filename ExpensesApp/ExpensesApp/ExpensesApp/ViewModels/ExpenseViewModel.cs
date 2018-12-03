@@ -1,4 +1,5 @@
 ﻿using ExpensesApp.Models;
+using ExpensesApp.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace ExpensesApp.ViewModels
 
         public ExpenseViewModel()
         {
-            MainViewModel.GetInstance().LoadCategories();
+            //MainViewModel.GetInstance().LoadCategories();
             this.Categories = MainViewModel.GetInstance().Categories;
         }
 
@@ -57,11 +58,24 @@ namespace ExpensesApp.ViewModels
 
         private async void SaveExpense()
         {
-            if(!string.IsNullOrEmpty(this.mount) && !string.IsNullOrEmpty(this.CategoySelected.Name))
+            if(!string.IsNullOrEmpty(this.Mount) && !string.IsNullOrEmpty(this.CategoySelected.Name))
             {
-                await Application.Current.MainPage.DisplayAlert("OK", "se agrego un nuevo gasto", "Accept");
-                this.Mount = string.Empty;
-                this.CategoySelected.Name = string.Empty;
+                var expense = new Expense
+                {
+                    Mount = Convert.ToDecimal(this.Mount),
+                    Category = new Category
+                    {
+                        Name = this.CategoySelected.Name
+                    },
+                    Date = new DateTime().ToShortDateString()
+                };
+                var registrarExpense = await ApiServices.GetInstance().PostItem("api/expenses/create", expense);
+                if (!registrarExpense.IsSuccess)
+                {
+                    await Application.Current.MainPage.DisplayAlert("OK", "se agrego un nuevo gasto", "Accept");
+                    this.Mount = string.Empty;
+                    this.CategoySelected.Name = string.Empty;
+                } 
             }
             else
             {
@@ -72,7 +86,7 @@ namespace ExpensesApp.ViewModels
 
         public ExpenseViewModel(Expense expense)
         {
-            MainViewModel.GetInstance().LoadCategories();
+            //MainViewModel.GetInstance().LoadCategories();
             this.Categories = MainViewModel.GetInstance().Categories;
             this.Mount = expense.Mount.ToString();
         }

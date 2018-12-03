@@ -8,20 +8,21 @@
         <StackLayout>
             <StackLayout
                 BackgroundColor="CornflowerBlue"
+                BindingContext="{Binding GetUser}"
                 HeightRequest="200">
                 <Image
                     WidthRequest="100"
                     Source="xamarin"/>
                 <Label
                     Margin="10,0"
-                    Text="Usuario"
+                    Text="{Binding FullName}"
                     FontAttributes="Bold"
                     FontSize="Large"
                     TextColor="White"
                     VerticalOptions="Start"/>
                 <Label
                     Margin="10,0"
-                    Text="correo@correo.com"
+                    Text="{Binding Email}"
                     TextColor="White"
                     FontAttributes="Bold"
                     FontSize="Small"

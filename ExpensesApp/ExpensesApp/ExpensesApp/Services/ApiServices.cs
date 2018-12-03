@@ -67,21 +67,19 @@ namespace ExpensesApp.Services
             {
                 var response = await GetAsync(url);
                 var result = await response.Content.ReadAsStringAsync();
-                var responseData = JsonConvert.DeserializeObject<T>(result);
+                var responseData = JsonConvert.DeserializeObject<Response>(result);
+                var data = JsonConvert.DeserializeObject<List<T>>(((JArray)responseData.Result).ToString());
+                responseData.Result = data;
                 if (!response.IsSuccessStatusCode)
                 {
                     return new Response
                     {
                         IsSuccess = false,
-                        Result = responseData
+                        Message = responseData.Message,
+                        Result = null
                     };
                 }
-                return new Response
-                {
-                    IsSuccess = true,
-                    Message = "Ok",
-                    Result = responseData
-                };
+                return responseData;
             }
             catch (OperationCanceledException ex)
             {
@@ -99,26 +97,24 @@ namespace ExpensesApp.Services
             try
             {
                 var response = await GetAsync(url);
+                var result = await response.Content.ReadAsStringAsync();
+                var responseData = JsonConvert.DeserializeObject<Response>(result);
+                var data = JsonConvert.DeserializeObject<T>(((JObject)responseData.Result).ToString());
+                responseData.Result = data;
                 if (!response.IsSuccessStatusCode)
                 {
                     return new Response
                     {
                         IsSuccess = false,
-                        Result = default(T)
+                        Message = responseData.Message,
+                        Result = null
                     };
                 }
-
-                var result = await response.Content.ReadAsStringAsync();
-                var list = JsonConvert.DeserializeObject<T>(result);
-                return new Response
-                {
-                    IsSuccess = true,
-                    Message = "Ok",
-                    Result = list
-                };
+                return responseData;
             }
-            catch (Exception ex)
+            catch (OperationCanceledException ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
                 return new Response
                 {
                     IsSuccess = false,
@@ -134,24 +130,18 @@ namespace ExpensesApp.Services
                 var body = JsonConvert.SerializeObject(item);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 var response = await PostAsync(url, content);
-
+                var result = await response.Content.ReadAsStringAsync();
+                var responseData = JsonConvert.DeserializeObject<Response>(result);
                 if (!response.IsSuccessStatusCode)
                 {
                     return new Response
                     {
                         IsSuccess = false,
-                        Result = default(T)
+                        Result = default(T),
+                        Message = responseData.Message
                     };
                 }
-
-                var result = await response.Content.ReadAsStringAsync();
-                var list = JsonConvert.DeserializeObject<T>(result);
-                return new Response
-                {
-                    IsSuccess = true,
-                    Message = "Ok",
-                    Result = list
-                };
+                return responseData;
             }
             catch (Exception ex)
             {

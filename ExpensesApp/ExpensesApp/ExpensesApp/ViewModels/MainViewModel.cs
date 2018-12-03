@@ -19,6 +19,8 @@ namespace ExpensesApp.ViewModels
         public ExpensesViewModel Expenses { get; set; }
         public CategoriesViewModel Category { get; set; }
         public IncomeViewModel Income { get; set; }
+        public ProfileViewModel Profile { get; set; }
+        public User GetUser { get; set; }
         #endregion
 
         #region Singleton
@@ -37,10 +39,11 @@ namespace ExpensesApp.ViewModels
             Login = new LoginViewModel();
             Register = new RegisterViewModel();
             Expense = new ExpenseViewModel();
-            Home = new HomeViewModel();
-            Category = new CategoriesViewModel();
+            //Home = new HomeViewModel();
+            //Category = new CategoriesViewModel();
             Expenses = new ExpensesViewModel();
             Income = new IncomeViewModel();
+            Profile = new ProfileViewModel();
             this.LoadMenu();
         }
         #endregion
@@ -99,30 +102,30 @@ namespace ExpensesApp.ViewModels
             });
         }
 
-        public void LoadCategories()
-        {
-            this.Categories = new ObservableCollection<Category>();
-            this.Categories.Add(new Category
-            {
-                Id_Category = 1,
-                Name = "Gasolina"
-            });
-            this.Categories.Add(new Category
-            {
-                Id_Category = 2,
-                Name = "Comida"
-            });
-            this.Categories.Add(new Category
-            {
-                Id_Category = 3,
-                Name = "Vestido"
-            });
-            this.Categories.Add(new Category
-            {
-                Id_Category = 4,
-                Name = "Casa"
-            });
-        }
+        //public void LoadCategories()
+        //{
+        //    this.Categories = new ObservableCollection<Category>();
+        //    this.Categories.Add(new Category
+        //    {
+        //        Category_Id = 1,
+        //        Name = "Gasolina"
+        //    });
+        //    this.Categories.Add(new Category
+        //    {
+        //        Category_Id = 2,
+        //        Name = "Comida"
+        //    });
+        //    this.Categories.Add(new Category
+        //    {
+        //        Category_Id = 3,
+        //        Name = "Vestido"
+        //    });
+        //    this.Categories.Add(new Category
+        //    {
+        //        Category_Id = 4,
+        //        Name = "Casa"
+        //    });
+        //}
         #endregion
     }
 }

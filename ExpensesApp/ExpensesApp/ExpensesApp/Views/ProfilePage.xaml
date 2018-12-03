@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ExpensesApp.Views.ProfilePage"
-             
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Profile">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout
                 Margin="20,20"
-                BindingContext="">
+                BindingContext="{Binding Profile}">
                 <Image
                     WidthRequest="100"
                     Source="xamarin"/>
@@ -25,25 +25,25 @@
                         <Entry
                             Grid.Row="0"
                             Grid.Column="1"
-                            Text=""/>
+                            Text="{Binding Name,Mode=TwoWay}"/>
 
                         <Label
                             Grid.Row="1"
                             Grid.Column="0"
-                            Text="Last Name"/>
+                            Text="LastName"/>
                         <Entry
                             Grid.Row="1"
                             Grid.Column="1"
-                            Text=""/>
+                            Text="{Binding LastName,Mode=TwoWay}"/>
 
-                        <Label
+                        <!--<Label
                             Grid.Row="2"
                             Grid.Column="0"
                             Text="User"/>
                         <Entry
                             Grid.Row="2"
                             Grid.Column="1"
-                            Text=""/>
+                            Text="{Binding User}"/>-->
 
                         <Label
                             Grid.Row="3"
@@ -53,7 +53,7 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             IsPassword="True"
-                            Text=""/>
+                            Text="{Binding Password,Mode=TwoWay}"/>
 
                         <Label
                             Grid.Row="4"
@@ -62,7 +62,7 @@
                         <Entry
                             Grid.Row="4"
                             Grid.Column="1"
-                            Text=""/>
+                            Text="{Binding Email,Mode=TwoWay}"/>
                     </Grid>
                     <!--<ActivityIndicator
                     IsRunning="t"
@@ -71,7 +71,7 @@
                         VerticalOptions="EndAndExpand"
                         HorizontalOptions="FillAndExpand"
                         Text="Save"
-                        Command=""/>
+                        Command="{Binding UpdateUserCommand}}"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

@@ -22,7 +22,7 @@ namespace ExpensesApp.Helpers
                 var config = DependencyService.Get<IConfig>();
                 this.connection = new SQLiteConnection(config.Platform, 
                     Path.Combine(config.DirectoryDB, "Expenses.db3"));
-                this.connection.CreateTable<UserLocal>();
+                this.connection.CreateTable<User>();
             }
             catch(Exception e)
             {

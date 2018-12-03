@@ -39,7 +39,7 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public CategoriesViewModel()
         {
-            MainViewModel.GetInstance().LoadCategories();
+            //MainViewModel.GetInstance().LoadCategories();
             this.Categories = new ObservableCollection<CategoryItemViewModel>(ToCategoryItemViewModel());
         }
         #endregion
@@ -49,7 +49,7 @@ namespace ExpensesApp.ViewModels
         {
             return MainViewModel.GetInstance().Categories.Select(c => new CategoryItemViewModel
             {
-                Id_Category = c.Id_Category,
+                Category_Id = c.Category_Id,
                 Name = c.Name
             });
         }

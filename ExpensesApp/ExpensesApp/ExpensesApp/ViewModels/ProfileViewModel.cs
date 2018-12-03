@@ -1,16 +1,14 @@
 ﻿using ExpensesApp.Models;
-using ExpensesApp.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
-    public class RegisterViewModel : INotifyPropertyChanged
+    public class ProfileViewModel : INotifyPropertyChanged
     {
         #region Properties
         public string Name
@@ -113,84 +111,36 @@ namespace ExpensesApp.ViewModels
         private string password;
         private bool isRunning;
         private bool isVisible;
-
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        #region Commands
-        public ICommand SaveUserCommand
+        #region Constructor
+        public ProfileViewModel()
         {
-            get
-            {
-                return new RelayCommand(SaveUser);
-            }
         }
 
-        private async void SaveUser()
+        public ProfileViewModel(User user)
         {
-            if (string.IsNullOrEmpty(this.Name))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "El campo Name esta vacio", "Ok");
-                this.IsRunning = false;
-                this.IsVisible = false;
-                return;
-            }
-            if (string.IsNullOrEmpty(this.lastName))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "El campo LastName esta vacio", "Ok");
-                this.IsRunning = false;
-                this.IsVisible = false;
-                return;
-            }
-
-            if (string.IsNullOrEmpty(this.User))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "El campo User esta vacio", "Ok");
-                this.IsRunning = false;
-                this.IsVisible = false;
-                return;
-            }
-
-            if (string.IsNullOrEmpty(this.Password))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "El campo Password esta vacio", "Ok");
-                this.IsRunning = false;
-                this.IsVisible = false;
-                return;
-            }
-
-            if (string.IsNullOrEmpty(this.Email))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "El campo Email esta vacio", "Ok");
-                this.IsRunning = false;
-                this.IsVisible = false;
-                return;
-            }
-
-            var user = new User
-            {
-                Name = this.Name,
-                LastName = this.LastName,
-                Password = this.Password,
-                Email = this.Email
-            };
-
-            var registerUser = await ApiServices.GetInstance().PostItem($"api/users/create/", user);
-            if (!registerUser.IsSuccess)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", registerUser.Message, "Ok");
-                return;
-            }
-
-            this.IsRunning = true;
-            this.IsVisible = true;
-            await Application.Current.MainPage.DisplayAlert("Success", "Se ha registrado ", "Ok");
-            this.Name = string.Empty;
-            this.LastName = string.Empty;
-            this.Email = string.Empty;
-            this.Password = string.Empty;
-           
+            user = (user == null) ? MainViewModel.GetInstance().GetUser : user;
+            this.Email = user.Email;
+            this.Name = user.Name;
+            this.LastName = user.LastName;
+            this.Password = user.Password;
         }
+
         #endregion
+
+        public ICommand UpdateUserCommand
+        {
+            get { return new RelayCommand(UpdateUser); }
+        }
+
+        private void UpdateUser()
+        {
+            var id = MainViewModel.GetInstance().GetUser.User_Id;
+            var name = MainViewModel.GetInstance().GetUser.Name;
+
+
+        }
     }
 }

@@ -5,11 +5,9 @@ using System.Text;
 
 namespace ExpensesApp.Models
 {
-    public class UserLocal
+    public class User
     {
-        [PrimaryKey]
-        public int UserId { get; set; }
-        public string User { get; set; }
+        public int User_Id { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -22,7 +20,7 @@ namespace ExpensesApp.Models
 
         public override int GetHashCode()
         {
-            return this.UserId;
+            return this.User_Id;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ExpensesApp.Models
 {
     public class Category
     {
-        public int Id_Category { get; set; }
+        public int Category_Id { get; set; }
         public string Name { get; set; }
     }
 }

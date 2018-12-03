@@ -1,4 +1,6 @@
-﻿using ExpensesApp.ViewModels;
+﻿using ExpensesApp.Models;
+using ExpensesApp.Services;
+using ExpensesApp.ViewModels;
 using Microcharts;
 using SkiaSharp;
 using System;

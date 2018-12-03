@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using ExpensesApp.Models;
+using ExpensesApp.Services;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +36,20 @@ namespace ExpensesApp.ViewModels
 
         private async void SaveIncome()
         {
+            var income = new Income
+            {
+                Amount = Convert.ToDecimal(this.Income),
+                Date = DateTime.Now,
+                User_Id = MainViewModel.GetInstance().GetUser.User_Id
+            };
+            var registerIncome = await ApiServices.GetInstance().PostItem("api/incomes/create", income);
+            if (!registerIncome.IsSuccess)
+            {
+                return;
+            }
+            MainViewModel.GetInstance().Home.LoadTotal();
             await Application.Current.MainPage.DisplayAlert("Ok", "Income", "Accept");
+            this.Income = string.Empty;
         }
     }
 }
