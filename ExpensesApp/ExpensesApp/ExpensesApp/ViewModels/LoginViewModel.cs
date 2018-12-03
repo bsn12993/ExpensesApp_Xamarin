@@ -1,4 +1,5 @@
-﻿using ExpensesApp.Models;
+﻿using ExpensesApp.Helpers;
+using ExpensesApp.Models;
 using ExpensesApp.Services;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -58,8 +60,7 @@ namespace ExpensesApp.ViewModels
         #region Attributes
         private string user { get; set; }
         private string pass { get; set; }
-        private bool isRunning { get; set; }
-        private ApiServices ApiServices = null;
+        private bool isRunning { get; set; }       
         #endregion
 
         #region Contructor
@@ -68,7 +69,6 @@ namespace ExpensesApp.ViewModels
             this.IsRunning = false;
             this.User = "aa";
             this.Pass = "aa";
-            ApiServices = new ApiServices();
         }
         #endregion
 
@@ -101,12 +101,19 @@ namespace ExpensesApp.ViewModels
                 return;
             }
 
-            //var connectivity = await ApiServices.CheckConnection();
-            //if (connectivity.IsSuccess)
-            //{
+            var connectivity = await ApiServices.GetInstance().CheckConnection();
+            if (!connectivity.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Configura el acceso a internet", "Ok");
+                return;
+            }
 
-            //}
-            //var api = ApiServices.GetList<object>("http://192.168.15.10:8082", "api/", "users/all");
+            var validateUser = await ApiServices.GetInstance().GetList<UserLocal>($"api/users/validate/{this.User.Encrypt()}/{this.Pass.Encrypt()}");
+            if (!validateUser.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", validateUser.Message, "Ok");
+                return;
+            }
 
             this.IsRunning = true;
             this.Pass = string.Empty;

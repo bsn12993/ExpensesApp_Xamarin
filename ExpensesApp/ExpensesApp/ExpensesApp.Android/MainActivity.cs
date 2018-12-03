@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using System.Net;
 
 namespace ExpensesApp.Droid
 {
@@ -20,6 +21,16 @@ namespace ExpensesApp.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().PermitAll().Build();
+            //StrictMode.SetThreadPolicy(policy);
+
+            if (Build.Brand.Equals("GENERIC", StringComparison.InvariantCultureIgnoreCase))
+            {
+                ServicePointManager.ServerCertificateValidationCallback +=
+                    (sender, cert, chain, sslPolicyError) => true;
+            }
+
             LoadApplication(new App());
         }
     }
