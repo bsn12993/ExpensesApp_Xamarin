@@ -128,11 +128,10 @@ namespace ExpensesApp.ViewModels
             MainViewModel.GetInstance().GetUser = (User)validateUser.Result;
             MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
             MainViewModel.GetInstance().Home = new HomeViewModel();
-            //MainViewModel.GetInstance().ExpenseDetail = new ExpenseDetailViewModel();
             MainViewModel.GetInstance().History = new HistoryViewModel();
-            //MainViewModel.GetInstance().Categories = new ObservableCollection<Category>((List<Category>)category.Result);
             MainViewModel.GetInstance().Category = new CategoriesViewModel();
             MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
+            MainViewModel.GetInstance().Expense = new ExpenseViewModel();
             Application.Current.MainPage = new MasterPage();
         }
 

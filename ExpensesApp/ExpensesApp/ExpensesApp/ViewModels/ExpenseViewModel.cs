@@ -39,13 +39,26 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set
+            {
+                if (this.isRunning != value)
+                {
+                    this.isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                }
+            }
+        }
         #endregion
 
         #region Attributes
         public string amount;
         public Category category;
         public ObservableCollection<Category> Categories { get; set; }
-
+        public bool isRunning;
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
@@ -66,6 +79,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         private async void SaveExpense()
         {
+            this.IsRunning = true;
             if (!string.IsNullOrEmpty(this.Amount) && !string.IsNullOrEmpty(this.CategoySelected.Name))
             {
                 var expense = new Expense
@@ -75,12 +89,22 @@ namespace ExpensesApp.ViewModels
                     Category_Id = this.CategoySelected.Category_Id,
                     User_Id = MainViewModel.GetInstance().GetUser.User_Id
                 };
+
+                var connection = await ApiServices.GetInstance().CheckConnection();
+                if (!connection.IsSuccess)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
+                    return;
+                }
+
                 var registrarExpense = await ApiServices.GetInstance().PostItem("api/expenses/create", expense);
                 if (!registrarExpense.IsSuccess)
                 {
+                    this.IsRunning = false;
                     await Application.Current.MainPage.DisplayAlert("Error", registrarExpense.Message, "Accept");
                     return;
                 }
+                this.IsRunning = false;
                 await Application.Current.MainPage.DisplayAlert("OK", "se agrego un nuevo gasto", "Accept");
                 this.Amount = string.Empty;
                 this.CategoySelected.Name = string.Empty;
@@ -88,6 +112,7 @@ namespace ExpensesApp.ViewModels
             }
             else
             {
+                this.IsRunning = false;
                 await Application.Current.MainPage.DisplayAlert("Error", "No se permiten campos vacios", "Accept");
             }
         }

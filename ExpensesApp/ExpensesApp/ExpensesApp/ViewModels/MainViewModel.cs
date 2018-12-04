@@ -45,7 +45,7 @@ namespace ExpensesApp.ViewModels
             //Expense = new ExpenseViewModel();
             //Home = new HomeViewModel();
             //Category = new CategoriesViewModel();
-            Expense = new ExpenseViewModel();
+            //Expense = new ExpenseViewModel();
             Income = new IncomeViewModel();
             Profile = new ProfileViewModel();
             this.LoadMenu();

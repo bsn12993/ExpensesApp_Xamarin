@@ -29,6 +29,9 @@
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="FillAndExpand"/>
             </Grid>
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning,Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand"/>
             <Button
                 Text="Save"
                 Command="{Binding SaveIncomeCommand}"

@@ -41,8 +41,6 @@ namespace ExpensesApp.ViewModels
         public CategoriesViewModel()
         {
             LoadCategories();
-            //MainViewModel.GetInstance().LoadCategories();
-            //this.Categories = new ObservableCollection<CategoryItemViewModel>(ToCategoryItemViewModel());
         }
         #endregion
 
@@ -58,6 +56,12 @@ namespace ExpensesApp.ViewModels
 
         public async void LoadCategories()
         {
+            var connection = await ApiServices.GetInstance().CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
+                return;
+            }
             var categories = await ApiServices.GetInstance().GetList<CategoryItemViewModel>("api/category/all");
             if (!categories.IsSuccess)
             {

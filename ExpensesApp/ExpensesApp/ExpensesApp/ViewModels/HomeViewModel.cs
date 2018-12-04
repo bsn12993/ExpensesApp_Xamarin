@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
@@ -60,6 +61,13 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadTotal()
         {
+            var connection = await ApiServices.GetInstance().CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
+                return;
+            }
+
             var total = await ApiServices.GetInstance().GetItem<Income>
                 ($"api/incomes/total/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
             if (!total.IsSuccess)

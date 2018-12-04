@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
@@ -44,6 +45,13 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadExpensesHistory()
         {
+            var connection = await ApiServices.GetInstance().CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
+                return;
+            }
+
             var expenses = await ApiServices.GetInstance().GetList<Expense>($"api/expenses/history/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
             if (!expenses.IsSuccess)
             {

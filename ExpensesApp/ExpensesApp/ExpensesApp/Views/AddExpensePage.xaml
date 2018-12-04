@@ -43,6 +43,9 @@
                     SelectedItem="{Binding CategoySelected,Mode=TwoWay}">
                 </Picker>
             </Grid>
+            <ActivityIndicator
+                VerticalOptions="CenterAndExpand"
+                IsRunning="{Binding IsRunning,Mode=TwoWay}"/>
             <Button
                 VerticalOptions="End"
                 HorizontalOptions="FillAndExpand"

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
@@ -17,14 +18,6 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public ExpensesViewModel()
         {
-            //this.Expenses = new ObservableCollection<ExpenseItemViewModel>();
-            //this.Expenses.Add(new ExpenseItemViewModel
-            //{
-            //    Category = new Category { Category_Id = 1, Name = "Gasolina" },
-            //    id_Expense = 1,
-            //    Amount = 11M,
-            //    Date = DateTime.Now.Date.ToShortDateString()
-            //});
             LoadExpenses();
         }
         #endregion
@@ -32,6 +25,13 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadExpenses()
         {
+            var connection = await ApiServices.GetInstance().CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
+                return;
+            }
+
             var expenses = await ApiServices.GetInstance().GetList<ExpenseItemViewModel>("api/expenses/all");
             if (!expenses.IsSuccess)
             {
