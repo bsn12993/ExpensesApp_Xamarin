@@ -1,4 +1,5 @@
 ﻿using ExpensesApp.Models;
+using ExpensesApp.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,9 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public CategoriesViewModel()
         {
+            LoadCategories();
             //MainViewModel.GetInstance().LoadCategories();
-            this.Categories = new ObservableCollection<CategoryItemViewModel>(ToCategoryItemViewModel());
+            //this.Categories = new ObservableCollection<CategoryItemViewModel>(ToCategoryItemViewModel());
         }
         #endregion
 
@@ -53,6 +55,19 @@ namespace ExpensesApp.ViewModels
                 Name = c.Name
             });
         }
+
+        public async void LoadCategories()
+        {
+            var categories = await ApiServices.GetInstance().GetList<CategoryItemViewModel>("api/category/all");
+            if (!categories.IsSuccess)
+            {
+                return;
+            }
+
+            this.Categories = 
+                new ObservableCollection<CategoryItemViewModel>((IEnumerable<CategoryItemViewModel>)categories.Result);
+        }
+
         #endregion
     }
 }

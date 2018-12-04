@@ -13,69 +13,78 @@ namespace ExpensesApp.ViewModels
 {
     public class ExpenseViewModel : INotifyPropertyChanged
     {
-        public string Mount
+        #region Properties
+        public string Amount
         {
-            get { return this.mount; }
+            get { return this.amount; }
             set
             {
-                if (this.mount != value)
+                if (this.amount != value)
                 {
-                    this.mount = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Mount)));
+                    this.amount = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Amount)));
                 }
             }
         }
 
         public Category CategoySelected
         {
-            get { return this.categoySelected; }
+            get { return this.category; }
             set
             {
-                if (this.categoySelected != value)
+                if (this.category != value)
                 {
-                    this.categoySelected = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.categoySelected)));
+                    this.category = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CategoySelected)));
                 }
             }
         }
+        #endregion
 
+        #region Attributes
+        public string amount;
+        public Category category;
         public ObservableCollection<Category> Categories { get; set; }
 
-        private string mount;
-        private Category categoySelected;
-        public event PropertyChangedEventHandler PropertyChanged;  
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        #region Constructors
         public ExpenseViewModel()
         {
-            //MainViewModel.GetInstance().LoadCategories();
-            this.Categories = MainViewModel.GetInstance().Categories;
+            LoadCategories();
         }
+        #endregion
 
+        #region Command
         public ICommand SaveExpenseCommand
         {
             get { return new RelayCommand(SaveExpense); }
         }
+        #endregion
 
+        #region Methods
         private async void SaveExpense()
         {
-            if(!string.IsNullOrEmpty(this.Mount) && !string.IsNullOrEmpty(this.CategoySelected.Name))
+            if (!string.IsNullOrEmpty(this.Amount) && !string.IsNullOrEmpty(this.CategoySelected.Name))
             {
                 var expense = new Expense
                 {
-                    Mount = Convert.ToDecimal(this.Mount),
-                    Category = new Category
-                    {
-                        Name = this.CategoySelected.Name
-                    },
-                    Date = new DateTime().ToShortDateString()
+                    Amount = Convert.ToDecimal(this.Amount),
+                    Date = DateTime.Now.ToShortDateString(),
+                    Category_Id = this.CategoySelected.Category_Id,
+                    User_Id = MainViewModel.GetInstance().GetUser.User_Id
                 };
                 var registrarExpense = await ApiServices.GetInstance().PostItem("api/expenses/create", expense);
                 if (!registrarExpense.IsSuccess)
                 {
-                    await Application.Current.MainPage.DisplayAlert("OK", "se agrego un nuevo gasto", "Accept");
-                    this.Mount = string.Empty;
-                    this.CategoySelected.Name = string.Empty;
-                } 
+                    await Application.Current.MainPage.DisplayAlert("Error", registrarExpense.Message, "Accept");
+                    return;
+                }
+                await Application.Current.MainPage.DisplayAlert("OK", "se agrego un nuevo gasto", "Accept");
+                this.Amount = string.Empty;
+                this.CategoySelected.Name = string.Empty;
+                MainViewModel.GetInstance().Expenses.LoadExpenses();
             }
             else
             {
@@ -83,12 +92,15 @@ namespace ExpensesApp.ViewModels
             }
         }
 
-
-        public ExpenseViewModel(Expense expense)
+        private async void LoadCategories()
         {
-            //MainViewModel.GetInstance().LoadCategories();
-            this.Categories = MainViewModel.GetInstance().Categories;
-            this.Mount = expense.Mount.ToString();
+            var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
+            if (!category.IsSuccess)
+            {
+                return;
+            }
+            this.Categories = new ObservableCollection<Category>((IEnumerable<Category>)category.Result);
         }
+        #endregion
     }
 }

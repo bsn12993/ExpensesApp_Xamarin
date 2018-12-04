@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExpensesApp.Views.DetailExpensePage"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Edit Expense">
+    <ContentPage.Content>
+        <StackLayout
+            BindingContext="{Binding ExpenseDetail}"
+            Padding="10,20,10,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontSize="Medium"
+                    Text="Gasto"/>
+                <Label 
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Text="{Binding Amount}"/>
+                
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontSize="Medium"
+                    Text="Categoria"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontSize="Default"
+                    Text="{Binding Category}"/>
+                
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontSize="Medium"
+                    Text="Fecha"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontSize="Default"
+                    Text="{Binding Date}"/>
+
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontSize="Medium"
+                    Text="Descripcion"/>
+                <Label
+                    Grid.ColumnSpan="2"
+                    Grid.Row="4"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Center"
+                    TextColor="Black"
+                    FontSize="Default"
+                    Text="Descripcionaaaaaaaaaaaaaaaaaaaaaa"/>
+                
+                <!--<Picker 
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    ItemsSource="{Binding Categories}"
+                    ItemDisplayBinding="{Binding Category.Name}"
+                    SelectedIndex="{Binding Category.Id_Category}"
+                    SelectedItem="{Binding CategoySelected,Mode=TwoWay}">
+                </Picker>-->
+            </Grid>
+            <!--<Button
+                VerticalOptions="End"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding SaveExpenseCommand}"
+                Text="Save"/>-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

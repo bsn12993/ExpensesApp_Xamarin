@@ -31,9 +31,9 @@
             <StackLayout
                 Padding="5,20,5,5">
                 <ListView
-                ItemsSource="{Binding Menu}"
-                HasUnevenRows="True"
-                SeparatorVisibility="None">
+                    ItemsSource="{Binding Menu}"
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

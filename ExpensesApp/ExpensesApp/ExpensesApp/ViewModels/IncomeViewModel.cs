@@ -12,6 +12,7 @@ namespace ExpensesApp.ViewModels
 {
     public class IncomeViewModel : INotifyPropertyChanged
     {
+        #region Properties
         public string Income
         {
             get { return this.income; }
@@ -24,16 +25,21 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+        #endregion
 
+        #region Attributes
         private string income;
-
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        #region Commands
         public ICommand SaveIncomeCommand
         {
             get { return new RelayCommand(SaveIncome); }
         }
+        #endregion
 
+        #region Methods
         private async void SaveIncome()
         {
             var income = new Income
@@ -51,5 +57,6 @@ namespace ExpensesApp.ViewModels
             await Application.Current.MainPage.DisplayAlert("Ok", "Income", "Accept");
             this.Income = string.Empty;
         }
+        #endregion
     }
 }

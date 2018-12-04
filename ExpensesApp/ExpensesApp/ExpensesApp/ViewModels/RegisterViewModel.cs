@@ -125,7 +125,9 @@ namespace ExpensesApp.ViewModels
                 return new RelayCommand(SaveUser);
             }
         }
+        #endregion
 
+        #region Methods
         private async void SaveUser()
         {
             if (string.IsNullOrEmpty(this.Name))
@@ -175,6 +177,14 @@ namespace ExpensesApp.ViewModels
                 Email = this.Email
             };
 
+            var connectivity = await ApiServices.GetInstance().CheckConnection();
+            if (!connectivity.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Configura el acceso a internet", "Ok");
+                this.IsRunning = false;
+                return;
+            }
+
             var registerUser = await ApiServices.GetInstance().PostItem($"api/users/create/", user);
             if (!registerUser.IsSuccess)
             {
@@ -189,7 +199,7 @@ namespace ExpensesApp.ViewModels
             this.LastName = string.Empty;
             this.Email = string.Empty;
             this.Password = string.Empty;
-           
+
         }
         #endregion
     }

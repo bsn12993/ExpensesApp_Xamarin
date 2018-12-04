@@ -25,7 +25,7 @@
                     Grid.Column="1"
                     Grid.Row="0"
                     Keyboard="Numeric"
-                    Text="{Binding Mount}"
+                    Text="{Binding Amount}"
                     Placeholder="Gasto"/>
                 <Label
                     Grid.Column="0"

@@ -24,20 +24,27 @@ namespace ExpensesApp.Views
 
         public void LoadChart()
         {
-            var data = MainViewModel.GetInstance().Home.Expenses;
-            List<Microcharts.Entry> dataChart = new List<Microcharts.Entry>();
-            string[] color = { "#266489", "#266489", "#68B9C0", "#266456" };
-            int i = 0;
-            foreach (var d in data)
+            if (MainViewModel.GetInstance().Home.Expenses != null)
             {
-                dataChart.Add(new Microcharts.Entry((float)d.Total)
+                var data = MainViewModel.GetInstance().Home.Expenses;
+
+                List<Microcharts.Entry> dataChart = new List<Microcharts.Entry>();
+                string[] color = { "#266489", "#266489", "#68B9C0", "#266456" };
+                int i = 0;
+                foreach (var d in data)
                 {
-                    Label = d.Category.Name,
-                    ValueLabel = d.Total.ToString(),
-                    Color = SKColor.Parse(color[i])
-                });
-                i++;
+                    dataChart.Add(new Microcharts.Entry((float)d.Total)
+                    {
+                        Label = d.Category.Name,
+                        ValueLabel = d.Total.ToString(),
+                        Color = SKColor.Parse(color[i])
+                    });
+                    i++;
+                }
+                var chart = new DonutChart() { Entries = dataChart };
+                this.ChartView.Chart = chart;
             }
+             
             //var entries = new[]
             //{
             //    new Microcharts.Entry(200)
@@ -59,8 +66,7 @@ namespace ExpensesApp.Views
             //    Color = SKColor.Parse("#90D585")
             //    }
             //};
-            var chart = new DonutChart() { Entries = dataChart };
-            this.ChartView.Chart = chart;
+             
         }
 
         protected override void OnAppearing()

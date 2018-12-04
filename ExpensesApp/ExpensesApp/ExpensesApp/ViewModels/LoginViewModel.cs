@@ -73,7 +73,9 @@ namespace ExpensesApp.ViewModels
         }
         #endregion
 
+        #region Events
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
         #region Commands
         public ICommand LoginCommand
@@ -112,7 +114,8 @@ namespace ExpensesApp.ViewModels
                 return;
             }
 
-            var validateUser = await ApiServices.GetInstance().GetItem<User>($"api/users/validate/{this.User.Encrypt()}/{this.Pass.Encrypt()}");
+            var validateUser = await ApiServices.GetInstance()
+                .GetItem<User>($"api/users/validate/{this.User.Encrypt()}/{this.Pass.Encrypt()}");
             if (!validateUser.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", validateUser.Message, "Ok");
@@ -120,20 +123,16 @@ namespace ExpensesApp.ViewModels
                 return;
             }
 
-            var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
-            if (!category.IsSuccess)
-            {
-
-            }
-
             this.Pass = string.Empty;
             this.IsRunning = false;
-            //MainViewModel.GetInstance().LoadCategories();
             MainViewModel.GetInstance().GetUser = (User)validateUser.Result;
             MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
-            MainViewModel.GetInstance().Categories = new ObservableCollection<Category>((List<Category>)category.Result);
             MainViewModel.GetInstance().Home = new HomeViewModel();
+            //MainViewModel.GetInstance().ExpenseDetail = new ExpenseDetailViewModel();
+            MainViewModel.GetInstance().History = new HistoryViewModel();
+            //MainViewModel.GetInstance().Categories = new ObservableCollection<Category>((List<Category>)category.Result);
             MainViewModel.GetInstance().Category = new CategoriesViewModel();
+            MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
             Application.Current.MainPage = new MasterPage();
         }
 

@@ -52,16 +52,7 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public HomeViewModel()
         {
-            //MainViewModel.GetInstance().LoadCategories();
-            this.Expenses = new ObservableCollection<ExpensesEnc>();
-            foreach(var i in MainViewModel.GetInstance().Categories)
-            {
-                this.Expenses.Add(new Models.ExpensesEnc
-                {
-                    Category = new Category { Name = i.Name },
-                    Total = 11M
-                });
-            }
+            LoadCategories();
             LoadTotal();
         }
         #endregion
@@ -77,7 +68,28 @@ namespace ExpensesApp.ViewModels
             }
 
             this.Total = ((Income)total.Result).Amount.ToString();
+        }
 
+        private async void LoadCategories()
+        {
+            var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
+            if (!category.IsSuccess)
+            {
+                return;
+            }
+            this.Expenses = new ObservableCollection<ExpensesEnc>();
+            if (category != null)
+            {
+                var lst = (List<Category>)category.Result;
+                foreach (var i in lst)
+                {
+                    this.Expenses.Add(new Models.ExpensesEnc
+                    {
+                        Category = new Category { Name = i.Name },
+                        Total = 11M
+                    });
+                }
+            }
         }
         #endregion
     }

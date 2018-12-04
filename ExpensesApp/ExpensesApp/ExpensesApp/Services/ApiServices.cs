@@ -14,11 +14,9 @@ using System.Threading.Tasks;
 
 namespace ExpensesApp.Services
 {
-    class ApiServices : HttpClient
+    public class ApiServices : HttpClient
     {
-        private static readonly ApiServices instance = new ApiServices();
-        static ApiServices() { }
-
+        #region Constructors
         private ApiServices() : base()
         {
             Timeout = TimeSpan.FromMilliseconds(15000);
@@ -26,13 +24,19 @@ namespace ExpensesApp.Services
             BaseAddress = new Uri("http://192.168.15.8:26716");
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #endregion
 
+        #region Singleton
+        private static readonly ApiServices instance = new ApiServices();
+        static ApiServices() { }
         public static ApiServices GetInstance()
         {
             if (instance == null) return new ApiServices();
             else return instance;
         }
+        #endregion
 
+        #region Methods 
         public async Task<Response> CheckConnection()
         {
             if (!CrossConnectivity.Current.IsConnected)
@@ -60,7 +64,6 @@ namespace ExpensesApp.Services
                 Message = "Ok"
             };
         }
-
         public async Task<Response> GetList<T>(string url)
         {
             try
@@ -91,7 +94,6 @@ namespace ExpensesApp.Services
                 };
             }
         }
-
         public async Task<Response> GetItem<T>(string url)
         {
             try
@@ -122,7 +124,6 @@ namespace ExpensesApp.Services
                 };
             }
         }
-
         public async Task<Response> PostItem<T>(string url,T item)
         {
             try
@@ -152,7 +153,6 @@ namespace ExpensesApp.Services
                 };
             }
         }
-
         public async Task<Response> PutItem<T>(string url, T item, int id)
         {
             try
@@ -188,7 +188,6 @@ namespace ExpensesApp.Services
                 };
             }
         }
-
         public async Task<Response> DeleteItem<T>(string url, int id)
         {
             try
@@ -222,7 +221,6 @@ namespace ExpensesApp.Services
                 };
             }
         }
-
- 
+        #endregion
     }
 }

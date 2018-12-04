@@ -2,11 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ExpensesApp.Views.HistoryPage"
-             
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="History">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout
+                BindingContext="{Binding History}"
                 Margin="5,20">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -15,30 +16,69 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label
-                        Grid.Row="0"
                         Grid.Column="0"
+                        Grid.Row="0"
                         Text="Categoria"
                         FontSize="Medium"
                         TextColor="Black"
-                        VerticalOptions="CenterAndExpand"
-                        HorizontalOptions="CenterAndExpand"/>
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"/>
                     <Label
-                        Grid.Row="0"
                         Grid.Column="1"
+                        Grid.Row="0"
                         Text="Monto"
                         FontSize="Medium"
                         TextColor="Black"
-                        VerticalOptions="CenterAndExpand"
-                        HorizontalOptions="CenterAndExpand"/>
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"/>
                     <Label
-                        Grid.Row="0"
                         Grid.Column="2"
+                        Grid.Row="0"
                         Text="Fecha"
                         FontSize="Medium"
                         TextColor="Black"
-                        VerticalOptions="CenterAndExpand"
-                        HorizontalOptions="CenterAndExpand"/>
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"/>
                 </Grid>
+                <ListView
+                    ItemsSource="{Binding Expenses}"
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="{Binding Category.Name}"
+                                        FontSize="Default"
+                                        TextColor="Black"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="CenterAndExpand"/>
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Amount}"
+                                        FontSize="Default"
+                                        TextColor="Black"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="CenterAndExpand"/>
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding Date}"
+                                        FontSize="Default"
+                                        TextColor="Black"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="CenterAndExpand"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

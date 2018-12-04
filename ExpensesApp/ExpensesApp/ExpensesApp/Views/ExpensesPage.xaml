@@ -30,21 +30,24 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <StackLayout
-                                        Grid.Column="0"
-                                        VerticalOptions="Center">
+                                            Grid.Column="0"
+                                            VerticalOptions="Center">
                                             <Label
-                                            FontAttributes="Bold"
-                                            FontSize="Medium"
-                                            TextColor="Black"
-                                            Text="{Binding Category.Name}"/>
+                                                FontAttributes="Bold"
+                                                FontSize="Medium"
+                                                TextColor="Black"
+                                                Text="{Binding Category.Name}"/>
                                             <Label
-                                            Text="{Binding Date}"
-                                            TextColor="Black"/>
+                                                Text="{Binding Date}"
+                                                TextColor="Black"/>
+                                            <Label
+                                                Text="{Binding Amount}"
+                                                TextColor="Black"/>
                                         </StackLayout>
                                         <Image
-                                        Grid.Column="1"
-                                        HorizontalOptions="End"
-                                        Source="ic_chev"/>
+                                            Grid.Column="1"
+                                            HorizontalOptions="End"
+                                            Source="ic_chev"/>
                                     </Grid>
                                 </Frame>
                             </ViewCell>

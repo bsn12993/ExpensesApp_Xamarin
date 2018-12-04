@@ -10,15 +10,20 @@ namespace ExpensesApp.ViewModels
 {
     public class MenuItemViewModel
     {
+        #region Properties
         public string Icon { get; set; }
         public string Title { get; set; }
         public string PageName { get; set; }
+        #endregion
 
+        #region Commands
         public ICommand NavigateCommand
         {
             get { return new RelayCommand(Navigate); }
         }
+        #endregion
 
+        #region Methods
         private void Navigate()
         {
             App.Master.IsPresented = false;
@@ -51,5 +56,6 @@ namespace ExpensesApp.ViewModels
                 App.Navigator.PushAsync(new IncomePage());
             }
         }
+        #endregion
     }
 }
