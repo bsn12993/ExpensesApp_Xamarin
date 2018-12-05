@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
-    public class HistoryViewModel : INotifyPropertyChanged
+    public class HistoryExpensesViewModel : INotifyPropertyChanged
     {
         #region Properties
         public ObservableCollection<Expense> Expenses
@@ -25,10 +25,24 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+
+        public decimal Total
+        {
+            get { return this.total; }
+            set
+            {
+                if (this.total != value)
+                {
+                    this.total = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Total)));
+                }
+            }
+        }
         #endregion
 
         #region Attributes
-        public ObservableCollection<Expense> expenses;
+        private ObservableCollection<Expense> expenses;
+        private decimal total;
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -36,9 +50,8 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Constructors
-        public HistoryViewModel()
+        public HistoryExpensesViewModel()
         {
-            LoadExpensesHistory();
         }
         #endregion
 
@@ -64,6 +77,7 @@ namespace ExpensesApp.ViewModels
                 Category = x.Category
             });
             this.Expenses = new ObservableCollection<Expense>((IEnumerable<Expense>)lstExpenses);
+            this.Total = Expenses.Sum(x => x.Amount);
         }
         #endregion
     }

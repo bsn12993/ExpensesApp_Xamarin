@@ -40,7 +40,7 @@
                     Grid.Row="1"
                     ItemsSource="{Binding Categories}"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding CategoySelected,Mode=TwoWay}">
+                    SelectedItem="{Binding CategoySelected}">
                 </Picker>
             </Grid>
             <ActivityIndicator

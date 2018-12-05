@@ -60,7 +60,7 @@ namespace ExpensesApp.ViewModels
             var income = new Income
             {
                 Amount = Convert.ToDecimal(this.Income),
-                Date = DateTime.Now,
+                Date = DateTime.Now.ToShortDateString(),
                 User_Id = MainViewModel.GetInstance().GetUser.User_Id
             };
 
@@ -82,6 +82,9 @@ namespace ExpensesApp.ViewModels
             MainViewModel.GetInstance().Home.LoadTotal();
             await Application.Current.MainPage.DisplayAlert("Ok", "Income", "Accept");
             this.Income = string.Empty;
+            if (MainViewModel.GetInstance().HistoryIncomes == null)
+                MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
+            MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
         }
         #endregion
     }

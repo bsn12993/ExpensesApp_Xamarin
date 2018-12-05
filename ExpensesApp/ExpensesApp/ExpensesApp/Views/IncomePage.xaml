@@ -24,7 +24,7 @@
                     Placeholder="Ingresa monto"
                     Grid.Column="1"
                     Grid.Row="0"
-                    Text="{Binding Income}"
+                    Text="{Binding Income,Mode=TwoWay,StringFormat='{}{0:N}'}"
                     Keyboard="Numeric"
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="FillAndExpand"/>

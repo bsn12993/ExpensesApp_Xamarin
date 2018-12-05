@@ -65,7 +65,6 @@ namespace ExpensesApp.ViewModels
         #region Constructors
         public ExpenseViewModel()
         {
-            LoadCategories();
         }
         #endregion
 
@@ -108,7 +107,12 @@ namespace ExpensesApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("OK", "se agrego un nuevo gasto", "Accept");
                 this.Amount = string.Empty;
                 this.CategoySelected.Name = string.Empty;
+                if (MainViewModel.GetInstance().Expenses == null)
+                    MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
                 MainViewModel.GetInstance().Expenses.LoadExpenses();
+                if (MainViewModel.GetInstance().HistoryExpenses == null)
+                    MainViewModel.GetInstance().HistoryExpenses.LoadExpensesHistory();
+                MainViewModel.GetInstance().HistoryExpenses.LoadExpensesHistory();
             }
             else
             {
@@ -117,7 +121,7 @@ namespace ExpensesApp.ViewModels
             }
         }
 
-        private async void LoadCategories()
+        public async void LoadCategories()
         {
             var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
             if (!category.IsSuccess)

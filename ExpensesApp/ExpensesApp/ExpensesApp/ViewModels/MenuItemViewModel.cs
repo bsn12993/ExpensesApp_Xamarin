@@ -37,11 +37,21 @@ namespace ExpensesApp.ViewModels
             }
             else if (this.PageName.Equals("AddExpensePage"))
             {
+                if (MainViewModel.GetInstance().Expense == null)
+                    MainViewModel.GetInstance().Expense = new ExpenseViewModel();
+                MainViewModel.GetInstance().Expense.LoadCategories();
                 App.Navigator.PushAsync(new AddExpensePage());
             }
-            else if (this.PageName.Equals("HistoryPage"))
+            else if (this.PageName.Equals("HistoryExpensesPage"))
             {
-                App.Navigator.PushAsync(new HistoryPage());
+                if (MainViewModel.GetInstance().HistoryExpenses == null)
+                    MainViewModel.GetInstance().HistoryExpenses = new HistoryExpensesViewModel();
+                MainViewModel.GetInstance().HistoryExpenses.LoadExpensesHistory();
+                App.Navigator.PushAsync(new HistoryExpensesPage());
+            }
+            else if (this.PageName.Equals("HistoryIncomesPage"))
+            {
+                App.Navigator.PushAsync(new HistoryIncomesPage());
             }
             else if (this.PageName.Equals("ProfilePage"))
             {
@@ -49,10 +59,16 @@ namespace ExpensesApp.ViewModels
             }
             else if (this.PageName.Equals("ExpensesPage"))
             {
+                if (MainViewModel.GetInstance().Expenses == null)
+                    MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
+                MainViewModel.GetInstance().Expenses.LoadExpenses();
                 App.Navigator.PushAsync(new ExpensesPage());
             }
             else if (this.PageName.Equals("IncomePage"))
             {
+                if (MainViewModel.GetInstance().HistoryIncomes == null)
+                    MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
+                MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
                 App.Navigator.PushAsync(new IncomePage());
             }
         }

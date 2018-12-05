@@ -23,7 +23,8 @@ namespace ExpensesApp.ViewModels
         public CategoriesViewModel Category { get; set; }
         public IncomeViewModel Income { get; set; }
         public ProfileViewModel Profile { get; set; }
-        public HistoryViewModel History { get; set; }
+        public HistoryExpensesViewModel HistoryExpenses { get; set; }
+        public HistoryIncomesViewModel HistoryIncomes { get; set; }
         public User GetUser { get; set; }
         #endregion
 
@@ -89,8 +90,14 @@ namespace ExpensesApp.ViewModels
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "ic_history",
-                PageName = "HistoryPage",
-                Title = "Historial"
+                PageName = "HistoryExpensesPage",
+                Title = "Historial Gastos"
+            });
+            this.Menu.Add(new MenuItemViewModel
+            {
+                Icon = "ic_history",
+                PageName = "HistoryIncomesPage",
+                Title = "Historial Ingresos"
             });
             this.Menu.Add(new MenuItemViewModel
             {

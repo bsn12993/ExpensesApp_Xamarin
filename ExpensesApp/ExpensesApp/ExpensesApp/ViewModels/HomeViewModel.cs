@@ -78,7 +78,7 @@ namespace ExpensesApp.ViewModels
             this.Total = ((Income)total.Result).Amount.ToString();
         }
 
-        private async void LoadCategories()
+        public async void LoadCategories()
         {
             var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
             if (!category.IsSuccess)

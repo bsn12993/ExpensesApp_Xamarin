@@ -22,7 +22,7 @@ namespace ExpensesApp.ViewModels
         private void SelectExpense()
         {
             MainViewModel.GetInstance().ExpenseDetail = new ExpenseDetailViewModel(this);
-            App.Navigator.PushAsync(new DetailExpensePage());
+            App.Navigator.PushAsync(new ExpenseDetailPage());
         }
         #endregion
     }

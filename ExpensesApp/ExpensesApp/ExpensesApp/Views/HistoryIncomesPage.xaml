@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExpensesApp.Views.HistoryIncomesPage"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="History Incomes">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout
+                BindingContext="{Binding HistoryIncomes}"
+                Margin="5,20">
+                <Label
+                    Text="{Binding Total,StringFormat='${0:N}'}"
+                    FontSize="Medium"
+                    TextColor="Black"
+                    VerticalOptions="StartAndExpand"
+                    HorizontalOptions="CenterAndExpand"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="Monto"
+                        FontSize="Medium"
+                        TextColor="Black"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Center"/>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Text="Fecha"
+                        FontSize="Medium"
+                        TextColor="Black"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Center"/>
+                </Grid>
+                <ListView
+                    ItemsSource="{Binding Incomes}"
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                    Grid.Column="0"
+                                    Text="{Binding Amount,StringFormat='${0:N}'}"
+                                    FontSize="Default"
+                                    TextColor="Black"
+                                    VerticalOptions="CenterAndExpand"
+                                    HorizontalOptions="CenterAndExpand"/>
+                                    <Label
+                                    Grid.Column="1"
+                                    Text="{Binding Date}"
+                                    FontSize="Default"
+                                    TextColor="Black"
+                                    VerticalOptions="CenterAndExpand"
+                                    HorizontalOptions="CenterAndExpand"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

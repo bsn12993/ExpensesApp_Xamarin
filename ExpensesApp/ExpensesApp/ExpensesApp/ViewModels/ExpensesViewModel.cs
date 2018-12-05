@@ -18,7 +18,7 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public ExpensesViewModel()
         {
-            LoadExpenses();
+
         }
         #endregion
 

@@ -41,7 +41,8 @@
                                                 Text="{Binding Date}"
                                                 TextColor="Black"/>
                                             <Label
-                                                Text="{Binding Amount}"
+                                                FontAttributes="Bold"
+                                                Text="{Binding Amount,StringFormat='${0:N}'}"
                                                 TextColor="Black"/>
                                         </StackLayout>
                                         <Image
