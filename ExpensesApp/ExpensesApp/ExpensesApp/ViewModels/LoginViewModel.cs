@@ -139,6 +139,8 @@ namespace ExpensesApp.ViewModels
             MainViewModel.GetInstance().Expenses.LoadExpenses();
             MainViewModel.GetInstance().Expense = new ExpenseViewModel();
             MainViewModel.GetInstance().Expense.LoadCategories();
+            MainViewModel.GetInstance().Category = new CategoriesViewModel();
+            MainViewModel.GetInstance().Category.LoadCategories();
             Application.Current.MainPage = new MasterPage();
         }
 

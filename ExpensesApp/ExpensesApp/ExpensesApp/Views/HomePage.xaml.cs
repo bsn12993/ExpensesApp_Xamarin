@@ -71,7 +71,7 @@ namespace ExpensesApp.Views
 
         protected override void OnAppearing()
         {
-            this.LoadChart();
+            //this.LoadChart();
         }
     }
 }

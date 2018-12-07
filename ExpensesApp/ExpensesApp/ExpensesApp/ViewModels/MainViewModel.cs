@@ -89,6 +89,12 @@ namespace ExpensesApp.ViewModels
             });
             this.Menu.Add(new MenuItemViewModel
             {
+                Icon = "ic_add",
+                PageName = "AddCategoryPage",
+                Title = "Agregar Categoria"
+            });
+            this.Menu.Add(new MenuItemViewModel
+            {
                 Icon = "ic_history",
                 PageName = "HistoryExpensesPage",
                 Title = "Historial Gastos"

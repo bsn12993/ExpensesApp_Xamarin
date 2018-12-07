@@ -40,7 +40,6 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public CategoriesViewModel()
         {
-            LoadCategories();
         }
         #endregion
 

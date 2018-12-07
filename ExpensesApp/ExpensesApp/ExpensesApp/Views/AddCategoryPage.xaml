@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ExpensesApp.Views.CategoryPage"
+             x:Class="ExpensesApp.Views.AddCategoryPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
-             Title="Edit Category">
+             Title="Add Category">
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding CategoryItem}"
@@ -37,7 +37,4 @@
                 HorizontalOptions="FillAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="" Text="Eliminar"/>
-    </ContentPage.ToolbarItems>
 </ContentPage>
