@@ -1,27 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="ExpensesApp.Views.ExpensesPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Expenses">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout
-            BindingContext="{Binding Expenses}"
-            Margin="5,20">
+        <RelativeLayout
+            BindingContext="{Binding Expenses}">
+            <ContentView
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                 <ListView
-                ItemsSource="{Binding Expenses}"
-                HasUnevenRows="True"
-                SeparatorVisibility="None"
-                IsPullToRefreshEnabled="True">
+                    ItemsSource="{Binding Expenses}"
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None"
+                    IsPullToRefreshEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Frame
-                                BackgroundColor="Silver"
-                                CornerRadius="20"
-                                HasShadow="True"
-                                Margin="5">
+                                    Margin="5">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding SelectExpenseCommand}"/>
                                     </Frame.GestureRecognizers>
@@ -55,7 +54,14 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </StackLayout>
-        </ScrollView>
+            </ContentView>
+            <fab:FloatingActionButton
+                Image="ic_add.png"
+                WidthRequest="100"
+                HeightRequest="110"
+                Command="{Binding AddExpenseCommand}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

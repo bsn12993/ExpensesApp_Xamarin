@@ -1,5 +1,6 @@
 ﻿using ExpensesApp.Models;
 using ExpensesApp.Services;
+using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,13 @@ namespace ExpensesApp.ViewModels
         }
         #endregion
 
+        #region Commands
+        public ICommand AddCategoryCommand
+        {
+            get { return new RelayCommand(AddCategory); }
+        }
+        #endregion
+
         #region Methods
         public IEnumerable<CategoryItemViewModel> ToCategoryItemViewModel()
         {
@@ -71,6 +79,13 @@ namespace ExpensesApp.ViewModels
                 new ObservableCollection<CategoryItemViewModel>((IEnumerable<CategoryItemViewModel>)categories.Result);
         }
 
+        private void AddCategory()
+        {
+            if (MainViewModel.GetInstance().Expense == null)
+                MainViewModel.GetInstance().Expense = new ExpenseViewModel();
+            MainViewModel.GetInstance().Expense.LoadCategories();
+            App.Navigator.PushAsync(new AddExpensePage());
+        }
         #endregion
     }
 }

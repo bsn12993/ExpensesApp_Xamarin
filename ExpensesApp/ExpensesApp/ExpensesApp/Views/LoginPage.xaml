@@ -40,10 +40,12 @@
                         IsPassword="True"
                         Placeholder="Enter your password"
                         Text="{Binding Pass,Mode=TwoWay}"/>
+                    
                 </Grid>
                 <ActivityIndicator
                     IsRunning="{Binding IsRunning,Mode=TwoWay}"
                     VerticalOptions="CenterAndExpand"/>
+
                 <StackLayout
                     VerticalOptions="CenterAndExpand"
                     Orientation="Horizontal"

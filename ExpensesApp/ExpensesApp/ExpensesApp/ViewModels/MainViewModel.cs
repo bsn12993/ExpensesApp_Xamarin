@@ -75,24 +75,24 @@ namespace ExpensesApp.ViewModels
                 PageName = "IncomePage",
                 Title = "Agregar Ingreso"
             });
-            this.Menu.Add(new MenuItemViewModel
-            {
-                Icon = "ic_add",
-                PageName = "AddExpensePage",
-                Title = "Agregar Gastos"
-            });
+            //this.Menu.Add(new MenuItemViewModel
+            //{
+            //    Icon = "ic_add",
+            //    PageName = "AddExpensePage",
+            //    Title = "Agregar Gastos"
+            //});
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "ic_list",
                 PageName = "CategoriesPage",
                 Title = "Categorias"
             });
-            this.Menu.Add(new MenuItemViewModel
-            {
-                Icon = "ic_add",
-                PageName = "AddCategoryPage",
-                Title = "Agregar Categoria"
-            });
+            //this.Menu.Add(new MenuItemViewModel
+            //{
+            //    Icon = "ic_add",
+            //    PageName = "AddCategoryPage",
+            //    Title = "Agregar Categoria"
+            //});
             this.Menu.Add(new MenuItemViewModel
             {
                 Icon = "ic_history",

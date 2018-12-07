@@ -1,10 +1,13 @@
 ﻿using ExpensesApp.Models;
 using ExpensesApp.Services;
+using ExpensesApp.Views;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
@@ -19,6 +22,13 @@ namespace ExpensesApp.ViewModels
         public ExpensesViewModel()
         {
 
+        }
+        #endregion
+
+        #region Commands
+        public ICommand AddExpenseCommand
+        {
+            get { return new RelayCommand(AddExpense); }
         }
         #endregion
 
@@ -44,6 +54,13 @@ namespace ExpensesApp.ViewModels
                 Category = x.Category
             });
             this.Expenses = new ObservableCollection<ExpenseItemViewModel>(lstExpenses);
+        }
+        private void AddExpense()
+        {
+            if (MainViewModel.GetInstance().Expense == null)
+                MainViewModel.GetInstance().Expense = new ExpenseViewModel();
+            MainViewModel.GetInstance().Expense.LoadCategories();
+            App.Navigator.PushAsync(new AddExpensePage());
         }
         #endregion
     }
