@@ -72,13 +72,13 @@ namespace ExpensesApp.ViewModels
                 MainViewModel.GetInstance().Expenses.LoadExpenses();
                 App.Navigator.PushAsync(new ExpensesPage());
             }
-            else if (this.PageName.Equals("IncomePage"))
-            {
-                if (MainViewModel.GetInstance().HistoryIncomes == null)
-                    MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
-                MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
-                App.Navigator.PushAsync(new IncomePage());
-            }
+            //else if (this.PageName.Equals("IncomePage"))
+            //{
+            //    if (MainViewModel.GetInstance().HistoryIncomes == null)
+            //        MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
+            //    MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
+            //    App.Navigator.PushAsync(new IncomePage());
+            //}
         }
         #endregion
     }

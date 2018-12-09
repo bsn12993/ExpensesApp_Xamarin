@@ -1,5 +1,7 @@
 ﻿using ExpensesApp.Models;
 using ExpensesApp.Services;
+using ExpensesApp.Views;
+using GalaSoft.MvvmLight.Command;
 using Microcharts;
 using SkiaSharp;
 using System;
@@ -7,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
@@ -58,6 +61,13 @@ namespace ExpensesApp.ViewModels
         }
         #endregion
 
+        #region Commands
+        public ICommand AddIncomePageCommand
+        {
+            get { return new RelayCommand(AddIncomePage); }
+        }      
+        #endregion
+
         #region Methods
         public async void LoadTotal()
         {
@@ -98,6 +108,14 @@ namespace ExpensesApp.ViewModels
                     });
                 }
             }
+        }
+
+        private void AddIncomePage()
+        {
+            if (MainViewModel.GetInstance().HistoryIncomes == null)
+                MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
+            MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
+            App.Navigator.PushAsync(new IncomePage());
         }
         #endregion
     }

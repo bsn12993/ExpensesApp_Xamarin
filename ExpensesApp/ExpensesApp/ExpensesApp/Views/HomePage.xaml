@@ -75,6 +75,7 @@
                 ButtonColor="#399BF1"
                 WidthRequest="80"
                 HeightRequest="90"
+                Command="{Binding AddIncomePageCommand}"
                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
         </RelativeLayout>
