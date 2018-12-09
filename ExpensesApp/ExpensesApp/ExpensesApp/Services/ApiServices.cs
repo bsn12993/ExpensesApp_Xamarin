@@ -21,7 +21,7 @@ namespace ExpensesApp.Services
         {
             Timeout = TimeSpan.FromMilliseconds(15000);
             MaxResponseContentBufferSize = 256000;
-            BaseAddress = new Uri("http://192.168.15.8:26716");
+            BaseAddress = new Uri("http://bsilverio-001-site1.atempurl.com");
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         #endregion
