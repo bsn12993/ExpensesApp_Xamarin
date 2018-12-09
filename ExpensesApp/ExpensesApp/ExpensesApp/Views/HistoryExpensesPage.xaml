@@ -93,9 +93,10 @@
                     </StackLayout>
                 </ContentView>
                 <fab:FloatingActionButton
-                    Image="ic_add.png"
-                    WidthRequest="100"
-                    HeightRequest="110"
+                    Image="ic_add_fab.png"
+                    ButtonColor="#399BF1"
+                    WidthRequest="80"
+                    HeightRequest="90"
                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-120}"/>
             </RelativeLayout>
