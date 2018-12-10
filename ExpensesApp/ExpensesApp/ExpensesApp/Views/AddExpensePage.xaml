@@ -1,19 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="ExpensesApp.Views.AddExpensePage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Add Expense">
     <ContentPage.Content>
-        <StackLayout
+        <RelativeLayout
             BindingContext="{Binding Expense}"
             Padding="10,20,10,5">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Label
+            <ContentView
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
                     Grid.Column="0"
                     Grid.Row="0"
                     HorizontalOptions="StartAndExpand"
@@ -21,13 +25,13 @@
                     TextColor="Black"
                     FontSize="Medium"
                     Text="Gasto"/>
-                <Entry 
+                    <Entry 
                     Grid.Column="1"
                     Grid.Row="0"
                     Keyboard="Numeric"
                     Text="{Binding Amount}"
                     Placeholder="Gasto"/>
-                <Label
+                    <Label
                     Grid.Column="0"
                     Grid.Row="1"
                     HorizontalOptions="StartAndExpand"
@@ -35,22 +39,31 @@
                     TextColor="Black"
                     FontSize="Medium"
                     Text="Categoria"/>
-                <Picker 
+                    <Picker 
                     Grid.Column="1"
                     Grid.Row="1"
                     ItemsSource="{Binding Categories}"
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding CategoySelected}">
-                </Picker>
-            </Grid>
+                    </Picker>
+                </Grid>
+            </ContentView>
             <ActivityIndicator
                 VerticalOptions="CenterAndExpand"
                 IsRunning="{Binding IsRunning,Mode=TwoWay}"/>
-            <Button
+            <!--<Button
                 VerticalOptions="End"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding SaveExpenseCommand}"
-                Text="Save"/>
-        </StackLayout>
+                Text="Save"/>-->
+            <fab:FloatingActionButton
+                Image="ic_add_fab.png"
+                ButtonColor="#399BF1"
+                WidthRequest="80"
+                HeightRequest="90"
+                Command="{Binding SaveExpenseCommand}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

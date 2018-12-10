@@ -84,7 +84,7 @@ namespace ExpensesApp.ViewModels
             if (MainViewModel.GetInstance().Expense == null)
                 MainViewModel.GetInstance().Expense = new ExpenseViewModel();
             MainViewModel.GetInstance().Expense.LoadCategories();
-            App.Navigator.PushAsync(new AddExpensePage());
+            App.Navigator.PushAsync(new AddCategoryPage());
         }
         #endregion
     }

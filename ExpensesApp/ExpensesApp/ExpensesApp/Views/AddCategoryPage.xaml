@@ -1,40 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="ExpensesApp.Views.AddCategoryPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Add Category">
     <ContentPage.Content>
-        <StackLayout
-            BindingContext="{Binding CategoryItem}"
-            Margin="5,20,5,20">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Label 
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    Text="Categoria"
-                    FontSize="Medium"
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="FillAndExpand" />
-                <Entry
-                    Grid.Column="1"
-                    Grid.Row="0"
-                    Text="{Binding Category.Name}"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="FillAndExpand"/>
-            </Grid>
+        <RelativeLayout
+            BindingContext="{Binding CategoryItem}">
+            <ContentView
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label 
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Categoria"
+                            FontSize="Medium"
+                            VerticalOptions="CenterAndExpand" 
+                            HorizontalOptions="FillAndExpand" />
+                    <Entry
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            Text="{Binding Category.Name}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="FillAndExpand"/>
+                </Grid>
+            </ContentView>
             <ActivityIndicator
-                IsRunning="{Binding IsRunning}"
-                VerticalOptions="CenterAndExpand"/>
-            <Button
+                    IsRunning="{Binding IsRunning}"
+                    VerticalOptions="CenterAndExpand"/>
+            <!--<Button
                 Text="Save"
                 Command="{Binding SaveEditCommand}"
                 VerticalOptions="End"
-                HorizontalOptions="FillAndExpand"/>
-        </StackLayout>
+                HorizontalOptions="FillAndExpand"/>-->
+            <fab:FloatingActionButton
+                Image="ic_add_fab.png"
+                ButtonColor="#399BF1"
+                WidthRequest="80"
+                HeightRequest="90"
+                Command="{Binding SaveEditCommand}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>
