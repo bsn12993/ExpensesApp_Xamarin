@@ -1,22 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="ExpensesApp.Views.ProfilePage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Profile">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout
+        <RelativeLayout
                 Margin="20,20"
                 BindingContext="{Binding Profile}">
-                <Image
-                    WidthRequest="100"
-                    Source="xamarin"/>
+            <ContentView
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                 <StackLayout>
+                    <Image
+                        WidthRequest="100"
+                        Source="xamarin"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
                         <Label
                             Grid.Row="0"
@@ -63,15 +66,23 @@
                             Grid.Column="1"
                             Text="{Binding Email,Mode=TwoWay}"/>
                     </Grid>
-                    <ActivityIndicator
-                    IsRunning="{Binding IsRunning}"/>
-                    <Button
-                        VerticalOptions="EndAndExpand"
-                        HorizontalOptions="FillAndExpand"
-                        Text="Save"
-                        Command="{Binding UpdateUserCommand}}"/>
                 </StackLayout>
-            </StackLayout>
-        </ScrollView>
+            </ContentView>
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning}"/>
+            <!--<Button
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="FillAndExpand"
+                Text="Save"
+                Command="{Binding UpdateUserCommand}}"/>-->
+            <fab:FloatingActionButton
+                Image="ic_add_fab.png"
+                ButtonColor="#399BF1"
+                WidthRequest="80"
+                HeightRequest="90"
+                Command="{Binding UpdateUserCommand}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

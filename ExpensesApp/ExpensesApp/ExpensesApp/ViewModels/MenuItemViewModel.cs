@@ -63,7 +63,7 @@ namespace ExpensesApp.ViewModels
             }
             else if (this.PageName.Equals("ProfilePage"))
             {
-                MainViewModel.GetInstance().Profile = new ProfileViewModel();
+                MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
                 App.Navigator.PushAsync(new ProfilePage());
             }
             else if (this.PageName.Equals("ExpensesPage"))
