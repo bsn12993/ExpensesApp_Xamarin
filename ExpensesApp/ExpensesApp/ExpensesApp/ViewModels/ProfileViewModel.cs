@@ -1,10 +1,12 @@
 ﻿using ExpensesApp.Models;
+using ExpensesApp.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
@@ -135,12 +137,49 @@ namespace ExpensesApp.ViewModels
             get { return new RelayCommand(UpdateUser); }
         }
 
-        private void UpdateUser()
+        private async void UpdateUser()
         {
             var id = MainViewModel.GetInstance().GetUser.User_Id;
             var name = MainViewModel.GetInstance().GetUser.Name;
+            this.IsRunning = true;
+            var connection = await ApiServices.GetInstance().CheckConnection();
+            if (!connection.IsSuccess) 
+            {
+                this.IsRunning = false;
+                await Application.Current.MainPage.DisplayAlert("Error", "Configura el acceso a internet", "Ok");
+                return;
+            }
 
+            var user = new User
+            {
+                User_Id = MainViewModel.GetInstance().GetUser.User_Id,
+                Name = this.Name,
+                LastName = this.LastName,
+                Email = this.Email,
+                Password = this.Password
+            };
 
+            var updateUser = await ApiServices.GetInstance().PutItem("api/users/update/", user, MainViewModel.GetInstance().GetUser.User_Id);
+            if (!updateUser.IsSuccess)
+            {
+                this.IsRunning = false;
+                await Application.Current.MainPage.DisplayAlert("Error", updateUser.Message, "Ok");
+                return;
+            }
+
+            this.IsRunning = false;
+            var getUser = await ApiServices.GetInstance().GetItem<User>($"api/users/byid/{MainViewModel.GetInstance().GetUser.User_Id}");
+            if (!getUser.IsSuccess)
+            {
+                return;
+            }
+
+            MainViewModel.GetInstance().GetUser = (User)getUser.Result;
+            await Application.Current.MainPage.DisplayAlert("Success", updateUser.Message, "Ok");
+            this.Name = MainViewModel.GetInstance().GetUser.Name;
+            this.LastName = MainViewModel.GetInstance().GetUser.LastName;
+            this.Email = MainViewModel.GetInstance().GetUser.Email;
+            this.Password = MainViewModel.GetInstance().GetUser.Password;
         }
     }
 }
