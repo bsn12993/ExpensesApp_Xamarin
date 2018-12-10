@@ -12,12 +12,13 @@
             <ContentView
                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
                     Grid.Column="0"
                     Grid.Row="0"
                     HorizontalOptions="StartAndExpand"
@@ -25,13 +26,13 @@
                     TextColor="Black"
                     FontSize="Medium"
                     Text="Gasto"/>
-                    <Entry 
+                        <Entry 
                     Grid.Column="1"
                     Grid.Row="0"
                     Keyboard="Numeric"
                     Text="{Binding Amount}"
                     Placeholder="Gasto"/>
-                    <Label
+                        <Label
                     Grid.Column="0"
                     Grid.Row="1"
                     HorizontalOptions="StartAndExpand"
@@ -39,14 +40,15 @@
                     TextColor="Black"
                     FontSize="Medium"
                     Text="Categoria"/>
-                    <Picker 
+                        <Picker 
                     Grid.Column="1"
                     Grid.Row="1"
                     ItemsSource="{Binding Categories}"
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding CategoySelected}">
-                    </Picker>
-                </Grid>
+                        </Picker>
+                    </Grid>
+                </StackLayout>
             </ContentView>
             <ActivityIndicator
                 VerticalOptions="CenterAndExpand"

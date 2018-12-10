@@ -23,7 +23,7 @@
                        FontSize="Medium"
                        TextColor="Black"
                        VerticalOptions="CenterAndExpand" 
-                       HorizontalOptions="StartAndExpand" />
+                       HorizontalOptions="StartAndExpand"/>
                     <Entry
                     Placeholder="Ingresa monto"
                     Grid.Column="1"

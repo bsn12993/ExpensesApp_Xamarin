@@ -29,7 +29,7 @@ namespace ExpensesApp.ViewModels
             App.Master.IsPresented = false;
             if (this.PageName.Equals("LoginPage"))
             {
-                Application.Current.MainPage = new LoginPage();
+                Application.Current.MainPage = new NavigationPage(new LoginPage());
             }
             else if (this.PageName.Equals("CategoriesPage")) 
             {
@@ -63,6 +63,7 @@ namespace ExpensesApp.ViewModels
             }
             else if (this.PageName.Equals("ProfilePage"))
             {
+                MainViewModel.GetInstance().Profile = new ProfileViewModel();
                 App.Navigator.PushAsync(new ProfilePage());
             }
             else if (this.PageName.Equals("ExpensesPage"))

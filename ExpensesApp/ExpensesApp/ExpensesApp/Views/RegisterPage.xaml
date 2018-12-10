@@ -1,74 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="ExpensesApp.Views.RegisterPage"
-             BindingContext="{Binding Main,Source={StaticResource Locator}}">
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Registro">
     <ContentPage.Content>
-        <StackLayout
+        <RelativeLayout
             Margin="20,20"
             BindingContext="{Binding Register}">
-            <StackLayout>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Text="Name"/>
-                    <Entry
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Text="{Binding Name,Mode=TwoWay}"/>
+            <ContentView
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="Name"/>
+                        <Entry
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Text="{Binding Name,Mode=TwoWay}"/>
 
-                    <Label
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Text="Last Name"/>
-                    <Entry
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Text="{Binding LastName,Mode=TwoWay}"/>
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="Last Name"/>
+                        <Entry
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding LastName,Mode=TwoWay}"/>
 
-                    <Label
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Text="User"/>
-                    <Entry
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Text="{Binding User,Mode=TwoWay}"/>
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Text="User"/>
+                        <Entry
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Text="{Binding User,Mode=TwoWay}"/>
 
-                    <Label
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Text="Password"/>
-                    <Entry
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    IsPassword="True"
-                    Text="{Binding Password,Mode=TwoWay}"/>
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="Password"/>
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            IsPassword="True"
+                            Text="{Binding Password,Mode=TwoWay}"/>
 
-                    <Label
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Text="Email"/>
-                    <Entry
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Text="{Binding Email,Mode=TwoWay}"/>
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Text="Email"/>
+                        <Entry
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Text="{Binding Email,Mode=TwoWay}"/>
 
-                </Grid>
-                <ActivityIndicator
+                    </Grid>
+                </StackLayout>
+            </ContentView>
+            <ActivityIndicator
                     IsRunning="{Binding IsRunning}"
                     IsVisible="{Binding IsVisible}"/>
-                <Button
+            <!--<Button
                     VerticalOptions="End"
                     HorizontalOptions="FillAndExpand"
                     Text="Save"
-                    Command="{Binding SaveUserCommand}"/>
-            </StackLayout>
-        </StackLayout>
+                    Command="{Binding SaveUserCommand}"/>-->
+            <fab:FloatingActionButton
+                Image="ic_add_fab.png"
+                ButtonColor="#399BF1"
+                WidthRequest="80"
+                HeightRequest="90"
+                Command="{Binding SaveUserCommand}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

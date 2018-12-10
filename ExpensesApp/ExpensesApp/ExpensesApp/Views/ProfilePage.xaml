@@ -26,7 +26,6 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             Text="{Binding Name,Mode=TwoWay}"/>
-
                         <Label
                             Grid.Row="1"
                             Grid.Column="0"
@@ -46,27 +45,26 @@
                             Text="{Binding User}"/>-->
 
                         <Label
-                            Grid.Row="3"
+                            Grid.Row="2"
                             Grid.Column="0"
                             Text="Password"/>
                         <Entry
-                            Grid.Row="3"
+                            Grid.Row="2"
                             Grid.Column="1"
                             IsPassword="True"
                             Text="{Binding Password,Mode=TwoWay}"/>
 
                         <Label
-                            Grid.Row="4"
+                            Grid.Row="3"
                             Grid.Column="0"
                             Text="Email"/>
                         <Entry
-                            Grid.Row="4"
+                            Grid.Row="3"
                             Grid.Column="1"
                             Text="{Binding Email,Mode=TwoWay}"/>
                     </Grid>
-                    <!--<ActivityIndicator
-                    IsRunning="t"
-                    IsVisible=""/>-->
+                    <ActivityIndicator
+                    IsRunning="{Binding IsRunning}"/>
                     <Button
                         VerticalOptions="EndAndExpand"
                         HorizontalOptions="FillAndExpand"
