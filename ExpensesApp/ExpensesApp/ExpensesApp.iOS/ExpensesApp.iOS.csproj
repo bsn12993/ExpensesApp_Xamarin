@@ -208,4 +208,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_edit_fab.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_delete_fab.png" />
+  </ItemGroup>
 </Project>

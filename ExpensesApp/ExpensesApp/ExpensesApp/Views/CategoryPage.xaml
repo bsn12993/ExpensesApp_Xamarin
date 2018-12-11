@@ -43,6 +43,13 @@
                 VerticalOptions="End"
                 HorizontalOptions="FillAndExpand"/>-->
             <fab:FloatingActionButton
+                Image="ic_delete_fab.png"
+                ButtonColor="#399BF1"
+                WidthRequest="80"
+                HeightRequest="90"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-180}"/>
+            <fab:FloatingActionButton
                 Image="ic_edit_fab.png"
                 ButtonColor="#399BF1"
                 WidthRequest="80"
@@ -52,7 +59,4 @@
                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
         </RelativeLayout>
     </ContentPage.Content>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="" Text="Eliminar"/>
-    </ContentPage.ToolbarItems>
 </ContentPage>
