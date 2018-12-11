@@ -76,7 +76,7 @@
                 Text="Save"
                 Command="{Binding UpdateUserCommand}}"/>-->
             <fab:FloatingActionButton
-                Image="ic_add_fab.png"
+                Image="ic_edit_fab.png"
                 ButtonColor="#399BF1"
                 WidthRequest="80"
                 HeightRequest="90"

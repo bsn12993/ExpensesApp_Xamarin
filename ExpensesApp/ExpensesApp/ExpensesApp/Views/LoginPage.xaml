@@ -51,13 +51,20 @@
                     Orientation="Horizontal"
                     Margin="20,0">
                     <Button
+                        BorderRadius="50"
                         HorizontalOptions="FillAndExpand"
                         Text="Entrar"
                         Command="{Binding LoginCommand}"/>
                     <Button
+                        BorderRadius="50"
                         HorizontalOptions="FillAndExpand"
                         Text="Register"
                         Command="{Binding RegisterCommand}"/>
+                </StackLayout>
+                <StackLayout
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand">
+                    
                 </StackLayout>
             </StackLayout>
         </ScrollView>
