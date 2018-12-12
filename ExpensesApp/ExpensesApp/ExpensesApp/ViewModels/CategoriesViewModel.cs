@@ -28,10 +28,24 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set
+            {
+                if (this.isRunning != value)
+                {
+                    this.isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                }
+            }
+        }
         #endregion
 
         #region Attributes
-        public ObservableCollection<CategoryItemViewModel> categories;
+        private ObservableCollection<CategoryItemViewModel> categories;
+        private bool isRunning;
         #endregion
 
         #region Event
@@ -63,18 +77,22 @@ namespace ExpensesApp.ViewModels
 
         public async void LoadCategories()
         {
+            this.IsRunning = true;
             var connection = await ApiServices.GetInstance().CheckConnection();
             if (!connection.IsSuccess)
             {
+                this.IsRunning = false;
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
                 return;
             }
             var categories = await ApiServices.GetInstance().GetList<CategoryItemViewModel>("api/category/all");
             if (!categories.IsSuccess)
             {
+                this.IsRunning = false;
                 return;
             }
 
+            this.IsRunning = false;
             this.Categories = 
                 new ObservableCollection<CategoryItemViewModel>((IEnumerable<CategoryItemViewModel>)categories.Result);
         }

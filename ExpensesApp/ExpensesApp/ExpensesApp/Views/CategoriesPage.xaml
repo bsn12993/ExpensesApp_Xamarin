@@ -8,6 +8,10 @@
     <ContentPage.Content>
         <RelativeLayout
             BindingContext="{Binding Category}">
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-200}"  
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-250}"/>
             <ContentView
                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">

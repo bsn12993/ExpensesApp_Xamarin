@@ -42,11 +42,25 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set
+            {
+                if (this.isRunning != value)
+                {
+                    this.isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                }
+            }
+        }
         #endregion
 
         #region Attributes
-        public ObservableCollection<ExpensesEnc> expenses;
-        public string total;
+        private ObservableCollection<ExpensesEnc> expenses;
+        private string total;
+        private bool isRunning;
         #endregion
 
         #region Event
@@ -56,7 +70,7 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public HomeViewModel()
         {
-            LoadCategories();
+            //LoadCategories();
             LoadTotal();
         }
         #endregion
@@ -71,9 +85,11 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadTotal()
         {
+            this.IsRunning = true;
             var connection = await ApiServices.GetInstance().CheckConnection();
             if (!connection.IsSuccess)
             {
+                this.IsRunning = false;
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
                 return;
             }
@@ -82,9 +98,11 @@ namespace ExpensesApp.ViewModels
                 ($"api/incomes/total/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
             if (!total.IsSuccess)
             {
+                this.IsRunning = false;
                 return;
             }
 
+            this.IsRunning = false;
             this.Total = ((Income)total.Result).Amount.ToString();
         }
 

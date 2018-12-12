@@ -38,11 +38,25 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set
+            {
+                if (this.isRunning != value)
+                {
+                    this.isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                }
+            }
+        }
         #endregion
 
         #region Attributes
         private ObservableCollection<Income> incomes;
         private decimal total;
+        private bool isRunning;
         #endregion
 
         #region Constructors
@@ -58,10 +72,12 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadIncomesHistory()
         {
+            this.IsRunning = true;
             this.Incomes = new ObservableCollection<Income>();
             var connection = await ApiServices.GetInstance().CheckConnection();
             if (!connection.IsSuccess)
             {
+                this.IsRunning = false;
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
                 return;
             }
@@ -69,12 +85,14 @@ namespace ExpensesApp.ViewModels
             var incomes = await ApiServices.GetInstance().GetList<Income>($"api/incomes/history/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
             if (!incomes.IsSuccess)
             {
+                this.IsRunning = false;
                 return;
             }
 
             var expenses = await ApiServices.GetInstance().GetList<Expense>($"api/expenses/history/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
             if (!expenses.IsSuccess)
             {
+                this.IsRunning = false;
                 return;
             }
 
@@ -84,6 +102,7 @@ namespace ExpensesApp.ViewModels
                 Amount = x.Amount
             });
 
+            this.IsRunning = false;
             this.Incomes = new ObservableCollection<Income>((IEnumerable<Income>)lstIncomes);
             var totalExpenses = ((List<Expense>)expenses.Result).Sum(x => x.Amount);
             this.Total = this.Incomes.Sum(x => x.Amount) - totalExpenses;

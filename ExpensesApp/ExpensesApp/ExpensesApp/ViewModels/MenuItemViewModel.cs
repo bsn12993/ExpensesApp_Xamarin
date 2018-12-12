@@ -29,6 +29,7 @@ namespace ExpensesApp.ViewModels
             App.Master.IsPresented = false;
             if (this.PageName.Equals("LoginPage"))
             {
+                MainViewModel.GetInstance().GetUser = null;
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             }
             else if (this.PageName.Equals("CategoriesPage")) 
@@ -73,13 +74,6 @@ namespace ExpensesApp.ViewModels
                 MainViewModel.GetInstance().Expenses.LoadExpenses();
                 App.Navigator.PushAsync(new ExpensesPage());
             }
-            //else if (this.PageName.Equals("IncomePage"))
-            //{
-            //    if (MainViewModel.GetInstance().HistoryIncomes == null)
-            //        MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
-            //    MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
-            //    App.Navigator.PushAsync(new IncomePage());
-            //}
         }
         #endregion
     }
