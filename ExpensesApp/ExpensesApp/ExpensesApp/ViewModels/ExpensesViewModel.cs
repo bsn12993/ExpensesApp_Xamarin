@@ -56,6 +56,7 @@ namespace ExpensesApp.ViewModels
         public ExpensesViewModel()
         {
             this.NoData = string.Empty;
+            this.LoadExpenses();
         }
         #endregion
 

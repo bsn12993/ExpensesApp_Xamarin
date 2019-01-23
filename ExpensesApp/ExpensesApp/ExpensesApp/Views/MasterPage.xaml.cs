@@ -18,5 +18,5 @@ namespace ExpensesApp.Views
             App.Navigator = Navigator;
             App.Master = this;
 		}
-	}
+    }
 }
