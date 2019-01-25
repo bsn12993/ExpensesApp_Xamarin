@@ -8,14 +8,14 @@
         <StackLayout>
             <StackLayout
                 BackgroundColor="CornflowerBlue"
-                BindingContext="{Binding GetUser}"
+                BindingContext="{Binding GetUser,Mode=TwoWay}"
                 HeightRequest="200">
                 <Image
                     WidthRequest="100"
                     Source="xamarin"/>
                 <Label
                     Margin="10,0"
-                    Text="{Binding FullName}"
+                    Text="{Binding FullName,Mode=TwoWay}"
                     FontAttributes="Bold"
                     FontSize="Large"
                     TextColor="White"

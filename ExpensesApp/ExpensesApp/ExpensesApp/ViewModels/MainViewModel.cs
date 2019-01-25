@@ -3,12 +3,13 @@ using ExpensesApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ExpensesApp.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
         #region Properties
         public LoginViewModel Login { get; set; }
@@ -25,11 +26,27 @@ namespace ExpensesApp.ViewModels
         public ProfileViewModel Profile { get; set; }
         public HistoryExpensesViewModel HistoryExpenses { get; set; }
         public HistoryIncomesViewModel HistoryIncomes { get; set; }
-        public User GetUser { get; set; }
+        public User GetUser
+        {
+            get { return this.getUser; }
+            set
+            {
+                if (this.getUser != value)
+                {
+                    this.getUser = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.GetUser)));
+                }
+            }
+        }
         #endregion
+
+        private User getUser;
 
         #region Singleton
         private static MainViewModel instance;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public static MainViewModel GetInstance()
         {
             if (instance == null) return new MainViewModel();
