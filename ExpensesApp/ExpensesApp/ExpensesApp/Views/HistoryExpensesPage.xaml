@@ -56,7 +56,7 @@
                                 HorizontalOptions="Center"/>
                         </Grid>
                         <ListView
-                            ItemsSource="{Binding Expenses}"
+                            ItemsSource="{Binding Expenses,Mode=TwoWay}"
                             HasUnevenRows="True"
                             SeparatorVisibility="None">
                             <ListView.ItemTemplate>

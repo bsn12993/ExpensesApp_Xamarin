@@ -47,7 +47,7 @@
                             HorizontalOptions="Center"/>
                         </Grid>
                         <ListView
-                            ItemsSource="{Binding Incomes}"
+                            ItemsSource="{Binding Incomes,Mode=TwoWay}"
                             HasUnevenRows="True"
                             SeparatorVisibility="None">
                             <ListView.ItemTemplate>
