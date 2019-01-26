@@ -45,6 +45,11 @@ namespace ExpensesApp.ViewModels
         {
             this.Category = category;
         }
+
+        public CategoryViewModel()
+        {
+            this.Category = new Category();
+        }
         #endregion
 
         #region Attributes

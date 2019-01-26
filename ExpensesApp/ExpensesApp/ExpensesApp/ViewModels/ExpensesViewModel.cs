@@ -16,7 +16,18 @@ namespace ExpensesApp.ViewModels
     public class ExpensesViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public ObservableCollection<ExpenseItemViewModel> Expenses { get; set; }
+        public ObservableCollection<ExpenseItemViewModel> Expenses
+        {
+            get { return this.expenses; }
+            set
+            {
+                if (this.expenses != value)
+                {
+                    this.expenses = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Expenses)));
+                }
+            }
+        }
         public bool IsRunning
         {
             get { return this.isRunning; }
@@ -46,6 +57,7 @@ namespace ExpensesApp.ViewModels
         #region Attributes
         private bool isRunning;
         private string noData;
+        private ObservableCollection<ExpenseItemViewModel> expenses;
         #endregion
 
         #region Events
@@ -96,6 +108,7 @@ namespace ExpensesApp.ViewModels
             this.Expenses = new ObservableCollection<ExpenseItemViewModel>(lstExpenses);
             this.NoData = (this.Expenses.Count == 0) ? "No data" : "";
         }
+
         private void AddExpense()
         {
             if (MainViewModel.GetInstance().Expense == null)

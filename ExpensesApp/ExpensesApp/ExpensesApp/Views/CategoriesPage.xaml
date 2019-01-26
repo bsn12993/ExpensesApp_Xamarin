@@ -17,7 +17,7 @@
                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                 <ListView
                     IsPullToRefreshEnabled="True"
-                    ItemsSource="{Binding Categories}"
+                    ItemsSource="{Binding Categories,Mode=TwoWay}"
                     HasUnevenRows="True"
                     SeparatorVisibility="None">
                     <ListView.ItemTemplate>

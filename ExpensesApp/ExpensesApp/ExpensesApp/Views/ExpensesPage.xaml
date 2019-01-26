@@ -24,7 +24,7 @@
                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                 <ListView
-                    ItemsSource="{Binding Expenses}"
+                    ItemsSource="{Binding Expenses,Mode=TwoWay}"
                     HasUnevenRows="True"
                     SeparatorVisibility="None"
                     IsPullToRefreshEnabled="True">
