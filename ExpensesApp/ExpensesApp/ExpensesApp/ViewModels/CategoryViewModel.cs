@@ -79,11 +79,11 @@ namespace ExpensesApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
                 return;
             }
-            var category = new Category
+
+            if (MainViewModel.GetInstance().GetUser != null)
             {
-                Category_Id = Category.Category_Id,
-                Name = this.Category.Name
-            };
+                category.User = MainViewModel.GetInstance().GetUser;
+            }
 
             if (category.Category_Id == 0)
             {

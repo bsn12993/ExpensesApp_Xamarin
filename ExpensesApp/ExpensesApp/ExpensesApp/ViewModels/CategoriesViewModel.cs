@@ -78,6 +78,8 @@ namespace ExpensesApp.ViewModels
         public async void LoadCategories()
         {
             this.IsRunning = true;
+            this.Categories = new ObservableCollection<CategoryItemViewModel>();
+            this.Categories.Clear();
             var connection = await ApiServices.GetInstance().CheckConnection();
             if (!connection.IsSuccess)
             {
@@ -85,7 +87,8 @@ namespace ExpensesApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
                 return;
             }
-            var categories = await ApiServices.GetInstance().GetList<CategoryItemViewModel>("api/category/all");
+            var categories = await ApiServices.GetInstance()
+                .GetList<CategoryItemViewModel>($"api/category/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
             if (!categories.IsSuccess)
             {
                 this.IsRunning = false;

@@ -83,6 +83,8 @@ namespace ExpensesApp.ViewModels
         public async void LoadExpenses()
         {
             this.IsRunning = true;
+            this.Expenses = new ObservableCollection<ExpenseItemViewModel>();
+            this.Expenses.Clear();
             var connection = await ApiServices.GetInstance().CheckConnection();
             if (!connection.IsSuccess)
             {

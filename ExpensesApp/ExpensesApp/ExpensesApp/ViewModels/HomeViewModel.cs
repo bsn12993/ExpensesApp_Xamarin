@@ -71,7 +71,7 @@ namespace ExpensesApp.ViewModels
         public HomeViewModel()
         {
             //LoadCategories();
-            LoadTotal();
+            //LoadTotal();
         }
         #endregion
 

@@ -69,7 +69,7 @@ namespace ExpensesApp.ViewModels
         {
             this.IsRunning = false;
             this.User = "bsn_12903@hotmail.com";
-            this.Pass = "bsn12993*";
+            this.Pass = "bsn12993";
         }
         #endregion
 
@@ -101,16 +101,16 @@ namespace ExpensesApp.ViewModels
             this.IsRunning = true;
             if(string.IsNullOrEmpty(this.User) || string.IsNullOrEmpty(this.Pass))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "login", "Accept");
                 this.IsRunning = false;
+                await Application.Current.MainPage.DisplayAlert("Error", "login", "Accept");
                 return;
             }
 
             var connectivity = await ApiServices.GetInstance().CheckConnection();
             if (!connectivity.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Configura el acceso a internet", "Ok");
                 this.IsRunning = false;
+                await Application.Current.MainPage.DisplayAlert("Error", "Configura el acceso a internet", "Ok");
                 return;
             }
 
@@ -118,8 +118,8 @@ namespace ExpensesApp.ViewModels
                 .GetItem<User>($"api/users/validate/{this.User.Encrypt()}/{this.Pass.Encrypt()}");
             if (!validateUser.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", validateUser.Message, "Ok");
                 this.IsRunning = false;
+                await Application.Current.MainPage.DisplayAlert("Error", validateUser.Message, "Ok");
                 return;
             }
 
@@ -132,22 +132,23 @@ namespace ExpensesApp.ViewModels
             MainViewModel.GetInstance().Home.LoadCategories();
             MainViewModel.GetInstance().Home.LoadTotal();
 
-            MainViewModel.GetInstance().HistoryExpenses = new HistoryExpensesViewModel();
-            MainViewModel.GetInstance().HistoryExpenses.LoadExpensesHistory();
+            //MainViewModel.GetInstance().HistoryExpenses = new HistoryExpensesViewModel();
+            //MainViewModel.GetInstance().HistoryExpenses.LoadExpensesHistory();
 
-            MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
-            MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
+            //MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
+            //MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
 
-            MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
-            MainViewModel.GetInstance().Expenses.LoadExpenses();
+            //MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
+            //MainViewModel.GetInstance().Expenses.LoadExpenses();
 
-            MainViewModel.GetInstance().Expense = new ExpenseViewModel();
-            MainViewModel.GetInstance().Expense.LoadCategories();
+            //MainViewModel.GetInstance().Expense = new ExpenseViewModel();
+            //MainViewModel.GetInstance().Expense.LoadCategories();
 
-            MainViewModel.GetInstance().Category = new CategoriesViewModel();
-            MainViewModel.GetInstance().Category.LoadCategories();
+            //MainViewModel.GetInstance().Category = new CategoriesViewModel();
+            //MainViewModel.GetInstance().Category.LoadCategories();
 
             Application.Current.MainPage = new MasterPage();
+
         }
 
 

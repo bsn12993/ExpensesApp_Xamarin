@@ -21,7 +21,7 @@ namespace ExpensesApp.Services
         {
             Timeout = TimeSpan.FromMilliseconds(15000);
             MaxResponseContentBufferSize = 256000;
-            BaseAddress = new Uri("http://bsilverio-001-site1.atempurl.com");
+            BaseAddress = new Uri("http://192.168.0.103:8585/");
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         #endregion
@@ -48,7 +48,7 @@ namespace ExpensesApp.Services
                 };
             }
 
-            var isReachable = await CrossConnectivity.Current.IsReachable("motzcod.es");
+            //var isReachable = await CrossConnectivity.Current.IsReachable("motzcod.es");
             //if (!isReachable)
             //{
             //    return new Response
@@ -70,18 +70,21 @@ namespace ExpensesApp.Services
             {
                 var response = await GetAsync(url);
                 var result = await response.Content.ReadAsStringAsync();
-                var responseData = JsonConvert.DeserializeObject<Response>(result);
-                var data = JsonConvert.DeserializeObject<List<T>>(((JArray)responseData.Result).ToString());
-                responseData.Result = data;
                 if (!response.IsSuccessStatusCode)
                 {
+                    var msg = JsonConvert.DeserializeObject<Response>(result);
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = responseData.Message,
+                        Message = msg.Message,
                         Result = null
                     };
                 }
+
+                var responseData = JsonConvert.DeserializeObject<Response>(result);
+                var data = JsonConvert.DeserializeObject<List<T>>(((JArray)responseData.Result).ToString());
+                responseData.Result = data;
+
                 return responseData;
             }
             catch (OperationCanceledException ex)
@@ -101,8 +104,13 @@ namespace ExpensesApp.Services
                 var response = await GetAsync(url);
                 var result = await response.Content.ReadAsStringAsync();
                 var responseData = JsonConvert.DeserializeObject<Response>(result);
-                var data = JsonConvert.DeserializeObject<T>(((JObject)responseData.Result).ToString());
-                responseData.Result = data;
+                T data;
+                if(responseData.IsSuccess)
+                {
+                    data = JsonConvert.DeserializeObject<T>(((JObject)responseData.Result).ToString());
+                    responseData.Result = data;
+                }
+
                 if (!response.IsSuccessStatusCode)
                 {
                     return new Response

@@ -74,6 +74,7 @@ namespace ExpensesApp.ViewModels
         {
             this.IsRunning = true;
             this.Incomes = new ObservableCollection<Income>();
+            this.Incomes.Clear();
             var connection = await ApiServices.GetInstance().CheckConnection();
             if (!connection.IsSuccess)
             {
