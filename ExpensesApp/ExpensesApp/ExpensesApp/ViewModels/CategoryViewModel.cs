@@ -87,7 +87,12 @@ namespace ExpensesApp.ViewModels
 
             if (category.Category_Id == 0)
             {
-                var registerCategory = await ApiServices.GetInstance().PostItem("api/category/create", category);
+                var userCategory = new UserCategory
+                {
+                    Category = category,
+                    User = category.User
+                };
+                var registerCategory = await ApiServices.GetInstance().PostItem("api/category/create", userCategory);
                 if (!registerCategory.IsSuccess)
                 {
                     this.IsRunning = false;
