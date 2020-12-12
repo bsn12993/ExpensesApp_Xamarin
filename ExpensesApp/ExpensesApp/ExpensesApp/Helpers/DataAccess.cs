@@ -1,22 +1,18 @@
 ﻿using ExpensesApp.Interfaces;
 using ExpensesApp.Models;
-using SQLite.Net;
-using SQLiteNetExtensions.Extensions;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Xamarin.Forms;
 
 namespace ExpensesApp.Helpers
 {
-    public class DataAccess : IDisposable
+    public class DataAccess 
     {
-        private SQLiteConnection connection;
+        //private SQLiteConnection connection;
 
         public DataAccess()
         {
+            /*
             try
             {
                 var config = DependencyService.Get<IConfig>();
@@ -28,8 +24,9 @@ namespace ExpensesApp.Helpers
             {
                 var a = e.Message;
             }
+            */
         }
-
+        /*
         public void Insert<T>(T model)
         {
             this.connection.Insert(model);
@@ -85,5 +82,6 @@ namespace ExpensesApp.Helpers
         {
             this.connection.Dispose();
         }
+        */
     }
 }

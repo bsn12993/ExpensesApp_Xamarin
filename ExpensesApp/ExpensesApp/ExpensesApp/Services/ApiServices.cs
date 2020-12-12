@@ -21,7 +21,7 @@ namespace ExpensesApp.Services
         {
             Timeout = TimeSpan.FromMilliseconds(15000);
             MaxResponseContentBufferSize = 256000;
-            BaseAddress = new Uri("http://192.168.0.107:8585/");
+            BaseAddress = new Uri("http://192.168.42.100:8585/");
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         #endregion
@@ -103,6 +103,16 @@ namespace ExpensesApp.Services
             {
                 var response = await GetAsync(url);
                 var result = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                        Result = null
+                    };
+                }
+                
                 var responseData = JsonConvert.DeserializeObject<Response>(result);
                 T data;
                 if(responseData.IsSuccess)

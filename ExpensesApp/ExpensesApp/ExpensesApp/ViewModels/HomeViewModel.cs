@@ -2,13 +2,9 @@
 using ExpensesApp.Services;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
-using Microcharts;
-using SkiaSharp;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 

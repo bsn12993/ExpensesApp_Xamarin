@@ -68,8 +68,8 @@ namespace ExpensesApp.ViewModels
         public LoginViewModel()
         {
             this.IsRunning = false;
-            this.User = "bsn_12903@hotmail.com";
-            this.Pass = "bsn12993";
+            this.User = "bryansilverio123@gmail.com";
+            this.Pass = "123456";
         }
         #endregion
 
@@ -115,7 +115,7 @@ namespace ExpensesApp.ViewModels
             }
 
             var validateUser = await ApiServices.GetInstance()
-                .GetItem<User>($"api/users/validate/{this.User.Encrypt()}/{this.Pass.Encrypt()}");
+                .GetItem<User>($"api/users/validate?email={this.User}&password={this.Pass}");
             if (!validateUser.IsSuccess)
             {
                 this.IsRunning = false;

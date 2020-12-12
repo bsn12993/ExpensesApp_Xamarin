@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ExpensesApp.Interfaces;
-using Foundation;
-using SQLite.Net.Interop;
-using UIKit;
 
 namespace ExpensesApp.iOS.Implementations
 {
     public class Config : IConfig
     {
         private string directoryDB;
-        private ISQLitePlatform platform;
+        //private ISQLitePlatform platform;
         public string DirectoryDB
         {
             get
@@ -26,6 +20,7 @@ namespace ExpensesApp.iOS.Implementations
             }
         }
 
+        /*
         public ISQLitePlatform Platform
         {
             get
@@ -37,5 +32,6 @@ namespace ExpensesApp.iOS.Implementations
                 return platform;
             }
         }
+        */
     }
 }
