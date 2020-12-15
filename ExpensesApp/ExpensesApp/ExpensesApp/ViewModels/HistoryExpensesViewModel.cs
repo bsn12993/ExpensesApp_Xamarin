@@ -72,6 +72,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadExpensesHistory()
         {
+            /*
             this.IsRunning = true;
             this.Expenses = new ObservableCollection<Expense>();
             this.Expenses.Clear();
@@ -98,6 +99,23 @@ namespace ExpensesApp.ViewModels
             this.IsRunning = false;
             this.Expenses = new ObservableCollection<Expense>((IEnumerable<Expense>)lstExpenses);
             this.Total = Expenses.Sum(x => x.Amount);
+            */
+            this.Expenses = new ObservableCollection<Expense>();
+            for (var i = 1; i <= 20; i++)
+            {
+                this.Expenses.Add(new ExpenseItemViewModel
+                {
+                    Amount = i,
+                    Date = DateTime.Now.ToShortDateString(),
+                    User_Id = 1,
+                    Category = new Category
+                    {
+                        Id = 1,
+                        Name = "Transporte",
+                        UserId = 1
+                    }
+                });
+            }
         }
         #endregion
     }

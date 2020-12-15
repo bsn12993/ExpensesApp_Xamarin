@@ -72,6 +72,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadIncomesHistory()
         {
+            /*
             this.IsRunning = true;
             this.Incomes = new ObservableCollection<Income>();
             this.Incomes.Clear();
@@ -107,6 +108,19 @@ namespace ExpensesApp.ViewModels
             this.Incomes = new ObservableCollection<Income>((IEnumerable<Income>)lstIncomes);
             var totalExpenses = ((List<Expense>)expenses.Result).Sum(x => x.Amount);
             this.Total = this.Incomes.Sum(x => x.Amount) - totalExpenses;
+            */
+            this.Incomes = new ObservableCollection<Income>();
+            for (var i = 1; i <= 20; i++)
+            {
+                this.Incomes.Add(new Income
+                {
+                    Amount = i,
+                    Date = DateTime.Now.ToShortDateString(),
+                    Income_Id = 1,
+                    User_Id = 1
+                });
+            }
+
         }
         #endregion
     }

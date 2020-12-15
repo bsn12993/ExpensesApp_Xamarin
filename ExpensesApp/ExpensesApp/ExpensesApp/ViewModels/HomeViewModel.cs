@@ -81,6 +81,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadTotal()
         {
+            /*
             this.IsRunning = true;
             var connection = await ApiServices.GetInstance().CheckConnection();
             if (!connection.IsSuccess)
@@ -89,8 +90,7 @@ namespace ExpensesApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
                 return;
             }
-
-            var total = await ApiServices.GetInstance().GetItem<Income>
+            var total = await ApiServices.GetInstance().GetItem<string>
                 ($"api/incomes/total/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
             if (!total.IsSuccess)
             {
@@ -99,11 +99,14 @@ namespace ExpensesApp.ViewModels
             }
 
             this.IsRunning = false;
-            this.Total = ((Income)total.Result).Amount.ToString();
+            this.Total = "11";
+            */
+            this.Total = "11";
         }
 
         public async void LoadCategories()
         {
+            /*
             var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
             if (!category.IsSuccess)
             {
@@ -121,6 +124,16 @@ namespace ExpensesApp.ViewModels
                         Total = 11M
                     });
                 }
+            }
+            */
+            this.Expenses = new ObservableCollection<ExpensesEnc>();
+            for (int i = 1; i <= 10; i++)
+            {
+                this.Expenses.Add(new Models.ExpensesEnc
+                {
+                    Category = new Category { Name = $"Cat {i}" },
+                    Total = 11M
+                });
             }
         }
 

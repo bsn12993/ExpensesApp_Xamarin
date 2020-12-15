@@ -139,6 +139,7 @@ namespace ExpensesApp.ViewModels
 
         private async void UpdateUser()
         {
+            /*
             var id = MainViewModel.GetInstance().GetUser.User_Id;
             var name = MainViewModel.GetInstance().GetUser.Name;
             this.IsRunning = true;
@@ -180,6 +181,7 @@ namespace ExpensesApp.ViewModels
             this.LastName = MainViewModel.GetInstance().GetUser.LastName;
             this.Email = MainViewModel.GetInstance().GetUser.Email;
             this.Password = MainViewModel.GetInstance().GetUser.Password;
+            */
         }
     }
 }

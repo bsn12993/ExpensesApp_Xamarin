@@ -1,13 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="ExpensesApp.Views.AddCategoryPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Add Category">
     <ContentPage.Content>
-        <RelativeLayout
+        <StackLayout
             BindingContext="{Binding CategoryItem}">
+
+            <Grid
+                BackgroundColor="DarkBlue">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="800"/>
+                </Grid.RowDefinitions>
+
+                <StackLayout
+                    Grid.Row="0"
+                    VerticalOptions="Start" 
+                    Orientation="Vertical"
+                    Margin="0,50,0,0">
+
+                    <Label
+                        Text="Nueva categoria"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        FontSize="26"
+                        Margin="0,0,0,0"
+                        TextColor="White"/>
+
+                </StackLayout>
+
+                <StackLayout
+                    Grid.Row="1"
+                    VerticalOptions="Start"
+                    Orientation="Vertical">
+
+                    <Frame
+                        VerticalOptions="Center"
+                        CornerRadius="40"
+                        HeightRequest="800">
+
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="100"/>
+                            </Grid.RowDefinitions>
+                            
+                            <Label 
+                                Grid.Row="0"
+                                Text="Categoria"
+                                FontSize="Medium"
+                                VerticalOptions="CenterAndExpand" 
+                                HorizontalOptions="FillAndExpand" />
+                            
+                            <Entry
+                                Grid.Row="1"
+                                Text="{Binding Category.Name}"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand"/>
+
+                            <Button
+                                Grid.Row="2"
+                                Text="Save"
+                                CornerRadius="20"
+                                Command="{Binding SaveEditCommand}"
+                                VerticalOptions="End"
+                                HorizontalOptions="FillAndExpand"/>
+                        </Grid>
+
+
+                    </Frame>
+
+                </StackLayout>
+
+            </Grid>
+
+            <!--
             <ContentView
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
@@ -36,11 +108,13 @@
             <ActivityIndicator
                     IsRunning="{Binding IsRunning}"
                     VerticalOptions="CenterAndExpand"/>
+            -->
             <!--<Button
                 Text="Save"
                 Command="{Binding SaveEditCommand}"
                 VerticalOptions="End"
                 HorizontalOptions="FillAndExpand"/>-->
+            <!---
             <fab:FloatingActionButton
                 Image="ic_add_fab.png"
                 ButtonColor="#399BF1"
@@ -49,6 +123,7 @@
                 Command="{Binding SaveEditCommand}"
                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
                 RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
-        </RelativeLayout>
+            -->
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

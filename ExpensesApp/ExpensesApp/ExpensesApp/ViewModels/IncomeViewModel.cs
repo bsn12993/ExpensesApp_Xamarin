@@ -56,6 +56,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         private async void SaveIncome()
         {
+            /*
             this.IsRunning = true;
             var income = new Income
             {
@@ -85,6 +86,7 @@ namespace ExpensesApp.ViewModels
             if (MainViewModel.GetInstance().HistoryIncomes == null)
                 MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
             MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
+            */
         }
         #endregion
     }

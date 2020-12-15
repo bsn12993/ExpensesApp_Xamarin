@@ -8,65 +8,136 @@
     <ContentPage.Content>
         <RelativeLayout
             BindingContext="{Binding Expenses}">
+            
+            <!-- Activity indicator -->
             <ActivityIndicator
                 IsRunning="{Binding IsRunning}"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-200}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-300}"/>
-            <Label
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                Text="{Binding NoData,Mode=TwoWay}"
-                FontAttributes="Bold"
-                FontSize="Medium"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-200}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-500}"/>
-            <ContentView
-                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
-                <ListView
-                    ItemsSource="{Binding Expenses,Mode=TwoWay}"
-                    HasUnevenRows="True"
-                    SeparatorVisibility="None"
-                    IsPullToRefreshEnabled="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Frame
-                                    Margin="5">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectExpenseCommand}"/>
-                                    </Frame.GestureRecognizers>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackLayout
-                                            Grid.Column="0"
-                                            VerticalOptions="Center">
-                                            <Label
-                                                FontAttributes="Bold"
-                                                FontSize="Medium"
-                                                TextColor="Black"
-                                                Text="{Binding Category.Name}"/>
-                                            <Label
-                                                Text="{Binding Date}"
-                                                TextColor="Black"/>
-                                            <Label
-                                                FontAttributes="Bold"
-                                                Text="{Binding Amount,StringFormat='${0:N}'}"
-                                                TextColor="Black"/>
-                                        </StackLayout>
-                                        <Image
-                                            Grid.Column="1"
-                                            HorizontalOptions="End"
-                                            Source="ic_chev"/>
-                                    </Grid>
-                                </Frame>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ContentView>
+                RelativeLayout.XConstraint="{ConstraintExpression 
+                    Type=RelativeToParent, 
+                    Property=Width, Factor=1, 
+                    Constant=-200}"  
+                RelativeLayout.YConstraint="{ConstraintExpression 
+                    Type=RelativeToParent, 
+                    Property=Height, Factor=1, 
+                    Constant=-300}"/>
+            
+            <!-- Content -->
+            <Grid
+                BackgroundColor="DarkBlue">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <StackLayout
+                    Grid.Row="0"
+                    HorizontalOptions="CenterAndExpand" 
+                    Orientation="Vertical"
+                    Margin="0,25,0,0">
+
+                    <Label
+                        Text="Gastos"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        FontSize="26"
+                        Margin="0,0,0,0"
+                        WidthRequest="300"
+                        TextColor="White"/>
+
+                </StackLayout>
+
+                <!-- Data -->
+                <StackLayout
+                    Grid.Row="1"
+                    VerticalOptions="Fill"
+                    Orientation="Vertical">
+
+                    <Frame
+                        VerticalOptions="Center"
+                        CornerRadius="40"
+                        Padding="0">
+
+                        <StackLayout>
+                            <Label
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="{Binding NoData,Mode=TwoWay}"
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                RelativeLayout.XConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent, 
+                                    Property=Width, 
+                                    Factor=1, 
+                                    Constant=-200}"  
+                                RelativeLayout.YConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent, 
+                                    Property=Height, 
+                                    Factor=1, 
+                                    Constant=-500}"/>
+                            <ContentView
+                                RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent, 
+                                    Property=Width, 
+                                    Factor=1}"
+                                RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent, 
+                                    Property=Height, 
+                                    Factor=1}">
+                                <ListView
+                                    ItemsSource="{Binding Expenses,Mode=TwoWay}"
+                                    HasUnevenRows="True"
+                                    SeparatorVisibility="Default"
+                                    IsPullToRefreshEnabled="True">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Frame
+                                                    Margin="5,0,5,0">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer 
+                                                            Command="{Binding SelectExpenseCommand}"/>
+                                                    </Frame.GestureRecognizers>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackLayout
+                                                            Grid.Column="0"
+                                                            VerticalOptions="Center">
+                                                            <Label
+                                                                FontAttributes="Bold"
+                                                                FontSize="Medium"
+                                                                TextColor="Black"
+                                                                Text="{Binding Category.Name}"/>
+                                                            <Label
+                                                                Text="{Binding Date}"
+                                                                TextColor="Black"/>
+                                                            <Label
+                                                                FontAttributes="Bold"
+                                                                Text="{Binding Amount,StringFormat='${0:N}'}"
+                                                                TextColor="Black"/>
+                                                        </StackLayout>
+                                                        <Image
+                                                            Grid.Column="1"
+                                                            HorizontalOptions="End"
+                                                            Source="ic_chev"/>
+                                                    </Grid>
+                                                </Frame>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ContentView>
+                        </StackLayout>
+
+                    </Frame>
+
+                </StackLayout>
+
+            </Grid>
+
             <fab:FloatingActionButton
                 Image="ic_add_fab.png"
                 ButtonColor="#399BF1"

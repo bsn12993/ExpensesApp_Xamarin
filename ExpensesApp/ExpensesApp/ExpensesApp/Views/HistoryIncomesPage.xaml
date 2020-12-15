@@ -7,78 +7,139 @@
              Title="History Incomes">
     <ContentPage.Content>
         <ScrollView>
+            
             <RelativeLayout
                 BindingContext="{Binding HistoryIncomes}">
+                
                 <ActivityIndicator
-                IsRunning="{Binding IsRunning}"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-200}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-300}"/>
-                <ContentView
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                    IsRunning="{Binding IsRunning}"
+                    RelativeLayout.XConstraint="{ConstraintExpression 
+                        Type=RelativeToParent, 
+                        Property=Width, 
+                        Factor=1, 
+                        Constant=-200}"  
+                    RelativeLayout.YConstraint="{ConstraintExpression 
+                        Type=RelativeToParent, 
+                        Property=Height, 
+                        Factor=1, 
+                        Constant=-300}"/>
+
+
+                <Grid
+                    BackgroundColor="DarkBlue">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
                     <StackLayout
-                        Margin="5,20">
+                        Grid.Row="0"
+                        HorizontalOptions="CenterAndExpand" 
+                        Orientation="Vertical"
+                        Margin="0,25,0,0">
+
                         <Label
-                            Text="{Binding Total,StringFormat='${0:N}'}"
-                            FontSize="Medium"
-                            TextColor="Black"
-                            VerticalOptions="StartAndExpand"
-                            HorizontalOptions="CenterAndExpand"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                Text="Monto"
-                                FontSize="Medium"
-                                TextColor="Black"
-                                VerticalOptions="Start"
-                                HorizontalOptions="Center"/>
-                            <Label
-                            Grid.Column="1"
-                            Grid.Row="0"
-                            Text="Fecha"
-                            FontSize="Medium"
-                            TextColor="Black"
-                            VerticalOptions="Start"
-                            HorizontalOptions="Center"/>
-                        </Grid>
-                        <ListView
-                            ItemsSource="{Binding Incomes,Mode=TwoWay}"
-                            HasUnevenRows="True"
-                            SeparatorVisibility="None">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Label
-                                                Grid.Column="0"
-                                                Text="{Binding Amount,StringFormat='${0:N}'}"
-                                                FontSize="Default"
-                                                TextColor="Black"
-                                                VerticalOptions="CenterAndExpand"
-                                                HorizontalOptions="CenterAndExpand"/>
-                                            <Label
-                                                Grid.Column="1"
-                                                Text="{Binding Date}"
-                                                FontSize="Default"
-                                                TextColor="Black"
-                                                VerticalOptions="CenterAndExpand"
-                                                HorizontalOptions="CenterAndExpand"/>
-                                        </Grid>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                            Text="Historial de ingresos"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            FontSize="26"
+                            Margin="0,0,0,0"
+                            WidthRequest="300"
+                            TextColor="White"/>
+
                     </StackLayout>
-                </ContentView>
+
+                    <StackLayout
+                        Grid.Row="1"
+                        VerticalOptions="Fill"
+                        Orientation="Vertical">
+
+                        <Frame
+                            VerticalOptions="Center"
+                            CornerRadius="40"
+                            Padding="0">
+
+                            <ContentView
+                                RelativeLayout.WidthConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent, 
+                                    Property=Width, 
+                                    Factor=1}"
+                                RelativeLayout.HeightConstraint="{ConstraintExpression 
+                                    Type=RelativeToParent, 
+                                    Property=Height, 
+                                    Factor=1}">
+
+                                <StackLayout
+                                 Margin="5,20">
+                                    <Label
+                                        Text="{Binding Total,StringFormat='${0:N}'}"
+                                        FontSize="Medium"
+                                        TextColor="Black"
+                                        VerticalOptions="StartAndExpand"
+                                        HorizontalOptions="CenterAndExpand"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                            Grid.Column="0"
+                                            Grid.Row="0"
+                                            Text="Monto"
+                                            FontSize="Medium"
+                                            TextColor="Black"
+                                            VerticalOptions="Start"
+                                            HorizontalOptions="Center"/>
+                                        <Label
+                                            Grid.Column="1"
+                                            Grid.Row="0"
+                                            Text="Fecha"
+                                            FontSize="Medium"
+                                            TextColor="Black"
+                                            VerticalOptions="Start"
+                                            HorizontalOptions="Center"/>
+                                    </Grid>
+                                    <ListView
+                                        ItemsSource="{Binding Incomes,Mode=TwoWay}"
+                                        HasUnevenRows="True"
+                                        SeparatorVisibility="None">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label
+                                                            Grid.Column="0"
+                                                            Text="{Binding Amount,StringFormat='${0:N}'}"
+                                                            FontSize="Default"
+                                                            TextColor="Black"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            HorizontalOptions="CenterAndExpand"/>
+                                                        <Label
+                                                            Grid.Column="1"
+                                                            Text="{Binding Date}"
+                                                            FontSize="Default"
+                                                            TextColor="Black"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            HorizontalOptions="CenterAndExpand"/>
+                                                    </Grid>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+                            </ContentView>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                </Grid>
+
                 <fab:FloatingActionButton
                     Image="ic_add_fab.png"
                     ButtonColor="#399BF1"

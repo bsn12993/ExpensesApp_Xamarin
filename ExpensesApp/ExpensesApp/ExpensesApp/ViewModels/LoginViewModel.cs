@@ -98,6 +98,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void Login()
         {
+            /*
             this.IsRunning = true;
             if(string.IsNullOrEmpty(this.User) || string.IsNullOrEmpty(this.Pass))
             {
@@ -122,10 +123,17 @@ namespace ExpensesApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", validateUser.Message, "Ok");
                 return;
             }
+            */
 
             this.Pass = string.Empty;
             this.IsRunning = false;
-            MainViewModel.GetInstance().GetUser = (User)validateUser.Result;
+            MainViewModel.GetInstance().GetUser = new User
+            {
+                User_Id = 1,
+                Name = "App",
+                LastName = "app",
+                Email = "bryansilverio12@gmail.com"
+            };
             MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
 
             MainViewModel.GetInstance().Home = new HomeViewModel();

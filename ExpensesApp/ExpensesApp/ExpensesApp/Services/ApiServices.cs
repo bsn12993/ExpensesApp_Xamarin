@@ -72,11 +72,10 @@ namespace ExpensesApp.Services
                 var result = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
-                    var msg = JsonConvert.DeserializeObject<Response>(result);
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = msg.Message,
+                        Message = result,
                         Result = null
                     };
                 }

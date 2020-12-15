@@ -71,6 +71,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void SaveEditCategory()
         {
+            /*
             this.IsRunning = true;
             var connection = await ApiServices.GetInstance().CheckConnection();
             if (!connection.IsSuccess)
@@ -80,19 +81,16 @@ namespace ExpensesApp.ViewModels
                 return;
             }
 
-            if (MainViewModel.GetInstance().GetUser != null)
+            if (category.Id == 0)
             {
-                category.User = MainViewModel.GetInstance().GetUser;
-            }
-
-            if (category.Category_Id == 0)
-            {
-                var userCategory = new UserCategory
+                var createCategory = new Category
                 {
-                    Category = category,
-                    User = category.User
+                    Name = category.Name,
+                    UserId = MainViewModel.GetInstance().GetUser.User_Id
                 };
-                var registerCategory = await ApiServices.GetInstance().PostItem("api/category/create", userCategory);
+                var registerCategory = await ApiServices
+                    .GetInstance()
+                    .PostItem("api/category/create", createCategory);
                 if (!registerCategory.IsSuccess)
                 {
                     this.IsRunning = false;
@@ -103,7 +101,16 @@ namespace ExpensesApp.ViewModels
             }
             else
             {
-                var editCategory = await ApiServices.GetInstance().PutItem($"api/category/update", category, category.Category_Id);
+                var updateCategory = new Category
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    UserId = MainViewModel.GetInstance().GetUser.User_Id
+                };
+
+                var editCategory = await ApiServices
+                    .GetInstance()
+                    .PutItem($"api/category/update", updateCategory, updateCategory.Id);
                 if (!editCategory.IsSuccess)
                 {
                     this.IsRunning = false;
@@ -112,7 +119,7 @@ namespace ExpensesApp.ViewModels
                 }
                 await Application.Current.MainPage.DisplayAlert("Success", editCategory.Message, "Ok");
             }
-
+            */
             this.IsRunning = false;
             this.Category.Name = string.Empty;
             if (MainViewModel.GetInstance().Category == null)

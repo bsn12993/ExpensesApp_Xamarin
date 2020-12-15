@@ -70,13 +70,14 @@ namespace ExpensesApp.ViewModels
         {
             return MainViewModel.GetInstance().Categories.Select(c => new CategoryItemViewModel
             {
-                Category_Id = c.Category_Id,
+                Id = c.Id,
                 Name = c.Name
             });
         }
 
         public async void LoadCategories()
         {
+            /*
             this.IsRunning = true;
             this.Categories = new ObservableCollection<CategoryItemViewModel>();
             this.Categories.Clear();
@@ -98,6 +99,17 @@ namespace ExpensesApp.ViewModels
             this.IsRunning = false;
             this.Categories = 
                 new ObservableCollection<CategoryItemViewModel>((IEnumerable<CategoryItemViewModel>)categories.Result);
+            */
+            this.Categories = new ObservableCollection<CategoryItemViewModel>();
+            for (int i = 1; i <= 20; i++)
+            {
+                this.Categories.Add(new CategoryItemViewModel
+                {
+                    Id = i,
+                    Name = $"Cat {i}",
+                    UserId = 1,
+                });
+            }
         }
 
         private void AddCategory()

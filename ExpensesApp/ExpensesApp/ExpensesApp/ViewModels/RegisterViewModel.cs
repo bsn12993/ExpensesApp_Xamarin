@@ -130,6 +130,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         private async void SaveUser()
         {
+            /*
             if (string.IsNullOrEmpty(this.Name))
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "El campo Name esta vacio", "Ok");
@@ -199,6 +200,7 @@ namespace ExpensesApp.ViewModels
             this.LastName = string.Empty;
             this.Email = string.Empty;
             this.Password = string.Empty;
+            */
 
         }
         #endregion

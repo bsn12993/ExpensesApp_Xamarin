@@ -82,6 +82,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void LoadExpenses()
         {
+            /*
             this.IsRunning = true;
             this.Expenses = new ObservableCollection<ExpenseItemViewModel>();
             this.Expenses.Clear();
@@ -109,6 +110,23 @@ namespace ExpensesApp.ViewModels
             });
             this.Expenses = new ObservableCollection<ExpenseItemViewModel>(lstExpenses);
             this.NoData = (this.Expenses.Count == 0) ? "No data" : "";
+            */
+            this.Expenses = new ObservableCollection<ExpenseItemViewModel>();
+            for (var i = 1; i <= 20; i++)
+            {
+                this.Expenses.Add(new ExpenseItemViewModel
+                {
+                    Amount = i,
+                    Date = DateTime.Now.ToShortDateString(),
+                    User_Id = 1,
+                    Category = new Category
+                    {
+                        Id = 1,
+                        Name = "Transporte",
+                        UserId = 1
+                    }
+                });
+            }
         }
 
         private void AddExpense()

@@ -78,6 +78,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         private async void SaveExpense()
         {
+            /*
             this.IsRunning = true;
             if (!string.IsNullOrEmpty(this.Amount) && !string.IsNullOrEmpty(this.CategoySelected.Name))
             {
@@ -85,7 +86,7 @@ namespace ExpensesApp.ViewModels
                 {
                     Amount = Convert.ToDecimal(this.Amount),
                     Date = DateTime.Now.ToShortDateString(),
-                    Category_Id = this.CategoySelected.Category_Id,
+                    Category_Id = this.CategoySelected.Id,
                     User_Id = MainViewModel.GetInstance().GetUser.User_Id
                 };
 
@@ -119,16 +120,19 @@ namespace ExpensesApp.ViewModels
                 this.IsRunning = false;
                 await Application.Current.MainPage.DisplayAlert("Error", "No se permiten campos vacios", "Accept");
             }
+            */
         }
 
         public async void LoadCategories()
         {
+            /*
             var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
             if (!category.IsSuccess)
             {
                 return;
             }
             this.Categories = new ObservableCollection<Category>((IEnumerable<Category>)category.Result);
+            */
         }
         #endregion
     }
