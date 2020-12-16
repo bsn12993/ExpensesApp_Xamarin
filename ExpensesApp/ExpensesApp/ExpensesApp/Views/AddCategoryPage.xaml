@@ -5,125 +5,116 @@
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Add Category">
     <ContentPage.Content>
+        
         <StackLayout
             BindingContext="{Binding CategoryItem}">
 
             <Grid
-                BackgroundColor="DarkBlue">
+                RowSpacing="{OnPlatform iOS=25,Android=18}">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="800"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <StackLayout
-                    Grid.Row="0"
-                    VerticalOptions="Start" 
-                    Orientation="Vertical"
-                    Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title -->
+                <StackLayout 
+                    Grid.Row="1" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
 
                     <Label
-                        Text="Nueva categoria"
+                        Text="Nueva categoría"
                         FontAttributes="Bold"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="Start"
                         FontSize="26"
-                        Margin="0,0,0,0"
-                        TextColor="White"/>
+                        Margin="10,0,0,5"
+                        WidthRequest="350"
+                        TextColor="{OnPlatform Android=Black}"/>
 
                 </StackLayout>
 
                 <StackLayout
-                    Grid.Row="1"
+                    Grid.Row="2" 
+                    HorizontalOptions="Center" 
                     VerticalOptions="Start"
-                    Orientation="Vertical">
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
+                    
+                    <!-- Form -->
 
-                    <Frame
-                        VerticalOptions="Center"
-                        CornerRadius="40"
-                        HeightRequest="800">
+                    <!-- Name -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
 
-                        <Grid>
+                        <Label
+                            Text="Nombre"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="80"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="100"/>
-                            </Grid.RowDefinitions>
-                            
-                            <Label 
-                                Grid.Row="0"
-                                Text="Categoria"
-                                FontSize="Medium"
-                                VerticalOptions="CenterAndExpand" 
-                                HorizontalOptions="FillAndExpand" />
-                            
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
                             <Entry
-                                Grid.Row="1"
+                                Placeholder="Ingresa una categoría"
+                                Keyboard="Text"
+                                MaxLength="25"
                                 Text="{Binding Category.Name}"
-                                VerticalOptions="CenterAndExpand"
-                                HorizontalOptions="FillAndExpand"/>
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
 
-                            <Button
-                                Grid.Row="2"
-                                Text="Save"
-                                CornerRadius="20"
-                                Command="{Binding SaveEditCommand}"
-                                VerticalOptions="End"
-                                HorizontalOptions="FillAndExpand"/>
-                        </Grid>
+                        </Frame>
 
+                    </StackLayout>
 
-                    </Frame>
+                    <!-- Description -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Descripción"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa una decripción"
+                                Keyboard="Text"
+                                MaxLength="25"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
 
                 </StackLayout>
+
+                <Button
+                    Grid.Row="3"
+                    Text="Guardar"
+                    CornerRadius="20"
+                    Command="{Binding SaveEditCommand}"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    WidthRequest="{OnPlatform iOS=370,Android=370}"/>
 
             </Grid>
 
-            <!--
-            <ContentView
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
-                <StackLayout>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label 
-                            Grid.Column="0"
-                            Grid.Row="0"
-                            Text="Categoria"
-                            FontSize="Medium"
-                            VerticalOptions="CenterAndExpand" 
-                            HorizontalOptions="FillAndExpand" />
-                        <Entry
-                            Grid.Column="1"
-                            Grid.Row="0"
-                            Text="{Binding Category.Name}"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="FillAndExpand"/>
-                    </Grid>
-                </StackLayout>
-            </ContentView>
-            <ActivityIndicator
-                    IsRunning="{Binding IsRunning}"
-                    VerticalOptions="CenterAndExpand"/>
-            -->
-            <!--<Button
-                Text="Save"
-                Command="{Binding SaveEditCommand}"
-                VerticalOptions="End"
-                HorizontalOptions="FillAndExpand"/>-->
-            <!---
-            <fab:FloatingActionButton
-                Image="ic_add_fab.png"
-                ButtonColor="#399BF1"
-                WidthRequest="80"
-                HeightRequest="90"
-                Command="{Binding SaveEditCommand}"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
-            -->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

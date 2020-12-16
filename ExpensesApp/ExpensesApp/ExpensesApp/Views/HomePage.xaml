@@ -6,155 +6,143 @@
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Home">
     <ContentPage.Content>
-        
-        <RelativeLayout
+
+        <StackLayout
             BindingContext="{Binding Home}">
 
-            <!-- Activity indicator -->
-            <ActivityIndicator
-                IsRunning="{Binding IsRunning}"
-                RelativeLayout.XConstraint="{ConstraintExpression 
-                    Type=RelativeToParent, 
-                    Property=Width, 
-                    Factor=1, 
-                    Constant=-200}"  
-                RelativeLayout.YConstraint="{ConstraintExpression 
-                    Type=RelativeToParent, 
-                    Property=Height, 
-                    Factor=1, 
-                    Constant=-300}"/>
-
-            <Grid BackgroundColor="DarkBlue">
+            <Grid 
+                RowSpacing="{OnPlatform iOS=25,Android=18}">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="150"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Header -->
-                <StackLayout
-                    Grid.Row="0"
-                    HorizontalOptions="CenterAndExpand" 
-                    Orientation="Vertical"
-                    Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-                    <Grid>
-                        <!-- Title -->
-                        <StackLayout
-                            Grid.Column="0"
-                            Margin="30,0,0,0"
-                            HorizontalOptions="Start">
+                <!-- Title -->
+                <StackLayout 
+                    Grid.Row="1" 
+                    HorizontalOptions="Center" 
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
 
-                            <Label
-                                Text="Gastos"
-                                FontAttributes="Bold"
-                                FontSize="30"
-                                TextColor="White"/>
+                    <Label
+                        Text="Historial de gastos"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        FontSize="26"
+                        Margin="0,0,0,5"
+                        WidthRequest="300"
+                        TextColor="{OnPlatform Android=Black}"/>
 
-                        </StackLayout>
-
-                        <!-- Amount -->
-                        <StackLayout
-                            Grid.Column="1"
-                            Margin="0,0,30,0"
-                            HorizontalOptions="End">
-
-                            <Label
-                                FontAttributes="Bold"
-                                FontSize="Title"
-                                Text="{Binding Total,StringFormat='${0:N}'}"
-                                TextColor="White"/>
-
-                            <Label
-                                Text="Total"
-                                FontAttributes="Bold"
-                                FontSize="Small"
-                                TextColor="White"/>
-
-                        </StackLayout>
-                    </Grid>
+                    <Label
+                        Text="{Binding Total,StringFormat='${0:N}'}"
+                        TextColor="Black"
+                        FontSize="15"
+                        WidthRequest="300"/>
 
                 </StackLayout>
 
                 <!-- Data -->
                 <StackLayout
-                    VerticalOptions="Fill"
-                    Orientation="Vertical"
-                    Grid.Row="1">
-                    <Frame
-                        VerticalOptions="Center"
-                        CornerRadius="40"
-                        Padding="0">
-                        <StackLayout>
-                            <ContentView
-                                RelativeLayout.WidthConstraint="{ConstraintExpression 
-                                    Type=RelativeToParent, 
-                                    Property=Width, 
-                                    Factor=1}"
-                                RelativeLayout.HeightConstraint="{ConstraintExpression 
-                                    Type=RelativeToParent, 
-                                    Property=Height, 
-                                    Factor=1}">
-                                <StackLayout
-                                    Margin="20,20">
-                                    <ListView
-                                        ItemsSource="{Binding Expenses}"
-                                        HasUnevenRows="True"
-                                        SeparatorVisibility="Default">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <ViewCell>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="*"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
+                    Grid.Row="2"
+                    HorizontalOptions="CenterAndExpand" 
+                    WidthRequest="{OnPlatform iOS=300,Android=300}" 
+                    Orientation="Vertical">
 
-                                                        <!-- Category name -->
-                                                        <Label
-                                                            Grid.Column="0"
-                                                            HorizontalOptions="StartAndExpand"
-                                                            FontAttributes="Bold"
-                                                            FontSize="Medium"
-                                                            Text="{Binding Category.Name}"/>
+                    <!-- Activity indicator -->
+                    <ActivityIndicator
+                        IsRunning="{Binding IsRunning}"
+                        RelativeLayout.XConstraint="{ConstraintExpression 
+                            Type=RelativeToParent, 
+                            Property=Width, 
+                            Factor=1, 
+                            Constant=-200}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression 
+                            Type=RelativeToParent, 
+                            Property=Height, 
+                            Factor=1, 
+                            Constant=-300}"/>
 
-                                                        <!-- Amount-->
-                                                        <Label
-                                                            Grid.Column="1"
-                                                            HorizontalOptions="EndAndExpand"
-                                                            FontAttributes="Bold"
-                                                            FontSize="Medium"
-                                                            Text="{Binding Total}"/>
-                                                    </Grid>
-                                                </ViewCell>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
-                                </StackLayout>
-                            </ContentView>
-                        </StackLayout>
-                    </Frame>
+                    <ContentView
+                        RelativeLayout.WidthConstraint="{ConstraintExpression 
+                            Type=RelativeToParent, 
+                            Property=Width, 
+                            Factor=1}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression 
+                            Type=RelativeToParent, 
+                            Property=Height, 
+                            Factor=1}">
+
+                        <ScrollView>
+
+                            <ListView
+                                ItemsSource="{Binding Expenses}"
+                                HasUnevenRows="True"
+                                SeparatorVisibility="Default">
+
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Category name -->
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    FontAttributes="Bold"
+                                                    FontSize="Medium"
+                                                    Text="{Binding Category.Name}"/>
+
+                                                <!-- Amount-->
+                                                <Label
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="EndAndExpand"
+                                                    FontAttributes="Bold"
+                                                    FontSize="Medium"
+                                                    Text="{Binding Total}"/>
+                                            </Grid>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                        </ScrollView>
+
+                    </ContentView>
+
                 </StackLayout>
-                
+
+                <!-- Button -->
+                <StackLayout
+                    Grid.Row="3"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Orientation="Vertical" >
+
+                    <Button
+                        Text="Nuevo"
+                        Command="{Binding AddIncomePageCommand}"             
+                        CornerRadius="50"
+                        BorderWidth="1.5"
+                        WidthRequest="300"
+                        HeightRequest="50"
+                        TranslationY="-50"/>
+
+                </StackLayout>
+
             </Grid>
 
-             <!-- Button -->
-            <fab:FloatingActionButton
-                Image="ic_add_fab.png"
-                ButtonColor="#399BF1"
-                WidthRequest="80"
-                HeightRequest="90"
-                Command="{Binding AddIncomePageCommand}"
-                RelativeLayout.XConstraint="{ConstraintExpression 
-                    Type=RelativeToParent, 
-                    Property=Width, 
-                    Factor=1, 
-                    Constant=-100}"  
-                RelativeLayout.YConstraint="{ConstraintExpression 
-                    Type=RelativeToParent, 
-                    Property=Height, 
-                    Factor=1, 
-                    Constant=-100}"/>
-        </RelativeLayout>
+            
+            
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

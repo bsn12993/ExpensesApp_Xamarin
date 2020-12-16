@@ -6,57 +6,117 @@
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Edit Category">
     <ContentPage.Content>
-        <RelativeLayout
-            BindingContext="{Binding CategoryItem}"
-            Margin="5,20,5,20">
-            <ContentView
-                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
-                <StackLayout>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label 
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    Text="Categoria"
-                    FontSize="Medium"
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="FillAndExpand" />
-                        <Entry
-                    Grid.Column="1"
-                    Grid.Row="0"
-                    Text="{Binding Category.Name}"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="FillAndExpand"/>
-                    </Grid>
+        
+        <StackLayout
+            BindingContext="{Binding CategoryItem}">
+
+
+            <Grid
+                RowSpacing="{OnPlatform iOS=25,Android=18}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title -->
+                <StackLayout 
+                    Grid.Row="1" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
+
+                    <Label
+                        Text="Editar categoría"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        FontSize="26"
+                        Margin="10,0,0,5"
+                        WidthRequest="350"
+                        TextColor="{OnPlatform Android=Black}"/>
+
                 </StackLayout>
-            </ContentView>
-            <ActivityIndicator
-                IsRunning="{Binding IsRunning}"
-                VerticalOptions="CenterAndExpand"/>
-            <!--<Button
-                Text="Save"
-                Command="{Binding SaveEditCommand}"
-                VerticalOptions="End"
-                HorizontalOptions="FillAndExpand"/>-->
-            <fab:FloatingActionButton
-                Image="ic_delete_fab.png"
-                ButtonColor="#399BF1"
-                WidthRequest="80"
-                HeightRequest="90"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-180}"/>
-            <fab:FloatingActionButton
-                Image="ic_edit_fab.png"
-                ButtonColor="#399BF1"
-                WidthRequest="80"
-                HeightRequest="90"
-                Command="{Binding SaveEditCommand}"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
-        </RelativeLayout>
+
+                <StackLayout
+                    Grid.Row="2" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
+
+                    <!-- Form -->
+
+                    <!-- Name -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Nombre"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa una categoría"
+                                Keyboard="Text"
+                                MaxLength="25"
+                                Text="{Binding Category.Name}"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                    <!-- Description -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Descripción"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa una decripción"
+                                Keyboard="Text"
+                                MaxLength="25"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+                <Button
+                    Grid.Row="3"
+                    Text="Actualizar"
+                    CornerRadius="20"
+                    Command="{Binding SaveEditCommand}"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    WidthRequest="{OnPlatform iOS=370,Android=370}"/>
+
+            </Grid>
+            
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

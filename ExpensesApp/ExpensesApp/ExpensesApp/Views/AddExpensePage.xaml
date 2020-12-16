@@ -6,66 +6,109 @@
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Add Expense">
     <ContentPage.Content>
-        <RelativeLayout
-            BindingContext="{Binding Expense}"
-            Padding="10,20,10,5">
-            <ContentView
-                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
-                <StackLayout>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    HorizontalOptions="StartAndExpand"
-                    VerticalOptions="Center"
-                    TextColor="Black"
-                    FontSize="Medium"
-                    Text="Gasto"/>
-                        <Entry 
-                    Grid.Column="1"
-                    Grid.Row="0"
-                    Keyboard="Numeric"
-                    Text="{Binding Amount}"
-                    Placeholder="Gasto"/>
-                        <Label
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    HorizontalOptions="StartAndExpand"
-                    VerticalOptions="Center"
-                    TextColor="Black"
-                    FontSize="Medium"
-                    Text="Categoria"/>
-                        <Picker 
-                    Grid.Column="1"
-                    Grid.Row="1"
-                    ItemsSource="{Binding Categories}"
-                    ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding CategoySelected}">
-                        </Picker>
-                    </Grid>
+        
+        <StackLayout
+            BindingContext="{Binding Expense}">
+
+            <Grid
+                RowSpacing="{OnPlatform iOS=25,Android=18}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title -->
+                <StackLayout 
+                    Grid.Row="1" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
+
+                    <Label
+                        Text="Nuevo gasto"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        FontSize="26"
+                        Margin="10,0,0,5"
+                        WidthRequest="350"
+                        TextColor="{OnPlatform Android=Black}"/>
+
                 </StackLayout>
-            </ContentView>
-            <ActivityIndicator
-                VerticalOptions="CenterAndExpand"
-                IsRunning="{Binding IsRunning,Mode=TwoWay}"/>
-            <!--<Button
-                VerticalOptions="End"
-                HorizontalOptions="FillAndExpand"
-                Command="{Binding SaveExpenseCommand}"
-                Text="Save"/>-->
-            <fab:FloatingActionButton
-                Image="ic_add_fab.png"
-                ButtonColor="#399BF1"
-                WidthRequest="80"
-                HeightRequest="90"
-                Command="{Binding SaveExpenseCommand}"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-100}"  
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-100}"/>
-        </RelativeLayout>
+
+                <StackLayout
+                    Grid.Row="2" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
+
+                    <!-- Form -->
+
+                    <!-- Amount -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Nombre"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa un monto"
+                                Keyboard="Text"
+                                MaxLength="25"
+                                Text="{Binding Amount}"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                    <!-- Category -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Categoría"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Picker
+                            ItemsSource="{Binding Categories}"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding CategoySelected}"
+                            FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+                <Button
+                    Grid.Row="3"
+                    Text="Guardar"
+                    CornerRadius="20"
+                    Command="{Binding SaveExpenseCommand}"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    WidthRequest="{OnPlatform iOS=370,Android=370}"/>
+
+            </Grid>
+            
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
