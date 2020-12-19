@@ -1,4 +1,5 @@
-﻿using ExpensesApp.Views;
+﻿using ExpensesApp.Models.Category;
+using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace ExpensesApp.ViewModels
             }
             else if (this.PageName.Equals("AddCategoryPage"))
             {
-                MainViewModel.GetInstance().CategoryItem = new CategoryViewModel(new Models.Category());
+                MainViewModel.GetInstance().CategoryItem = new CategoryViewModel(new CategoryList());
                 App.Navigator.PushAsync(new AddCategoryPage());
             }
             else if (this.PageName.Equals("AddExpensePage"))
@@ -72,7 +73,7 @@ namespace ExpensesApp.ViewModels
                 if (MainViewModel.GetInstance().Expenses == null)
                     MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
                 MainViewModel.GetInstance().Expenses.LoadExpenses();
-                App.Navigator.PushAsync(new ExpensesPage());
+                App.Navigator.PushAsync(new EditExpensesPage());
             }
         }
         #endregion

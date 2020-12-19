@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+             x:Class="ExpensesApp.Views.RegisterPage"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Registro">
+    <ContentPage.Content>
+        
+        <StackLayout
+            BindingContext="{Binding Register}">
+
+            <Grid
+                RowSpacing="{OnPlatform iOS=25,Android=18}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title -->
+                <StackLayout 
+                    Grid.Row="1" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
+
+                    <Label
+                        Text="Registrar"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        FontSize="26"
+                        Margin="10,0,0,5"
+                        WidthRequest="350"
+                        TextColor="{OnPlatform Android=Black}"/>
+
+                </StackLayout>
+
+                <StackLayout
+                    Grid.Row="2" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10">
+
+                    <!-- Nombre -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Nombre"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa un nombre"
+                                Keyboard="Text"
+                                MaxLength="25"
+                                Text="{Binding Name,Mode=TwoWay}"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                    <!-- Last Name -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Apellidos"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa apellidos"
+                                Keyboard="Text"
+                                MaxLength="25"
+                                Text="{Binding LastName,Mode=TwoWay}"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                    <!-- Username -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Username"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa apellidos"
+                                Keyboard="Text"
+                                MaxLength="25"
+                                Text="{Binding User,Mode=TwoWay}"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                    <!-- Password -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Contraseña"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa una contraseña"
+                                Keyboard="Text"
+                                MaxLength="25"
+                                Text="{Binding Password,Mode=TwoWay}"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                    <!-- Email -->
+                    <StackLayout 
+                        HorizontalOptions="Center" 
+                        WidthRequest="{OnPlatform iOS=370,Android=370}" 
+                        Orientation="Vertical">
+
+                        <Label
+                            Text="Correo"
+                            FontSize="{OnPlatform Android=13}"
+                            TextColor="Black"/>
+
+                        <Frame
+                            HasShadow="{OnPlatform Android=true,iOS=false}"
+                            Padding="{OnPlatform Android=8,iOS=0}"
+                            CornerRadius="{OnPlatform Android=7}">
+
+                            <Entry
+                                Placeholder="Ingresa un correo"
+                                Keyboard="Email"
+                                MaxLength="25"
+                                Text="{Binding Email,Mode=TwoWay}"
+                                FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+                <!-- Button -->
+                <Button
+                    Grid.Row="3"
+                    Text="Guardar"
+                    CornerRadius="20"
+                    TextColor="White"
+                    BackgroundColor="#EE5215"
+                    BorderColor="#EE5215"
+                    Command="{Binding SaveUserCommand}"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    WidthRequest="{OnPlatform iOS=370,Android=370}"/>
+
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

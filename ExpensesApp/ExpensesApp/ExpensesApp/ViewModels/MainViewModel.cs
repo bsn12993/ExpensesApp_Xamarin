@@ -1,11 +1,7 @@
 ﻿using ExpensesApp.Models;
-using ExpensesApp.Services;
-using System;
-using System.Collections.Generic;
+using ExpensesApp.Models.Category;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExpensesApp.ViewModels
 {
@@ -15,7 +11,7 @@ namespace ExpensesApp.ViewModels
         public LoginViewModel Login { get; set; }
         public RegisterViewModel Register { get; set; }
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
-        public ObservableCollection<Category> Categories { get; set; }
+        public ObservableCollection<CategoryList> Categories { get; set; }
         public CategoryViewModel CategoryItem { get; set; }
         public HomeViewModel Home { get; set; }
         public ExpenseDetailViewModel ExpenseDetail { get; set; }
@@ -26,7 +22,7 @@ namespace ExpensesApp.ViewModels
         public ProfileViewModel Profile { get; set; }
         public HistoryExpensesViewModel HistoryExpenses { get; set; }
         public HistoryIncomesViewModel HistoryIncomes { get; set; }
-        public User GetUser
+        public FindUser GetUser
         {
             get { return this.getUser; }
             set
@@ -40,7 +36,7 @@ namespace ExpensesApp.ViewModels
         }
         #endregion
 
-        private User getUser;
+        private FindUser getUser;
 
         #region Singleton
         private static MainViewModel instance;
