@@ -1,9 +1,6 @@
 ﻿using ExpensesApp.Models.Category;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 

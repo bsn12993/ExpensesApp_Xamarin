@@ -1,12 +1,7 @@
 ﻿using ExpensesApp.Models;
-using ExpensesApp.Services;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
@@ -103,6 +98,19 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+
+        public string Image
+        {
+            get { return this.image; }
+            set
+            {
+                if (this.image != value)
+                {
+                    this.image = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Image)));
+                }
+            }
+        }
         #endregion
 
         #region Attributes
@@ -113,12 +121,14 @@ namespace ExpensesApp.ViewModels
         private string password;
         private bool isRunning;
         private bool isVisible;
+        private string image;
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Constructor
         public ProfileViewModel()
         {
+            this.Image = "profile.png";
         }
 
         public ProfileViewModel(FindUser user)
@@ -127,6 +137,7 @@ namespace ExpensesApp.ViewModels
             this.Email = user.Email;
             this.Name = user.Name;
             this.LastName = user.LastName;
+            this.Image = "profile.png";
         }
 
         #endregion

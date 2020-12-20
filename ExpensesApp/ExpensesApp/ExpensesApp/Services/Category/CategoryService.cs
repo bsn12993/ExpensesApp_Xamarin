@@ -1,6 +1,6 @@
 ﻿namespace ExpensesApp.Services.Category
 {
-    public class CategoryService
+    public class CategoryService 
     {
     }
 }

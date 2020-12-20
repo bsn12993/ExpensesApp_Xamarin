@@ -1,15 +1,7 @@
-﻿using ExpensesApp.Helpers;
-using ExpensesApp.Models;
-using ExpensesApp.Services;
+﻿using ExpensesApp.Models;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 

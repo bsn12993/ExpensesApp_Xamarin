@@ -1,14 +1,8 @@
-﻿using ExpensesApp.Models;
-using ExpensesApp.Models.Category;
-using ExpensesApp.Services;
+﻿using ExpensesApp.Models.Category;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {

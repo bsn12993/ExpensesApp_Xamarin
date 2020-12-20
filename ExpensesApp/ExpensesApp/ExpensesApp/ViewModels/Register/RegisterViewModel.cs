@@ -1,12 +1,6 @@
-﻿using ExpensesApp.Models;
-using ExpensesApp.Services;
-using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
+﻿using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
@@ -116,6 +110,10 @@ namespace ExpensesApp.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
+
+        public RegisterViewModel()
+        {
+        }
 
         #region Commands
         public ICommand SaveUserCommand
