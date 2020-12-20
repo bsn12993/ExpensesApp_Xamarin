@@ -6,7 +6,7 @@
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Profile">
     <ContentPage.Content>
-        <StackLayout
+        <ScrollView
             BindingContext="{Binding Profile}">
 
             <Grid
@@ -14,6 +14,7 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -45,19 +46,58 @@
                 <!-- Image -->
                 <PanCake:PancakeView 
                     Grid.Row="2"
-                    CornerRadius="20" 
+                    CornerRadius="100" 
                     IsClippedToBounds="true" 
                     HorizontalOptions="Center" 
-                    HeightRequest="{OnPlatform iOS='220', Android='200'}" 
-                    Margin="20,10,20,0">
+                    HeightRequest="{OnPlatform iOS='120', Android='100'}"
+                    WidthRequest="{OnPlatform iOS='120', Android='100'}">
 
                     <Image Source="{Binding Image}" Aspect="AspectFill"/>
 
                 </PanCake:PancakeView>
 
+                <StackLayout
+                    Grid.Row="3">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Button 
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            CornerRadius="20"
+                            TextColor="White"
+                            BackgroundColor="#EE5215"
+                            BorderColor="#EE5215"
+                            Text="Tomar foto"
+                            Margin="30,0,30,0"
+                            Command="{Binding TakePhotoCommand}"/>
+
+                        <Button 
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            CornerRadius="20"
+                            TextColor="White"
+                            BackgroundColor="#EE5215"
+                            BorderColor="#EE5215"
+                            Text="Elegir foto"
+                            Margin="30,0,30,0"
+                            Command="{Binding ChoosePhotoCommand}"/>
+
+                    </Grid>
+
+                </StackLayout>
+
                 <!--Data -->
                 <StackLayout
-                    Grid.Row="3" 
+                    Grid.Row="4" 
                     HorizontalOptions="Center" 
                     VerticalOptions="Start"
                     Orientation="Vertical" 
@@ -177,7 +217,7 @@
 
                 <!-- Button -->
                 <Button
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Text="Actualizar"
                     CornerRadius="20"
                     TextColor="White"
@@ -190,6 +230,6 @@
 
             </Grid>
 
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

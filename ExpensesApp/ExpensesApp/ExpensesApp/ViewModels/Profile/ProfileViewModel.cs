@@ -1,12 +1,19 @@
-﻿using ExpensesApp.Models;
+﻿using ExpensesApp.Helpers;
+using ExpensesApp.Models;
 using GalaSoft.MvvmLight.Command;
+using Plugin.Media;
+using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
+using ImageSource = Xamarin.Forms.ImageSource;
 
 namespace ExpensesApp.ViewModels
 {
     public class ProfileViewModel : INotifyPropertyChanged
     {
+        private CameraHelper CameraHelper;
         #region Properties
         public string Name
         {
@@ -99,7 +106,7 @@ namespace ExpensesApp.ViewModels
             }
         }
 
-        public string Image
+        public ImageSource Image
         {
             get { return this.image; }
             set
@@ -121,7 +128,7 @@ namespace ExpensesApp.ViewModels
         private string password;
         private bool isRunning;
         private bool isVisible;
-        private string image;
+        private ImageSource image;
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
@@ -138,6 +145,7 @@ namespace ExpensesApp.ViewModels
             this.Name = user.Name;
             this.LastName = user.LastName;
             this.Image = "profile.png";
+            CameraHelper = new CameraHelper();
         }
 
         #endregion
@@ -145,6 +153,34 @@ namespace ExpensesApp.ViewModels
         public ICommand UpdateUserCommand
         {
             get { return new RelayCommand(UpdateUser); }
+        }
+
+        public ICommand TakePhotoCommand
+        {
+            get { return new RelayCommand(TakePhotoMethod); }
+        }
+
+        public ICommand ChoosePhotoCommand
+        {
+            get { return new RelayCommand(ChoosePhotoMethod); }
+        }
+
+        private async void ChoosePhotoMethod()
+        {
+            var file = await CameraHelper.ChoosePhoto();
+            if (file != null)
+            {
+                Image = ImageSource.FromStream(() => file.GetStream());
+            }
+        }
+
+        private async void TakePhotoMethod()
+        {
+            var file = await CameraHelper.TakePhoto();
+            if (file != null)
+            {
+                Image = ImageSource.FromStream(() => file.GetStream());
+            }
         }
 
         private async void UpdateUser()
@@ -193,5 +229,7 @@ namespace ExpensesApp.ViewModels
             this.Password = MainViewModel.GetInstance().GetUser.Password;
             */
         }
+
+         
     }
 }
