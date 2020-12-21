@@ -12,39 +12,39 @@ namespace ExpensesApp.ViewModels
         #region Properties
         public string User
         {
-            get { return this.user; }
+            get { return user; }
             set
             {
-                if (this.user != value)
+                if (user != value)
                 {
-                    this.user = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.User)));
+                    user = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(User)));
                 }
                 
             }
         }
         public string Pass
         {
-            get { return this.pass; }
+            get { return pass; }
             set
             {
-                if (this.pass != value)
+                if (pass != value)
                 {
-                    this.pass = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Pass)));
+                    pass = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pass)));
                 }
             }
         }
 
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }
@@ -124,7 +124,8 @@ namespace ExpensesApp.ViewModels
                 Id = 1,
                 Name = "App",
                 LastName = "app",
-                Email = "bryansilverio12@gmail.com"
+                Email = "bryansilverio12@gmail.com",
+                Image = "profile.png"
             };
             MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
 

@@ -17,104 +17,104 @@ namespace ExpensesApp.ViewModels
         #region Properties
         public string Name
         {
-            get { return this.name; }
+            get { return name; }
             set
             {
-                if (this.name != value)
+                if (name != value)
                 {
-                    this.name = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Name)));
+                    name = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
                 }
             }
         }
 
         public string LastName
         {
-            get { return this.lastName; }
+            get { return lastName; }
             set
             {
-                if (this.lastName != value)
+                if (lastName != value)
                 {
-                    this.lastName = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.LastName)));
+                    lastName = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LastName)));
                 }
             }
         }
 
         public string User
         {
-            get { return this.user; }
+            get { return user; }
             set
             {
-                if (this.user != value)
+                if (user != value)
                 {
-                    this.user = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.User)));
+                    user = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(User)));
                 }
             }
         }
 
         public string Password
         {
-            get { return this.password; }
+            get { return password; }
             set
             {
-                if (this.password != value)
+                if (password != value)
                 {
-                    this.password = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Password)));
+                    password = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Password)));
                 }
             }
         }
 
         public string Email
         {
-            get { return this.email; }
+            get { return email; }
             set
             {
-                if (this.email != value)
+                if (email != value)
                 {
-                    this.email = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Email)));
+                    email = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Email)));
                 }
             }
         }
 
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }
 
         public bool IsVisible
         {
-            get { return this.isVisible; }
+            get { return isVisible; }
             set
             {
-                if (this.isVisible != value)
+                if (isVisible != value)
                 {
-                    this.isVisible = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsVisible)));
+                    isVisible = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible)));
                 }
             }
         }
 
         public ImageSource Image
         {
-            get { return this.image; }
+            get { return image; }
             set
             {
-                if (this.image != value)
+                if (image != value)
                 {
-                    this.image = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Image)));
+                    image = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Image)));
                 }
             }
         }
@@ -135,7 +135,7 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public ProfileViewModel()
         {
-            this.Image = "profile.png";
+            Image = "profile.png";
         }
 
         public ProfileViewModel(FindUser user)

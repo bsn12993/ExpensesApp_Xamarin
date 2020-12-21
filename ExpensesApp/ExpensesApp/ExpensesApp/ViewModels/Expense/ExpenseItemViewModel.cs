@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
 {
-    public class ExpenseItemViewModel : ExpenseList
+    public class ExpenseItemViewModel : ExpenseItem
     {
         #region Properties
         public ICommand SelectExpenseCommand

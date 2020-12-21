@@ -1,6 +1,6 @@
 ﻿namespace ExpensesApp.Models.Expense
 {
-    public class ExpenseList
+    public class ExpenseItem
     {
         public int Id { get; set; }
         public string Date { get; set; }

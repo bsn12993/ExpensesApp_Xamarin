@@ -1,10 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ExpensesApp.Services.User
+﻿namespace ExpensesApp.Services.User
 {
-    class UserService
+    public class UserService
     {
+        #region Constructor
+        private UserService()
+        {
+
+        }
+        #endregion
+
+        #region Attributes
+        private UserService instance;
+        #endregion
+
+        #region Methods
+        public UserService GetInstance()
+        {
+            if (instance == null) instance = new UserService();
+            return instance;
+        }
+        #endregion
     }
 }

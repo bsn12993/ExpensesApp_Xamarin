@@ -1,8 +1,10 @@
-﻿using ExpensesApp.Views;
+﻿using ExpensesApp.Services.Expense;
+using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
@@ -12,37 +14,37 @@ namespace ExpensesApp.ViewModels
         #region Properties
         public ObservableCollection<ExpenseItemViewModel> Expenses
         {
-            get { return this.expenses; }
+            get { return expenses; }
             set
             {
-                if (this.expenses != value)
+                if (expenses != value)
                 {
-                    this.expenses = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Expenses)));
+                    expenses = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Expenses)));
                 }
             }
         }
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }
         public string NoData
         {
-            get { return this.noData; }
+            get { return noData; }
             set
             {
-                if (this.noData != value)
+                if (noData != value)
                 {
-                    this.noData = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.NoData)));
+                    noData = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NoData)));
                 }
             }
         }
@@ -74,47 +76,18 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Methods
-        public async void LoadExpenses()
+        public void LoadExpenses()
         {
-            /*
-            this.IsRunning = true;
-            this.Expenses = new ObservableCollection<ExpenseItemViewModel>();
-            this.Expenses.Clear();
-            var connection = await ApiServices.GetInstance().CheckConnection();
-            if (!connection.IsSuccess)
+            var expenses = ExpenseService.GetInstance().FindAll();
+            var expenses_aux = expenses.Select(x => new ExpenseItemViewModel
             {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
-                return;
-            }
-
-            var expenses = await ApiServices.GetInstance().GetList<ExpenseItemViewModel>($"api/expenses/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
-            if (!expenses.IsSuccess)
-            {
-                this.IsRunning = false;
-                return;
-            }
-
-            this.IsRunning = false;
-            var lstExpenses = ((List<ExpenseItemViewModel>)expenses.Result).Select(x => new ExpenseItemViewModel
-            {
+                Id = x.Id,
                 Amount = x.Amount,
-                Date = x.Date.Split('T')[0],
-                Category = x.Category
+                Category = x.Category,
+                Date = x.Date,
+                Description = x.Description
             });
-            this.Expenses = new ObservableCollection<ExpenseItemViewModel>(lstExpenses);
-            this.NoData = (this.Expenses.Count == 0) ? "No data" : "";
-            */
-            this.Expenses = new ObservableCollection<ExpenseItemViewModel>();
-            for (var i = 1; i <= 20; i++)
-            {
-                this.Expenses.Add(new ExpenseItemViewModel
-                {
-                    Amount = i,
-                    Date = DateTime.Now.ToShortDateString(),
-                    Category = "Transporte"
-                });
-            }
+            Expenses = new ObservableCollection<ExpenseItemViewModel>(expenses_aux);
         }
 
         private void AddExpense()

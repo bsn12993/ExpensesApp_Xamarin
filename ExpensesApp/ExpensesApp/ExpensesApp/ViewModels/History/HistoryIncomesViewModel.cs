@@ -10,39 +10,39 @@ namespace ExpensesApp.ViewModels
         #region Properties
         public ObservableCollection<Income> Incomes
         {
-            get { return this.incomes; }
+            get { return incomes; }
             set
             {
-                if (this.incomes != value)
+                if (incomes != value)
                 {
-                    this.incomes = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Incomes)));
+                    incomes = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Incomes)));
                 }
             }
         }
 
         public decimal Total
         {
-            get { return this.total; }
+            get { return total; }
             set
             {
-                if (this.total != value)
+                if (total != value)
                 {
-                    this.total = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Total)));
+                    total = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
                 }
             }
         }
 
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }

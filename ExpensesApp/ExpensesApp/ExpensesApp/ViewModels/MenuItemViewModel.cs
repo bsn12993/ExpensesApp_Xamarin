@@ -39,7 +39,7 @@ namespace ExpensesApp.ViewModels
             }
             else if (this.PageName.Equals("AddCategoryPage"))
             {
-                MainViewModel.GetInstance().CategoryItem = new CategoryViewModel(new CategoryList());
+                MainViewModel.GetInstance().CategoryItem = new CategoryViewModel(new CategoryItem());
                 App.Navigator.PushAsync(new AddCategoryPage());
             }
             else if (this.PageName.Equals("AddExpensePage"))

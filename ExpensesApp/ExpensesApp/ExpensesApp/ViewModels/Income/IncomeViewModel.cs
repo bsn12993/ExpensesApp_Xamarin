@@ -9,26 +9,26 @@ namespace ExpensesApp.ViewModels
         #region Properties
         public string Income
         {
-            get { return this.income; }
+            get { return income; }
             set
             {
-                if (this.income != value)
+                if (income != value)
                 {
-                    this.income = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Income)));
+                    income = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Income)));
                 }
             }
         }
         
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }

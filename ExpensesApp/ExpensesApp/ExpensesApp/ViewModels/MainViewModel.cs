@@ -11,7 +11,7 @@ namespace ExpensesApp.ViewModels
         public LoginViewModel Login { get; set; }
         public RegisterViewModel Register { get; set; }
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
-        public ObservableCollection<CategoryList> Categories { get; set; }
+        public ObservableCollection<CategoryItem> Categories { get; set; }
         public CategoryViewModel CategoryItem { get; set; }
         public HomeViewModel Home { get; set; }
         public ExpenseDetailViewModel ExpenseDetail { get; set; }
@@ -24,13 +24,13 @@ namespace ExpensesApp.ViewModels
         public HistoryIncomesViewModel HistoryIncomes { get; set; }
         public FindUser GetUser
         {
-            get { return this.getUser; }
+            get { return getUser; }
             set
             {
-                if (this.getUser != value)
+                if (getUser != value)
                 {
-                    this.getUser = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.GetUser)));
+                    getUser = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetUser)));
                 }
             }
         }

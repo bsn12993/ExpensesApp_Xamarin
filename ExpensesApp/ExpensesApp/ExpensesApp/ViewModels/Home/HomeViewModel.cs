@@ -10,48 +10,48 @@ namespace ExpensesApp.ViewModels
     public class HomeViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public ObservableCollection<ExpenseList> Expenses
+        public ObservableCollection<ExpenseItem> Expenses
         {
-            get { return this.expenses; }
+            get { return expenses; }
             set
             {
-                if (this.expenses != value)
+                if (expenses != value)
                 {
-                    this.expenses = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Expenses)));
+                    expenses = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Expenses)));
                 }
             }
         }
 
         public string Total
         {
-            get { return this.total; }
+            get { return total; }
             set
             {
-                if (this.total != value)
+                if (total != value)
                 {
-                    this.total = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Total)));
+                    total = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
                 }
             }
         }
 
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }
         #endregion
 
         #region Attributes
-        private ObservableCollection<ExpenseList> expenses;
+        private ObservableCollection<ExpenseItem> expenses;
         private string total;
         private bool isRunning;
         #endregion
@@ -123,10 +123,10 @@ namespace ExpensesApp.ViewModels
                 }
             }
             */
-            this.Expenses = new ObservableCollection<ExpenseList>();
+            this.Expenses = new ObservableCollection<ExpenseItem>();
             for (int i = 1; i <= 10; i++)
             {
-                this.Expenses.Add(new ExpenseList
+                this.Expenses.Add(new ExpenseItem
                 {
                     Category = $"Cat {i}",
                     Amount = 11M

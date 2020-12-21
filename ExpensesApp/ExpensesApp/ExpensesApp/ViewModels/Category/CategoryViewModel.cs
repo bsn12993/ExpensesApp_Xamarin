@@ -8,47 +8,47 @@ namespace ExpensesApp.ViewModels
     public class CategoryViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public CategoryList Category
+        public CategoryItem Category
         {
-            get { return this.category; }
+            get { return category; }
             set
             {
-                if (this.category != value)
+                if (category != value)
                 {
-                    this.category = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Category)));
+                    category = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Category)));
                 }
             }
         }
 
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }
         #endregion
 
         #region Constructor
-        public CategoryViewModel(CategoryList category)
+        public CategoryViewModel(CategoryItem category)
         {
-            this.Category = category;
+            Category = category;
         }
 
         public CategoryViewModel()
         {
-            this.Category = new CategoryList();
+            Category = new CategoryItem();
         }
         #endregion
 
         #region Attributes
-        private CategoryList category;
+        private CategoryItem category;
         private bool isRunning;
         #endregion
 

@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
 {
-    public class CategoryItemViewModel : CategoryList
+    public class CategoryItemViewModel : CategoryItem
     {
         #region Properties
         public ICommand SelectCategoryCommand
@@ -17,7 +17,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         private void SelectCategory()
         {
-            CategoryList category = this;
+            CategoryItem category = this;
             MainViewModel.GetInstance().CategoryItem = new CategoryViewModel(category);
             App.Navigator.PushAsync(new EditCategoryPage());
             //App.Current.MainPage.Navigation.PushAsync(new CategoryPage());

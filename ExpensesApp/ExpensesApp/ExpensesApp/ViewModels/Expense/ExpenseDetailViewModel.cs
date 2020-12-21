@@ -8,39 +8,39 @@ namespace ExpensesApp.ViewModels
         #region Properties
         public string Amount
         {
-            get { return this.amount; }
+            get { return amount; }
             set
             {
-                if (this.amount != value)
+                if (amount != value)
                 {
-                    this.amount = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Amount)));
+                    amount = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Amount)));
                 }
             }
         }
 
         public string Category
         {
-            get { return this.category; }
+            get { return category; }
             set
             {
-                if (this.category != value)
+                if (category != value)
                 {
-                    this.category = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Category)));
+                    category = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Category)));
                 }
             }
         }
 
         public string Date
         {
-            get { return this.date; }
+            get { return date; }
             set
             {
-                if (this.date != value)
+                if (date != value)
                 {
-                    this.date = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Date)));
+                    date = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Date)));
                 }
             }
         }
@@ -58,7 +58,7 @@ namespace ExpensesApp.ViewModels
         {
         }
 
-        public ExpenseDetailViewModel(ExpenseList expense)
+        public ExpenseDetailViewModel(ExpenseItem expense)
         {
             this.Category = expense.Category;
             this.Date = expense.Date;

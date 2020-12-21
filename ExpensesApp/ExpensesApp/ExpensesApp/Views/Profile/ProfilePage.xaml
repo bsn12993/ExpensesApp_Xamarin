@@ -214,7 +214,6 @@
 
                 </StackLayout>
 
-
                 <!-- Button -->
                 <Button
                     Grid.Row="5"

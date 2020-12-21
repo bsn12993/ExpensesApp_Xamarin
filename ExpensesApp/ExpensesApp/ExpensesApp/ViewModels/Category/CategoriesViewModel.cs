@@ -1,5 +1,7 @@
-﻿using ExpensesApp.Views;
+﻿using ExpensesApp.Services.Category;
+using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,26 +15,26 @@ namespace ExpensesApp.ViewModels
         #region Properties
         public ObservableCollection<CategoryItemViewModel> Categories
         {
-            get { return this.categories; }
+            get { return categories; }
             set
             {
-                if (this.categories != value)
+                if (categories != value)
                 {
-                    this.categories = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Categories)));
+                    categories = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Categories)));
                 }
             }
         }
 
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }
@@ -70,41 +72,18 @@ namespace ExpensesApp.ViewModels
             });
         }
 
-        public async void LoadCategories()
+        public void LoadCategories()
         {
-            /*
-            this.IsRunning = true;
-            this.Categories = new ObservableCollection<CategoryItemViewModel>();
-            this.Categories.Clear();
-            var connection = await ApiServices.GetInstance().CheckConnection();
-            if (!connection.IsSuccess)
-            {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
-                return;
-            }
-            var categories = await ApiServices.GetInstance()
-                .GetList<CategoryItemViewModel>($"api/category/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
-            if (!categories.IsSuccess)
-            {
-                this.IsRunning = false;
-                return;
-            }
-
-            this.IsRunning = false;
-            this.Categories = 
-                new ObservableCollection<CategoryItemViewModel>((IEnumerable<CategoryItemViewModel>)categories.Result);
-            */
-            this.Categories = new ObservableCollection<CategoryItemViewModel>();
-            for (int i = 1; i <= 20; i++)
-            {
-                this.Categories.Add(new CategoryItemViewModel
+            var categories = CategoryService.GetInstance().FindAll();
+            var categories_aux = categories
+                .Select(x => new CategoryItemViewModel
                 {
-                    Id = i,
-                    Name = $"Cat {i}",
-                    UserId = 1,
+                    Id = x.Id,
+                    Name = x.Name,
+                    UserId = x.UserId
                 });
-            }
+            Categories =
+           new ObservableCollection<CategoryItemViewModel>(categories_aux);
         }
 
         private void AddCategory()

@@ -1,5 +1,7 @@
 ﻿using ExpensesApp.Models.Category;
+using ExpensesApp.Services.Category;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -11,39 +13,39 @@ namespace ExpensesApp.ViewModels
         #region Properties
         public string Amount
         {
-            get { return this.amount; }
+            get { return amount; }
             set
             {
-                if (this.amount != value)
+                if (amount != value)
                 {
-                    this.amount = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Amount)));
+                    amount = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Amount)));
                 }
             }
         }
 
-        public CategoryList CategoySelected
+        public CategoryItem CategoySelected
         {
-            get { return this.category; }
+            get { return category; }
             set
             {
-                if (this.category != value)
+                if (category != value)
                 {
-                    this.category = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CategoySelected)));
+                    category = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CategoySelected)));
                 }
             }
         }
 
         public bool IsRunning
         {
-            get { return this.isRunning; }
+            get { return isRunning; }
             set
             {
-                if (this.isRunning != value)
+                if (isRunning != value)
                 {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsRunning)));
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
                 }
             }
         }
@@ -51,8 +53,8 @@ namespace ExpensesApp.ViewModels
 
         #region Attributes
         public string amount;
-        public CategoryList category;
-        public ObservableCollection<CategoryList> Categories { get; set; }
+        public CategoryItem category;
+        public ObservableCollection<CategoryItem> Categories { get; set; }
         public bool isRunning;
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
@@ -118,16 +120,10 @@ namespace ExpensesApp.ViewModels
             */
         }
 
-        public async void LoadCategories()
+        public void LoadCategories()
         {
-            /*
-            var category = await ApiServices.GetInstance().GetList<Category>("api/category/all");
-            if (!category.IsSuccess)
-            {
-                return;
-            }
-            this.Categories = new ObservableCollection<Category>((IEnumerable<Category>)category.Result);
-            */
+            var categories = CategoryService.GetInstance().FindAll();
+            Categories = new ObservableCollection<CategoryItem>((IEnumerable<CategoryItem>)categories);
         }
         #endregion
     }
