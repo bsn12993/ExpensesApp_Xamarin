@@ -1,6 +1,7 @@
 ﻿using ExpensesApp.Models.Expense;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ExpensesApp.Services.Expense
 {
@@ -24,21 +25,19 @@ namespace ExpensesApp.Services.Expense
             return instance;
         }
 
-        public List<ExpenseItem> FindAll()
+        public async Task<List<ExpenseItem>> FindAllByUser(int userId)
         {
-            var list = new List<ExpenseItem>();
-            for (int i = 0; i < 15; i++)
+            try
             {
-                list.Add(new ExpenseItem
-                {
-                    Id = i,
-                    Amount = 10,
-                    Category = $"Cateogía {i}",
-                    Date = DateTime.Now.ToString(),
-                    Description = "Descripción"
-                });
+                var response = await ApiService
+                    .GetInstance()
+                    .Get<List<ExpenseItem>>($"api/expenses/history/byuser/{userId}");
+                return response;
             }
-            return list;
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
         #endregion
     }

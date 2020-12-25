@@ -1,4 +1,9 @@
-﻿namespace ExpensesApp.Services.User
+﻿using ExpensesApp.Models;
+using ExpensesApp.Models.User;
+using System;
+using System.Threading.Tasks;
+
+namespace ExpensesApp.Services.User
 {
     public class UserService
     {
@@ -10,14 +15,34 @@
         #endregion
 
         #region Attributes
-        private UserService instance;
+        private static UserService instance;
         #endregion
 
         #region Methods
-        public UserService GetInstance()
+        public static UserService GetInstance()
         {
             if (instance == null) instance = new UserService();
             return instance;
+        }
+
+        public async Task<Response> Login(string email, string password)
+        {
+            try
+            {
+                var login = new LoginUser
+                {
+                    Email = email,
+                    Password = password
+                };
+                var response = await ApiService
+                    .GetInstance()
+                    .Create<LoginUser>($"api/users/validate", login);
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
         #endregion
     }

@@ -1,7 +1,12 @@
-﻿using ExpensesApp.Models.Category;
+﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Models;
+using ExpensesApp.Models.Category;
+using ExpensesApp.Services.Category;
 using GalaSoft.MvvmLight.Command;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
@@ -66,63 +71,66 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void SaveEditCategory()
         {
-            /*
-            this.IsRunning = true;
-            var connection = await ApiServices.GetInstance().CheckConnection();
-            if (!connection.IsSuccess)
+            try
             {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
-                return;
-            }
+                IsRunning = true;
+                //Create
+                if (category.Id == 0)
+                {
+                    var createCategory = new CategoryItem
+                    {
+                        Name = category.Name,
+                        UserId = MainViewModel.GetInstance().GetUser.Id
+                    };
 
-            if (category.Id == 0)
-            {
-                var createCategory = new Category
+                    var response = await CategoryService.GetInstance().Create(createCategory);
+                    if (response.Code != (int)EnumCodeResponse.SUCCESS)
+                    {
+                        IsRunning = false;
+                        await Application.Current.MainPage.DisplayAlert("Advertencia", response.Message, "Aceptar");
+                        return;
+                    }
+                    await Application.Current.MainPage.DisplayAlert("Exito", response.Message, "Aceptar");
+                }
+                //Edit
+                else
                 {
-                    Name = category.Name,
-                    UserId = MainViewModel.GetInstance().GetUser.User_Id
-                };
-                var registerCategory = await ApiServices
-                    .GetInstance()
-                    .PostItem("api/category/create", createCategory);
-                if (!registerCategory.IsSuccess)
-                {
-                    this.IsRunning = false;
-                    return;
+                    var updateCategory = new CategoryItem
+                    {
+                        Id = category.Id,
+                        Name = category.Name,
+                        UserId = MainViewModel.GetInstance().GetUser.Id
+                    };
+
+                    var response = await CategoryService.GetInstance().Update(updateCategory);
+                    if (response.Code != (int)EnumCodeResponse.SUCCESS)
+                    {
+                        IsRunning = false;
+                        await Application.Current.MainPage.DisplayAlert("Advertencia", response.Message, "Aceptar");
+                        return;
+                    }
+                    await Application.Current.MainPage.DisplayAlert("Exito", response.Message, "Aceptar");
                 }
 
-                await Application.Current.MainPage.DisplayAlert("Success", registerCategory.Message, "Ok");
+                IsRunning = false;
+                Category.Name = string.Empty;
+                if (MainViewModel.GetInstance().Category == null)
+                    MainViewModel.GetInstance().Category = new CategoriesViewModel();
+                MainViewModel.GetInstance().Category.LoadCategories();
+                await App.Navigator.PopAsync();
             }
-            else
+            catch (ErrorResponseServerException e)
             {
-                var updateCategory = new Category
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    UserId = MainViewModel.GetInstance().GetUser.User_Id
-                };
-
-                var editCategory = await ApiServices
-                    .GetInstance()
-                    .PutItem($"api/category/update", updateCategory, updateCategory.Id);
-                if (!editCategory.IsSuccess)
-                {
-                    this.IsRunning = false;
-                    await Application.Current.MainPage.DisplayAlert("Error", editCategory.Message, "Ok");
-                    return;
-                }
-                await Application.Current.MainPage.DisplayAlert("Success", editCategory.Message, "Ok");
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
             }
-            */
-            this.IsRunning = false;
-            this.Category.Name = string.Empty;
-            if (MainViewModel.GetInstance().Category == null)
-                MainViewModel.GetInstance().Category = new CategoriesViewModel();
-            MainViewModel.GetInstance().Category.LoadCategories();
-            if (MainViewModel.GetInstance().Expense == null)
-                MainViewModel.GetInstance().Expense = new ExpenseViewModel();
-            MainViewModel.GetInstance().Expense.LoadCategories();
+            catch (WarningResponseServerException e)
+            {
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+            }
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+            }
         }
         #endregion
     }

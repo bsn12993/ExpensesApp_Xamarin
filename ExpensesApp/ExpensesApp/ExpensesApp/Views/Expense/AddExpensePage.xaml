@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="ExpensesApp.Views.AddExpensePage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Add Expense">
@@ -91,7 +90,7 @@
                         <Picker
                             ItemsSource="{Binding Categories}"
                             ItemDisplayBinding="{Binding Name}"
-                            SelectedItem="{Binding CategoySelected}"
+                            SelectedItem="{Binding CategoySelected,Mode=TwoWay}"
                             FontSize="{OnPlatform Android=15,iOS=16}"/>
 
                     </StackLayout>

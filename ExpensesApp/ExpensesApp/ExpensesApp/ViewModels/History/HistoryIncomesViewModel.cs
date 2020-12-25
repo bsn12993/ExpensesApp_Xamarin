@@ -8,7 +8,7 @@ namespace ExpensesApp.ViewModels
     public class HistoryIncomesViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public ObservableCollection<Income> Incomes
+        public ObservableCollection<IncomeItem> Incomes
         {
             get { return incomes; }
             set
@@ -49,7 +49,7 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Attributes
-        private ObservableCollection<Income> incomes;
+        private ObservableCollection<IncomeItem> incomes;
         private decimal total;
         private bool isRunning;
         #endregion
@@ -104,10 +104,10 @@ namespace ExpensesApp.ViewModels
             var totalExpenses = ((List<Expense>)expenses.Result).Sum(x => x.Amount);
             this.Total = this.Incomes.Sum(x => x.Amount) - totalExpenses;
             */
-            this.Incomes = new ObservableCollection<Income>();
+            this.Incomes = new ObservableCollection<IncomeItem>();
             for (var i = 1; i <= 20; i++)
             {
-                this.Incomes.Add(new Income
+                this.Incomes.Add(new IncomeItem
                 {
                     Amount = i,
                     Date = DateTime.Now.ToShortDateString(),

@@ -1,5 +1,8 @@
-﻿using ExpensesApp.Models.Category;
+﻿using ExpensesApp.Models;
+using ExpensesApp.Models.Category;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ExpensesApp.Services.Category
 {
@@ -23,19 +26,49 @@ namespace ExpensesApp.Services.Category
             return instance;
         } 
 
-        public List<CategoryItem> FindAll()
+        public async Task<List<CategoryItem>> FindAllByUser(int userId)
         {
-            var list = new List<CategoryItem>();
-            for(int i = 0; i < 15; i++)
+            try
             {
-                list.Add(new CategoryItem
-                {
-                    Id = i,
-                    Name = $"Categoría {i}",
-                    UserId = i
-                });
+                var response = await ApiService
+                    .GetInstance()
+                    .Get<List<CategoryItem>>($"api/category/byuser/{userId}");
+                return response;
             }
-            return list;
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<Response> Create(CategoryItem categoryItem)
+        {
+            try
+            {
+                var response = await ApiService
+                    .GetInstance()
+                    .Create("api/category/create", categoryItem);
+                return response;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<Response> Update(CategoryItem categoryItem)
+        {
+            try
+            {
+                var response = await ApiService
+                    .GetInstance()
+                    .Update<CategoryItem>("api/category/update", categoryItem, categoryItem.Id);
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
         #endregion
     }

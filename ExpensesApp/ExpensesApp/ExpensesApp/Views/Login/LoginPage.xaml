@@ -71,7 +71,7 @@
                             <Entry
                                 Placeholder="correo@ejemplo.com"
                                 Keyboard="Email"
-                                MaxLength="25"
+                                MaxLength="50"
                                 Text="{Binding User}"
                                 FontSize="{OnPlatform Android=15,iOS=16}"/>
                             

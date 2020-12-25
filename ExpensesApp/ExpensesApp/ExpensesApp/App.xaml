@@ -6,7 +6,10 @@
 	<Application.Resources>
 
         <ResourceDictionary>
-            <app:InstanceLocator x:Key="Locator"/>    
+            <app:InstanceLocator x:Key="Locator"/>
+
+            <x:String x:Key="UrlAPI">http://192.168.42.100:8585/</x:String>
+
         </ResourceDictionary>
         
 	</Application.Resources>

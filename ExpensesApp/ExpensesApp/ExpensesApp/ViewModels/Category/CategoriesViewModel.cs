@@ -1,4 +1,5 @@
-﻿using ExpensesApp.Services.Category;
+﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Services.Category;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -72,26 +73,42 @@ namespace ExpensesApp.ViewModels
             });
         }
 
-        public void LoadCategories()
+        public async void LoadCategories()
         {
-            var categories = CategoryService.GetInstance().FindAll();
-            var categories_aux = categories
-                .Select(x => new CategoryItemViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    UserId = x.UserId
-                });
-            Categories =
-           new ObservableCollection<CategoryItemViewModel>(categories_aux);
+            try
+            {
+                var user = MainViewModel.GetInstance().GetUser;
+                var categories = await CategoryService
+                    .GetInstance()
+                    .FindAllByUser(user.Id);
+
+                var categories_aux = categories
+                    .Select(x => new CategoryItemViewModel
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        UserId = x.UserId
+                    });
+                Categories =
+               new ObservableCollection<CategoryItemViewModel>(categories_aux);
+            }
+            catch(ErrorResponseServerException e)
+            {
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+            }
+            catch(WarningResponseServerException e)
+            {
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+            }
+            catch(Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+            }
         }
 
         private void AddCategory()
         {
-            if (MainViewModel.GetInstance().Expense == null)
-                MainViewModel.GetInstance().Expense = new ExpenseViewModel();
             MainViewModel.GetInstance().CategoryItem = new CategoryViewModel();
-            MainViewModel.GetInstance().Expense.LoadCategories();
             App.Navigator.PushAsync(new AddCategoryPage());
         }
         #endregion

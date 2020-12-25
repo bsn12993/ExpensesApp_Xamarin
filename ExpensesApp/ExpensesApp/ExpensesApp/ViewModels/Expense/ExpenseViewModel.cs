@@ -1,10 +1,10 @@
 ﻿using ExpensesApp.Models.Category;
 using ExpensesApp.Services.Category;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Linq;
 
 namespace ExpensesApp.ViewModels
 {
@@ -120,10 +120,20 @@ namespace ExpensesApp.ViewModels
             */
         }
 
-        public void LoadCategories()
+        public async void LoadCategories()
         {
-            var categories = CategoryService.GetInstance().FindAll();
-            Categories = new ObservableCollection<CategoryItem>((IEnumerable<CategoryItem>)categories);
+            var user = MainViewModel.GetInstance().GetUser;
+            var categories = await CategoryService
+                .GetInstance()
+                .FindAllByUser(user.Id);
+            var categories_aux = categories
+                .Select(x => new CategoryItemViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UserId = x.UserId
+                });
+            Categories = new ObservableCollection<CategoryItem>(categories_aux);
         }
         #endregion
     }

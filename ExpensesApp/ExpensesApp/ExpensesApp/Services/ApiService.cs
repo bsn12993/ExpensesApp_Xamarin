@@ -1,4 +1,5 @@
-﻿using ExpensesApp.Models;
+﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Plugin.Connectivity;
@@ -18,7 +19,8 @@ namespace ExpensesApp.Services
         {
             Timeout = TimeSpan.FromMilliseconds(15000);
             MaxResponseContentBufferSize = 256000;
-            BaseAddress = new Uri("http://192.168.42.100:8585/");
+            var baseURLl = Xamarin.Forms.Application.Current.Resources["UrlAPI"].ToString();
+            BaseAddress = new Uri(baseURLl);
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         #endregion
@@ -34,15 +36,11 @@ namespace ExpensesApp.Services
         #endregion
 
         #region Methods 
-        public async Task<Response> CheckConnection()
+        public async Task<bool> CheckConnection()
         {
             if (!CrossConnectivity.Current.IsConnected)
             {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = "Please turn on your internet settings."
-                };
+                throw new Exception("Please turn on your internet settings.");
             }
 
             //var isReachable = await CrossConnectivity.Current.IsReachable("motzcod.es");
@@ -54,43 +52,35 @@ namespace ExpensesApp.Services
             //        Message = "check you internet connection."
             //    };
             //}
-
-            return new Response
-            {
-                IsSuccess = true,
-                Message = "Ok"
-            };
+            return true;
         }
-        public async Task<Response> List<T>(string url)
+        public async Task<T> Get<T>(string url)
         {
             try
             {
                 var response = await GetAsync(url);
                 var result = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Message = result,
-                        Result = null
-                    };
-                }
-                 
-                var responseData = JsonConvert.DeserializeObject<Response>(result);
-                var data = JsonConvert.DeserializeObject<List<T>>(((JArray)responseData.Result).ToString());
-                responseData.Result = data;
 
-                return responseData;
-            }
-            catch (OperationCanceledException ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                return new Response
+                if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                 {
-                    IsSuccess = false,
-                    Message = ex.Message
-                };
+                    var message = JsonConvert.DeserializeObject<string>(result);
+                    throw new ErrorResponseServerException(message);
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var message = JsonConvert.DeserializeObject<string>(result);
+                    throw new WarningResponseServerException(message);
+                }
+                else
+                {
+                    var data = JsonConvert.DeserializeObject<Response>(result);
+                    var obj = JsonConvert.DeserializeObject<T>(data.Result.ToString());
+                    return obj;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         public async Task<Response> Create<T>(string url,T item)
@@ -101,25 +91,26 @@ namespace ExpensesApp.Services
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 var response = await PostAsync(url, content);
                 var result = await response.Content.ReadAsStringAsync();
-                var responseData = JsonConvert.DeserializeObject<Response>(result);
-                if (!response.IsSuccessStatusCode)
+
+                if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                 {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Result = default(T),
-                        Message = responseData.Message
-                    };
+                    var message = JsonConvert.DeserializeObject<string>(result);
+                    throw new ErrorResponseServerException(message);
+                } 
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var message = JsonConvert.DeserializeObject<string>(result);
+                    throw new WarningResponseServerException(message);
                 }
-                return responseData;
+                else
+                {
+                    var data = JsonConvert.DeserializeObject<Response>(result);
+                    return data;
+                }
             }
             catch (Exception ex)
             {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = ex.Message
-                };
+                throw ex;
             }
         }
         public async Task<Response> Update<T>(string url, T item, int id)
@@ -129,32 +120,27 @@ namespace ExpensesApp.Services
                 var body = JsonConvert.SerializeObject(item);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 var response = await PutAsync($"{url}/{id}", content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Result = default(T)
-                    };
-                }
-
                 var result = await response.Content.ReadAsStringAsync();
-                var list = JsonConvert.DeserializeObject<T>(result);
-                return new Response
+
+                if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                 {
-                    IsSuccess = true,
-                    Message = "Ok",
-                    Result = list
-                };
+                    var message = JsonConvert.DeserializeObject<string>(result);
+                    throw new ErrorResponseServerException(message);
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var message = JsonConvert.DeserializeObject<string>(result);
+                    throw new WarningResponseServerException(message);
+                }
+                else
+                {
+                    var data = JsonConvert.DeserializeObject<Response>(result);
+                    return data;
+                }
             }
             catch (Exception ex)
             {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = ex.Message
-                };
+                throw ex;
             }
         }
         public async Task<Response> Delete<T>(string url, int id)
@@ -162,32 +148,23 @@ namespace ExpensesApp.Services
             try
             {
                 var response = await DeleteAsync($"{url}/{id}");
-
+                var result = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Result = default(T)
-                    };
+                    throw new Exception(result);
                 }
-
-                var result = await response.Content.ReadAsStringAsync();
+                 
                 var list = JsonConvert.DeserializeObject<T>(result);
                 return new Response
                 {
-                    IsSuccess = true,
+                    Code = 0,
                     Message = "Ok",
                     Result = list
                 };
             }
             catch (Exception ex)
             {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = ex.Message
-                };
+                throw ex;
             }
         }
         #endregion

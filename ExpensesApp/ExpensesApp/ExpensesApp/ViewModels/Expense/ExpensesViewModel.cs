@@ -1,4 +1,5 @@
-﻿using ExpensesApp.Services.Expense;
+﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Services.Expense;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -76,18 +77,38 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Methods
-        public void LoadExpenses()
+        public async void LoadExpenses()
         {
-            var expenses = ExpenseService.GetInstance().FindAll();
-            var expenses_aux = expenses.Select(x => new ExpenseItemViewModel
+            try
             {
-                Id = x.Id,
-                Amount = x.Amount,
-                Category = x.Category,
-                Date = x.Date,
-                Description = x.Description
-            });
-            Expenses = new ObservableCollection<ExpenseItemViewModel>(expenses_aux);
+
+                var user = MainViewModel.GetInstance().GetUser;
+                var expenses = await ExpenseService
+                    .GetInstance()
+                    .FindAllByUser(user.Id);
+
+                var expenses_aux = expenses.Select(x => new ExpenseItemViewModel
+                {
+                    Id = x.Id,
+                    Amount = x.Amount,
+                    Category = x.Category,
+                    Date = x.Date,
+                    Description = x.Description
+                });
+                Expenses = new ObservableCollection<ExpenseItemViewModel>(expenses_aux);
+            }
+            catch (ErrorResponseServerException e)
+            {
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+            }
+            catch (WarningResponseServerException e)
+            {
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+            }
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+            } 
         }
 
         private void AddExpense()

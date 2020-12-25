@@ -1,6 +1,10 @@
-﻿using ExpensesApp.Models;
+﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Models;
+using ExpensesApp.Services.User;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -90,66 +94,62 @@ namespace ExpensesApp.ViewModels
         #region Methods
         public async void Login()
         {
-            /*
-            this.IsRunning = true;
-            if(string.IsNullOrEmpty(this.User) || string.IsNullOrEmpty(this.Pass))
+            try
             {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", "login", "Accept");
-                return;
+                IsRunning = true;
+                if(string.IsNullOrEmpty(this.User) || string.IsNullOrEmpty(this.Pass))
+                {
+                    IsRunning = false;
+                    await Application.Current.MainPage.DisplayAlert("Error", "login", "Accept");
+                    return;
+                }
+
+                var validateUser = await UserService.GetInstance().Login(User, Pass);
+                if (validateUser.Code != (int)EnumCodeResponse.SUCCESS)
+                {
+                    IsRunning = false;
+                    await Application.Current.MainPage.DisplayAlert("Error", validateUser.Message, "Ok");
+                    return;
+                }
+            
+                Pass = string.Empty;
+                IsRunning = false;
+
+                var findUser = JsonConvert.DeserializeObject<FindUser>(validateUser.Result.ToString());
+                MainViewModel.GetInstance().GetUser = findUser;
+                /*
+                MainViewModel.GetInstance().GetUser = new FindUser
+                {
+                    Id = 2,
+                    Name = "App",
+                    LastName = "app",
+                    Email = "bryansilverio12@gmail.com",
+                    Image = "profile.png"
+                };
+                */
+                MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
+
+                MainViewModel.GetInstance().Home = new HomeViewModel();
+                MainViewModel.GetInstance().Home.LoadCategories();
+                MainViewModel.GetInstance().Home.LoadTotal();
+
+                Application.Current.MainPage = new MasterPage();
             }
-
-            var connectivity = await ApiServices.GetInstance().CheckConnection();
-            if (!connectivity.IsSuccess)
+            catch (ErrorResponseServerException e)
             {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", "Configura el acceso a internet", "Ok");
-                return;
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
             }
-
-            var validateUser = await ApiServices.GetInstance()
-                .GetItem<User>($"api/users/validate?email={this.User}&password={this.Pass}");
-            if (!validateUser.IsSuccess)
+            catch (WarningResponseServerException e)
             {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", validateUser.Message, "Ok");
-                return;
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
             }
-            */
-
-            this.Pass = string.Empty;
-            this.IsRunning = false;
-            MainViewModel.GetInstance().GetUser = new FindUser
+            catch (Exception e)
             {
-                Id = 1,
-                Name = "App",
-                LastName = "app",
-                Email = "bryansilverio12@gmail.com",
-                Image = "profile.png"
-            };
-            MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
-
-            MainViewModel.GetInstance().Home = new HomeViewModel();
-            MainViewModel.GetInstance().Home.LoadCategories();
-            MainViewModel.GetInstance().Home.LoadTotal();
-
-            //MainViewModel.GetInstance().HistoryExpenses = new HistoryExpensesViewModel();
-            //MainViewModel.GetInstance().HistoryExpenses.LoadExpensesHistory();
-
-            //MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
-            //MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
-
-            //MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
-            //MainViewModel.GetInstance().Expenses.LoadExpenses();
-
-            //MainViewModel.GetInstance().Expense = new ExpenseViewModel();
-            //MainViewModel.GetInstance().Expense.LoadCategories();
-
-            //MainViewModel.GetInstance().Category = new CategoriesViewModel();
-            //MainViewModel.GetInstance().Category.LoadCategories();
-
-            Application.Current.MainPage = new MasterPage();
-
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+            }
         }
 
 

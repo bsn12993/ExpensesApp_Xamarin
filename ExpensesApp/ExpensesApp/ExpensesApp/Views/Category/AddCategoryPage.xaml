@@ -69,7 +69,7 @@
                                 Placeholder="Ingresa una categoría"
                                 Keyboard="Text"
                                 MaxLength="25"
-                                Text="{Binding Category.Name}"
+                                Text="{Binding Category.Name,Mode=TwoWay}"
                                 FontSize="{OnPlatform Android=15,iOS=16}"/>
 
                         </Frame>
@@ -95,7 +95,9 @@
                             <Entry
                                 Placeholder="Ingresa una decripción"
                                 Keyboard="Text"
-                                MaxLength="25"
+                                Text="{Binding Category.Description, Mode=TwoWay}"
+                                MaxLength="250"
+                                HeightRequest="120"
                                 FontSize="{OnPlatform Android=15,iOS=16}"/>
 
                         </Frame>
