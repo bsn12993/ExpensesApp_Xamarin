@@ -136,10 +136,10 @@ namespace ExpensesApp.ViewModels
 
         private void AddIncomePage()
         {
-            if (MainViewModel.GetInstance().HistoryIncomes == null)
-                MainViewModel.GetInstance().HistoryIncomes = new HistoryIncomesViewModel();
-            MainViewModel.GetInstance().HistoryIncomes.LoadIncomesHistory();
-            App.Navigator.PushAsync(new IncomePage());
+            if (MainViewModel.GetInstance().IncomeListViewModel == null)
+                MainViewModel.GetInstance().IncomeListViewModel = new IncomeListViewModel();
+            MainViewModel.GetInstance().IncomeListViewModel.LoadIncomesHistory();
+            App.Navigator.PushAsync(new IncomeListPage());
         }
         #endregion
     }

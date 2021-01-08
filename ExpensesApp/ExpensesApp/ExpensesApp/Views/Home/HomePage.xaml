@@ -8,7 +8,7 @@
     <ContentPage.Content>
 
         <StackLayout
-            BindingContext="{Binding Home}">
+            BindingContext="{Binding HomeViewModel}">
 
             <Grid 
                 RowSpacing="{OnPlatform iOS=25,Android=18}">

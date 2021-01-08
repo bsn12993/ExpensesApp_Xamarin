@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExpensesApp.Views.ExpenseListPage"
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="Expenses">
+    <ContentPage.Content>
+        
+        <StackLayout
+            BindingContext="{Binding ExpenseListViewModel}">
+
+            <!-- Content -->
+            <Grid
+                RowSpacing="{OnPlatform iOS=25,Android=18}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title -->
+                <StackLayout 
+                    Grid.Row="1" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical" 
+                    Margin="0,0,0,10"
+                    WidthRequest="{OnPlatform iOS=370,Android=370}">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="Gastos"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Start"
+                            FontSize="26"
+                            Margin="10,0,0,5"
+                            TextColor="{OnPlatform Android=Black}"/>
+
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Text="Nuevo"
+                            Command="{Binding AddExpenseCommand}"
+                            HorizontalOptions="End"
+                            BackgroundColor="#EE5215"
+                            BorderColor="#EE5215"
+                            TextColor="White"
+                            CornerRadius="50"
+                            BorderWidth="1.5"
+                            Margin="0,0,10,5"/>
+
+                    </Grid>
+
+                </StackLayout>
+
+                <!-- Data -->
+                <StackLayout
+                    Grid.Row="2"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    HeightRequest="{OnPlatform iOS=550,Android=550}"
+                    WidthRequest="{OnPlatform iOS=370,Android=370}">
+
+                    <Frame
+                        VerticalOptions="Center"
+                        CornerRadius="40"
+                        Padding="0">
+
+                        <StackLayout>
+
+                            <ListView
+                                ItemsSource="{Binding Expenses,Mode=TwoWay}"
+                                HasUnevenRows="True"
+                                SeparatorVisibility="Default"
+                                IsPullToRefreshEnabled="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame
+                                                Margin="5,0,5,0">
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                        Command="{Binding SelectExpenseCommand}"/>
+                                            </Frame.GestureRecognizers>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackLayout
+                                                    Grid.Column="0"
+                                                    VerticalOptions="Center">
+                                                    <Label
+                                                        FontAttributes="Bold"
+                                                        FontSize="Small"
+                                                        TextColor="Black"
+                                                        Text="{Binding Category.Name}"/>
+                                                    <Label
+                                                        Text="{Binding Date}"
+                                                        TextColor="Black"/>
+                                                    <Label
+                                                        FontAttributes="Bold"
+                                                        Text="{Binding Amount,StringFormat='${0:N}'}"
+                                                        TextColor="Black"/>
+                                                </StackLayout>
+                                                <Image
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="End"
+                                                    Source="ic_chev"/>
+                                                </Grid>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+
+                    </Frame>
+
+                </StackLayout>
+
+                <!-- Activity indicator -->
+                <StackLayout 
+                    Grid.Row="3" 
+                    HorizontalOptions="Center" 
+                    Padding="0">
+
+                    <ActivityIndicator
+                        IsRunning="{Binding IsRunning,Mode=TwoWay}"
+						VerticalOptions="CenterAndExpand"
+                        Color="Black"
+                        Scale="0.8"/>
+
+                </StackLayout>
+
+            </Grid>
+ 
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

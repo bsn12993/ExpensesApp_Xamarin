@@ -30,23 +30,23 @@ namespace ExpensesApp.ViewModels
                 MainViewModel.GetInstance().GetUser = null;
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             }
-            else if (this.PageName.Equals("CategoriesPage")) 
+            else if (this.PageName.Equals("CategoryListPage")) 
             {
-                if(MainViewModel.GetInstance().Category==null)
-                    MainViewModel.GetInstance().Category = new CategoriesViewModel();
-                MainViewModel.GetInstance().Category.LoadCategories();
-                App.Navigator.PushAsync(new CategoriesPage());
+                if(MainViewModel.GetInstance().CategoryListViewModel == null)
+                    MainViewModel.GetInstance().CategoryListViewModel = new CategoryListViewModel();
+                MainViewModel.GetInstance().CategoryListViewModel.LoadCategories();
+                App.Navigator.PushAsync(new CategoryListPage());
             }
             else if (this.PageName.Equals("AddCategoryPage"))
             {
-                MainViewModel.GetInstance().CategoryItem = new CategoryViewModel(new CategoryItem());
+                MainViewModel.GetInstance().CategoryItemViewModel = new CategoryItemViewModel(new CategoryItem());
                 App.Navigator.PushAsync(new AddCategoryPage());
             }
             else if (this.PageName.Equals("AddExpensePage"))
             {
-                if (MainViewModel.GetInstance().Expense == null)
-                    MainViewModel.GetInstance().Expense = new ExpenseViewModel();
-                MainViewModel.GetInstance().Expense.LoadCategories();
+                if (MainViewModel.GetInstance().AddExpenseViewModel == null)
+                    MainViewModel.GetInstance().AddExpenseViewModel = new AddExpenseViewModel();
+                MainViewModel.GetInstance().AddExpenseViewModel.LoadCategories();
                 App.Navigator.PushAsync(new AddExpensePage());
             }
             else if (this.PageName.Equals("HistoryExpensesPage"))
@@ -56,21 +56,21 @@ namespace ExpensesApp.ViewModels
                 MainViewModel.GetInstance().HistoryExpenses.LoadExpensesHistory();
                 App.Navigator.PushAsync(new HistoryExpensesPage());
             }
-            else if (this.PageName.Equals("HistoryIncomesPage"))
+            else if (this.PageName.Equals("IncomeListPage"))
             {
-                App.Navigator.PushAsync(new HistoryIncomesPage());
+                App.Navigator.PushAsync(new IncomeListPage());
             }
             else if (this.PageName.Equals("ProfilePage"))
             {
-                MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
+                MainViewModel.GetInstance().ProfileViewModel = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
                 App.Navigator.PushAsync(new ProfilePage());
             }
-            else if (this.PageName.Equals("ExpensesPage"))
+            else if (this.PageName.Equals("ExpenseListPage"))
             {
-                if (MainViewModel.GetInstance().Expenses == null)
-                    MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
-                MainViewModel.GetInstance().Expenses.LoadExpenses();
-                App.Navigator.PushAsync(new EditExpensesPage());
+                if (MainViewModel.GetInstance().ExpenseListViewModel == null)
+                    MainViewModel.GetInstance().ExpenseListViewModel = new ExpenseListViewModel();
+                MainViewModel.GetInstance().ExpenseListViewModel.LoadExpenses();
+                App.Navigator.PushAsync(new ExpenseListPage());
             }
         }
         #endregion

@@ -6,7 +6,7 @@
              Title="Login">
     <ContentPage.Content>
         <StackLayout
-            BindingContext="{Binding Login}">
+            BindingContext="{Binding LoginViewModel}">
 
             <ScrollView>
 

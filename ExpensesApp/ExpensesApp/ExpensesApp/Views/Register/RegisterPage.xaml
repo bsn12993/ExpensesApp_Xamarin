@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="ExpensesApp.Views.RegisterPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Registro">
     <ContentPage.Content>
         
         <StackLayout
-            BindingContext="{Binding Register}">
+            BindingContext="{Binding RegisterViewModel}">
 
             <Grid
                 RowSpacing="{OnPlatform iOS=25,Android=18}">

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ExpensesApp.ViewModels
 {
-    public class ExpenseViewModel : INotifyPropertyChanged
+    public class AddExpenseViewModel : INotifyPropertyChanged
     {
         #region Properties
         public string Amount
@@ -49,19 +49,33 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
+
+        public ObservableCollection<CategoryItem> Categories
+        {
+            get { return categories; }
+            set
+            {
+                if (categories != value)
+                {
+                    categories = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Categories)));
+                }
+            }
+        }
         #endregion
 
         #region Attributes
-        public string amount;
-        public CategoryItem category;
-        public ObservableCollection<CategoryItem> Categories { get; set; }
-        public bool isRunning;
+        private string amount;
+        private CategoryItem category;
+        private ObservableCollection<CategoryItem> categories { get; set; }
+        private bool isRunning;
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Constructors
-        public ExpenseViewModel()
+        public AddExpenseViewModel()
         {
+            LoadCategories();
         }
         #endregion
 
@@ -127,7 +141,7 @@ namespace ExpensesApp.ViewModels
                 .GetInstance()
                 .FindAllByUser(user.Id);
             var categories_aux = categories
-                .Select(x => new CategoryItemViewModel
+                .Select(x => new CategoryItemSelectedViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,

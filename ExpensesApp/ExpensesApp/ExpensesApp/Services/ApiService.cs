@@ -36,24 +36,6 @@ namespace ExpensesApp.Services
         #endregion
 
         #region Methods 
-        public async Task<bool> CheckConnection()
-        {
-            if (!CrossConnectivity.Current.IsConnected)
-            {
-                throw new Exception("Please turn on your internet settings.");
-            }
-
-            //var isReachable = await CrossConnectivity.Current.IsReachable("motzcod.es");
-            //if (!isReachable)
-            //{
-            //    return new Response
-            //    {
-            //        IsSuccess = false,
-            //        Message = "check you internet connection."
-            //    };
-            //}
-            return true;
-        }
         public async Task<T> Get<T>(string url)
         {
             try

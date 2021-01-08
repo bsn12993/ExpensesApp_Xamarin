@@ -7,7 +7,7 @@
              Title="Profile">
     <ContentPage.Content>
         <ScrollView
-            BindingContext="{Binding Profile}">
+            BindingContext="{Binding ProfileViewModel}">
 
             <Grid
                 RowSpacing="{OnPlatform iOS=25,Android=18}">

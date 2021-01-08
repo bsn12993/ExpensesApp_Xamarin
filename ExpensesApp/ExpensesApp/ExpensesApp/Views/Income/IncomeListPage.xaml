@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
-             x:Class="ExpensesApp.Views.HistoryIncomesPage"
+             x:Class="ExpensesApp.Views.IncomeListPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="History Incomes">
     <ContentPage.Content>
         <StackLayout
-            BindingContext="{Binding HistoryIncomes}">
+            BindingContext="{Binding IncomeListViewModel}">
 
             <Grid
                 RowSpacing="{OnPlatform iOS=25,Android=18}">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
@@ -30,13 +30,39 @@
                     Margin="0,0,0,10"
                     WidthRequest="{OnPlatform iOS=370,Android=370}">
 
-                    <Label
-                        Text="Historial de ingresos"
-                        FontAttributes="Bold"
-                        HorizontalOptions="Start"
-                        FontSize="26"
-                        Margin="10,0,0,5"
-                        TextColor="{OnPlatform Android=Black}"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="Ingresos"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Start"
+                            FontSize="26"
+                            Margin="10,0,0,5"
+                            TextColor="{OnPlatform Android=Black}"/>
+
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Text="Nuevo"
+                            HorizontalOptions="End"
+                            BackgroundColor="#EE5215"
+                            BorderColor="#EE5215"
+                            TextColor="White"
+                            CornerRadius="50"
+                             Command="{Binding AddIncomeCommand}"
+                            BorderWidth="1.5"
+                            Margin="0,0,10,5"/>
+
+                    </Grid>
 
                 </StackLayout>
 
@@ -44,6 +70,7 @@
                     Grid.Row="2"
                     HorizontalOptions="Center" 
                     VerticalOptions="Start"
+                    HeightRequest="{OnPlatform iOS=550,Android=550}"
                     WidthRequest="{OnPlatform iOS=370,Android=370}">
 
                     <Frame
@@ -127,6 +154,20 @@
                         </StackLayout>
 
                     </Frame>
+
+                </StackLayout>
+
+                <!-- Activity indicator -->
+                <StackLayout 
+                    Grid.Row="3" 
+                    HorizontalOptions="Center" 
+                    Padding="0">
+
+                    <ActivityIndicator
+                        IsRunning="{Binding IsRunning,Mode=TwoWay}"
+						VerticalOptions="CenterAndExpand"
+                        Color="Black"
+                        Scale="0.8"/>
 
                 </StackLayout>
 

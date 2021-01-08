@@ -8,20 +8,30 @@ namespace ExpensesApp.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public LoginViewModel Login { get; set; }
-        public RegisterViewModel Register { get; set; }
-        public ObservableCollection<MenuItemViewModel> Menu { get; set; }
-        public ObservableCollection<CategoryItem> Categories { get; set; }
-        public CategoryViewModel CategoryItem { get; set; }
-        public HomeViewModel Home { get; set; }
-        public ExpenseDetailViewModel ExpenseDetail { get; set; }
-        public ExpensesViewModel Expenses { get; set; }
-        public ExpenseViewModel Expense { get; set; }
-        public CategoriesViewModel Category { get; set; }
-        public IncomeViewModel Income { get; set; }
-        public ProfileViewModel Profile { get; set; }
+        public LoginViewModel LoginViewModel { get; set; }
+        public RegisterViewModel RegisterViewModel { get; set; }
+        public ObservableCollection<MenuItemViewModel> MenuItemView { get; set; }
+
+        #region Category
+        public CategoryItemViewModel CategoryItemViewModel { get; set; }
+        public CategoryListViewModel CategoryListViewModel { get; set; }
+        #endregion
+
+        #region Expense
+        public ExpenseDetailViewModel ExpenseDetailViewModel { get; set; }
+        public ExpenseListViewModel ExpenseListViewModel { get; set; }
+        public AddExpenseViewModel AddExpenseViewModel { get; set; }
+        #endregion
+
+        #region Income
+        public AddIncomeViewModel AddIncomeViewModel { get; set; }
+        public IncomeListViewModel IncomeListViewModel { get; set; }
+        #endregion
+
+        public HomeViewModel HomeViewModel { get; set; }
+        public ProfileViewModel ProfileViewModel { get; set; }
         public HistoryExpensesViewModel HistoryExpenses { get; set; }
-        public HistoryIncomesViewModel HistoryIncomes { get; set; }
+         
         public FindUser GetUser
         {
             get { return getUser; }
@@ -54,77 +64,55 @@ namespace ExpensesApp.ViewModels
         public MainViewModel()
         {
             instance = this;
-            Login = new LoginViewModel();
-            Register = new RegisterViewModel();
-            //Expense = new ExpenseViewModel();
-            //Home = new HomeViewModel();
-            //Category = new CategoriesViewModel();
-            //Expense = new ExpenseViewModel();
-            Income = new IncomeViewModel();
-            Profile = new ProfileViewModel();
-            this.LoadMenu();
+            LoginViewModel = new LoginViewModel();
+            RegisterViewModel = new RegisterViewModel();
+            AddIncomeViewModel = new AddIncomeViewModel();
+            ProfileViewModel = new ProfileViewModel();
+            LoadMenu();
         }
         #endregion
 
         #region Methods
         public void LoadMenu()
         {
-            this.Menu = new ObservableCollection<MenuItemViewModel>();
-            this.Menu.Add(new MenuItemViewModel
+            MenuItemView = new ObservableCollection<MenuItemViewModel>();
+            MenuItemView.Add(new MenuItemViewModel
             {
                 Icon = "ic_home",
                 PageName = "HomePage",
                 Title = "Dashboard"
             });
-            this.Menu.Add(new MenuItemViewModel
+            MenuItemView.Add(new MenuItemViewModel
             {
                 Icon = "ic_list",
-                PageName = "ExpensesPage",
+                PageName = "ExpenseListPage",
                 Title = "Gastos"
             });
-            //this.Menu.Add(new MenuItemViewModel
-            //{
-            //    Icon = "ic_add",
-            //    PageName = "IncomePage",
-            //    Title = "Agregar Ingreso"
-            //});
-            //this.Menu.Add(new MenuItemViewModel
-            //{
-            //    Icon = "ic_add",
-            //    PageName = "AddExpensePage",
-            //    Title = "Agregar Gastos"
-            //});
-            this.Menu.Add(new MenuItemViewModel
+            MenuItemView.Add(new MenuItemViewModel
             {
                 Icon = "ic_list",
-                PageName = "CategoriesPage",
+                PageName = "CategoryListPage",
                 Title = "Categorias"
             });
-            //this.Menu.Add(new MenuItemViewModel
-            //{
-            //    Icon = "ic_add",
-            //    PageName = "AddCategoryPage",
-            //    Title = "Agregar Categoria"
-            //});
-            this.Menu.Add(new MenuItemViewModel
+            MenuItemView.Add(new MenuItemViewModel
             {
                 Icon = "ic_history",
                 PageName = "HistoryExpensesPage",
                 Title = "Historial Gastos"
             });
-            this.Menu.Add(new MenuItemViewModel
+            MenuItemView.Add(new MenuItemViewModel
             {
                 Icon = "ic_history",
-                PageName = "HistoryIncomesPage",
-                Title = "Historial Ingresos"
+                PageName = "IncomeListPage",
+                Title = "Ingresos"
             });
-            this.Menu.Add(new MenuItemViewModel
+            MenuItemView.Add(new MenuItemViewModel
             {
                 Icon = "ic_info",
                 PageName = "ProfilePage",
                 Title = "Perfil"
             });
-            this.Menu.Add(new MenuItemViewModel
+            MenuItemView.Add(new MenuItemViewModel
             {
                 Icon = "ic_close",
                 PageName = "LoginPage",

@@ -1,4 +1,5 @@
 ﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Helpers;
 using ExpensesApp.Services.Expense;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
 {
-    public class ExpensesViewModel : INotifyPropertyChanged
+    public class ExpenseListViewModel : INotifyPropertyChanged
     {
         #region Properties
         public ObservableCollection<ExpenseItemViewModel> Expenses
@@ -62,7 +63,7 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Constructor
-        public ExpensesViewModel()
+        public ExpenseListViewModel()
         {
             this.NoData = string.Empty;
             this.LoadExpenses();
@@ -81,12 +82,14 @@ namespace ExpensesApp.ViewModels
         {
             try
             {
+                InternetConnectionHelper.GetInstance().CheckConnection();
 
                 var user = MainViewModel.GetInstance().GetUser;
+                IsRunning = true;
                 var expenses = await ExpenseService
                     .GetInstance()
                     .FindAllByUser(user.Id);
-
+                IsRunning = false;
                 var expenses_aux = expenses.Select(x => new ExpenseItemViewModel
                 {
                     Id = x.Id,
@@ -100,10 +103,17 @@ namespace ExpensesApp.ViewModels
             catch (ErrorResponseServerException e)
             {
                 await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
             }
             catch (WarningResponseServerException e)
             {
                 await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
+            }
+            catch (NoInternetConnectionException e)
+            {
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
             }
             catch (Exception e)
             {
@@ -113,9 +123,9 @@ namespace ExpensesApp.ViewModels
 
         private void AddExpense()
         {
-            if (MainViewModel.GetInstance().Expense == null)
-                MainViewModel.GetInstance().Expense = new ExpenseViewModel();
-            MainViewModel.GetInstance().Expense.LoadCategories();
+            if (MainViewModel.GetInstance().AddExpenseViewModel == null)
+                MainViewModel.GetInstance().AddExpenseViewModel = new AddExpenseViewModel();
+            MainViewModel.GetInstance().AddExpenseViewModel.LoadCategories();
             App.Navigator.PushAsync(new AddExpensePage());
         }
         #endregion

@@ -1,4 +1,5 @@
 ﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Helpers;
 using ExpensesApp.Models;
 using ExpensesApp.Services.User;
 using ExpensesApp.Views;
@@ -64,7 +65,7 @@ namespace ExpensesApp.ViewModels
         public LoginViewModel()
         {
             this.IsRunning = false;
-            this.User = "bryansilverio123@gmail.com";
+            this.User = "app@gmail.com";
             this.Pass = "123456";
         }
         #endregion
@@ -96,6 +97,8 @@ namespace ExpensesApp.ViewModels
         {
             try
             {
+                InternetConnectionHelper.GetInstance().CheckConnection();
+
                 IsRunning = true;
                 if(string.IsNullOrEmpty(this.User) || string.IsNullOrEmpty(this.Pass))
                 {
@@ -117,21 +120,11 @@ namespace ExpensesApp.ViewModels
 
                 var findUser = JsonConvert.DeserializeObject<FindUser>(validateUser.Result.ToString());
                 MainViewModel.GetInstance().GetUser = findUser;
-                /*
-                MainViewModel.GetInstance().GetUser = new FindUser
-                {
-                    Id = 2,
-                    Name = "App",
-                    LastName = "app",
-                    Email = "bryansilverio12@gmail.com",
-                    Image = "profile.png"
-                };
-                */
-                MainViewModel.GetInstance().Profile = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
+                MainViewModel.GetInstance().ProfileViewModel = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
 
-                MainViewModel.GetInstance().Home = new HomeViewModel();
-                MainViewModel.GetInstance().Home.LoadCategories();
-                MainViewModel.GetInstance().Home.LoadTotal();
+                MainViewModel.GetInstance().HomeViewModel = new HomeViewModel();
+                MainViewModel.GetInstance().HomeViewModel.LoadCategories();
+                MainViewModel.GetInstance().HomeViewModel.LoadTotal();
 
                 Application.Current.MainPage = new MasterPage();
             }
@@ -141,6 +134,11 @@ namespace ExpensesApp.ViewModels
                 await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
             }
             catch (WarningResponseServerException e)
+            {
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+            }
+            catch(NoInternetConnectionException e)
             {
                 IsRunning = false;
                 await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");

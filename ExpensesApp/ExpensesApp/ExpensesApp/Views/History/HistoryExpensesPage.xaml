@@ -17,6 +17,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -48,6 +49,7 @@
                     Grid.Row="2"
                     HorizontalOptions="Center" 
                     VerticalOptions="Start"
+                    HeightRequest="{OnPlatform iOS=550,Android=550}"
                     WidthRequest="{OnPlatform iOS=370,Android=370}">
 
                     <Frame
@@ -147,6 +149,20 @@
                         </StackLayout>
 
                     </Frame>
+
+                </StackLayout>
+
+                <!-- Activity indicator -->
+                <StackLayout 
+                    Grid.Row="3" 
+                    HorizontalOptions="Center" 
+                    Padding="0">
+
+                    <ActivityIndicator
+                        IsRunning="{Binding IsRunning,Mode=TwoWay}"
+						VerticalOptions="CenterAndExpand"
+                        Color="Black"
+                        Scale="0.8"/>
 
                 </StackLayout>
 

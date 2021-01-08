@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace ExpensesApp.ViewModels
 {
-    public class HistoryIncomesViewModel : INotifyPropertyChanged
+    public class IncomeListViewModel : INotifyPropertyChanged
     {
         #region Properties
         public ObservableCollection<IncomeItem> Incomes
@@ -55,7 +55,7 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Constructors
-        public HistoryIncomesViewModel()
+        public IncomeListViewModel()
         {
         }
         #endregion

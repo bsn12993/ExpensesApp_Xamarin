@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
 {
-    public class IncomeViewModel : INotifyPropertyChanged
+    public class AddIncomeViewModel : INotifyPropertyChanged
     {
         #region Properties
         public string Income

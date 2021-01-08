@@ -28,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Category\CategoriesPage.xaml.cs">
-      <DependentUpon>CategoriesPage.xaml</DependentUpon>
+    <Compile Update="Views\Category\CategoryListPage.xaml.cs">
+      <DependentUpon>CategoryListPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Category\EditCategoryPage.xaml.cs">
       <DependentUpon>EditCategoryPage.xaml</DependentUpon>
@@ -37,11 +37,17 @@
     <Compile Update="Views\Expense\ExpenseDetailPage.xaml.cs">
       <DependentUpon>ExpenseDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Expense\EditExpensesPage.xaml.cs">
-      <DependentUpon>EditExpensesPage.xaml</DependentUpon>
+    <Compile Update="Views\Expense\ExpenseListPage.xaml.cs">
+      <DependentUpon>ExpenseListPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\History\HistoryExpensesPage.xaml.cs">
       <DependentUpon>HistoryExpensesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Income\AddIncomePage.xaml.cs">
+      <DependentUpon>AddIncomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Income\IncomeListPage.xaml.cs">
+      <DependentUpon>IncomeListPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -52,7 +58,7 @@
     <EmbeddedResource Update="Views\Expense\AddExpensePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Category\CategoriesPage.xaml">
+    <EmbeddedResource Update="Views\Category\CategoryListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Category\EditCategoryPage.xaml">
@@ -61,13 +67,13 @@
     <EmbeddedResource Update="Views\Expense\ExpenseDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Expense\EditExpensesPage.xaml">
+    <EmbeddedResource Update="Views\Expense\ExpenseListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\History\HistoryExpensesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\History\HistoryIncomesPage.xaml">
+    <EmbeddedResource Update="Views\Income\IncomeListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Home\HomePage.xaml">
@@ -76,7 +82,7 @@
     <EmbeddedResource Update="Views\HomeTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Income\IncomePage.xaml">
+    <EmbeddedResource Update="Views\Income\AddIncomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Login\LoginPage.xaml">

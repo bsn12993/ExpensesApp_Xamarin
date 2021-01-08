@@ -1,4 +1,5 @@
 ﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Helpers;
 using ExpensesApp.Services.Category;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
@@ -11,10 +12,10 @@ using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
 {
-    public class CategoriesViewModel : INotifyPropertyChanged
+    public class CategoryListViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public ObservableCollection<CategoryItemViewModel> Categories
+        public ObservableCollection<CategoryItemSelectedViewModel> Categories
         {
             get { return categories; }
             set
@@ -42,7 +43,7 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Attributes
-        private ObservableCollection<CategoryItemViewModel> categories;
+        private ObservableCollection<CategoryItemSelectedViewModel> categories;
         private bool isRunning;
         #endregion
 
@@ -51,7 +52,7 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Constructor
-        public CategoriesViewModel()
+        public CategoryListViewModel()
         {
         }
         #endregion
@@ -64,6 +65,7 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Methods
+        /**
         public IEnumerable<CategoryItemViewModel> ToCategoryItemViewModel()
         {
             return MainViewModel.GetInstance().Categories.Select(c => new CategoryItemViewModel
@@ -72,43 +74,55 @@ namespace ExpensesApp.ViewModels
                 Name = c.Name
             });
         }
+        **/
 
         public async void LoadCategories()
         {
             try
             {
+                InternetConnectionHelper.GetInstance().CheckConnection();
+                IsRunning = true;
                 var user = MainViewModel.GetInstance().GetUser;
                 var categories = await CategoryService
                     .GetInstance()
                     .FindAllByUser(user.Id);
 
                 var categories_aux = categories
-                    .Select(x => new CategoryItemViewModel
+                    .Select(x => new CategoryItemSelectedViewModel
                     {
                         Id = x.Id,
                         Name = x.Name,
                         UserId = x.UserId
                     });
                 Categories =
-               new ObservableCollection<CategoryItemViewModel>(categories_aux);
+                new ObservableCollection<CategoryItemSelectedViewModel>(categories_aux);
+                IsRunning = false;
             }
             catch(ErrorResponseServerException e)
             {
                 await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
             }
             catch(WarningResponseServerException e)
             {
                 await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
             }
-            catch(Exception e)
+            catch (NoInternetConnectionException e)
+            {
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
+            }
+            catch (Exception e)
             {
                 await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+                IsRunning = false;
             }
         }
 
         private void AddCategory()
         {
-            MainViewModel.GetInstance().CategoryItem = new CategoryViewModel();
+            MainViewModel.GetInstance().CategoryItemViewModel = new CategoryItemViewModel();
             App.Navigator.PushAsync(new AddCategoryPage());
         }
         #endregion

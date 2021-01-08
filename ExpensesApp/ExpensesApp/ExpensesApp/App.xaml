@@ -8,7 +8,7 @@
         <ResourceDictionary>
             <app:InstanceLocator x:Key="Locator"/>
 
-            <x:String x:Key="UrlAPI">http://192.168.42.100:8585/</x:String>
+            <x:String x:Key="UrlAPI">http://192.168.0.103:8585/</x:String>
 
         </ResourceDictionary>
         

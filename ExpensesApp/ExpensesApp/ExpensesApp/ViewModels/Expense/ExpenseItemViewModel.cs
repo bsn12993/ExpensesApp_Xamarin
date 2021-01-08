@@ -17,7 +17,7 @@ namespace ExpensesApp.ViewModels
         #region Methods
         private void SelectExpense()
         {
-            MainViewModel.GetInstance().ExpenseDetail = new ExpenseDetailViewModel(this);
+            MainViewModel.GetInstance().ExpenseDetailViewModel = new ExpenseDetailViewModel(this);
             App.Navigator.PushAsync(new ExpenseDetailPage());
         }
         #endregion

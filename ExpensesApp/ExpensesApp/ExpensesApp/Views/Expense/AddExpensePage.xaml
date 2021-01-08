@@ -7,7 +7,7 @@
     <ContentPage.Content>
         
         <StackLayout
-            BindingContext="{Binding Expense}">
+            BindingContext="{Binding AddExpenseViewModel}">
 
             <Grid
                 RowSpacing="{OnPlatform iOS=25,Android=18}">
