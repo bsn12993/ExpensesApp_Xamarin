@@ -83,36 +83,6 @@ namespace ExpensesApp.ViewModels
             });
             MenuItemView.Add(new MenuItemViewModel
             {
-                Icon = "ic_list",
-                PageName = "ExpenseListPage",
-                Title = "Gastos"
-            });
-            MenuItemView.Add(new MenuItemViewModel
-            {
-                Icon = "ic_list",
-                PageName = "CategoryListPage",
-                Title = "Categorias"
-            });
-            MenuItemView.Add(new MenuItemViewModel
-            {
-                Icon = "ic_history",
-                PageName = "HistoryExpensesPage",
-                Title = "Historial Gastos"
-            });
-            MenuItemView.Add(new MenuItemViewModel
-            {
-                Icon = "ic_history",
-                PageName = "IncomeListPage",
-                Title = "Ingresos"
-            });
-            MenuItemView.Add(new MenuItemViewModel
-            {
-                Icon = "ic_info",
-                PageName = "ProfilePage",
-                Title = "Perfil"
-            });
-            MenuItemView.Add(new MenuItemViewModel
-            {
                 Icon = "ic_close",
                 PageName = "LoginPage",
                 Title = "Salir"

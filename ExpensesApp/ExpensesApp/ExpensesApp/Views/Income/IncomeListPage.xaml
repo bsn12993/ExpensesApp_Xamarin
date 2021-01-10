@@ -12,7 +12,7 @@
                 RowSpacing="{OnPlatform iOS=25,Android=18}">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -23,162 +23,118 @@
 
                 <!-- Title -->
                 <StackLayout 
-                    Grid.Row="1" 
+                    Grid.Row="0"
+                    BackgroundColor="#2D2DA0"
                     HorizontalOptions="Center" 
                     VerticalOptions="Start"
                     Orientation="Vertical" 
-                    Margin="0,0,0,10"
-                    WidthRequest="{OnPlatform iOS=370,Android=370}">
+                    Margin="0,0,0,0"
+                    WidthRequest="{OnPlatform iOS=450,Android=450}"
+                    HeightRequest="{OnPlatform iOS=200,Android=200}">
 
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
 
                         <Label
-                            Grid.Row="1"
-                            Grid.Column="1"
+                            Grid.Row="0"
                             Text="Ingresos"
                             FontAttributes="Bold"
-                            HorizontalOptions="Start"
+                            HorizontalOptions="CenterAndExpand"
                             FontSize="26"
-                            Margin="10,0,0,5"
-                            TextColor="{OnPlatform Android=Black}"/>
+                            Margin="0,25,0,0"
+                            TextColor="{OnPlatform Android=White}"/>
+
+                        <Label
+                            Text="{Binding Total,StringFormat='${0:N}'}"
+                            FontSize="Medium"
+                            TextColor="Black"
+                            VerticalOptions="StartAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+
 
                         <Button
                             Grid.Row="1"
-                            Grid.Column="2"
-                            Text="Nuevo"
-                            HorizontalOptions="End"
+                            HorizontalOptions="CenterAndExpand"
                             BackgroundColor="#EE5215"
                             BorderColor="#EE5215"
                             TextColor="White"
-                            CornerRadius="50"
+                            WidthRequest="60"
+                            HeightRequest="60"
+                            CornerRadius="30"
                             Command="{Binding GoToAddIncomePageCommand}"
                             BorderWidth="1.5"
-                            Margin="0,0,10,5"/>
+                            Margin="0,25,0,0"
+                            ImageSource="baseline_add_white_18dp"/>
 
                     </Grid>
 
                 </StackLayout>
 
+                <!-- Data-->
                 <StackLayout
-                    Grid.Row="2"
+                    Grid.Row="1"
+                    TranslationY="-50"
                     HorizontalOptions="Center" 
                     VerticalOptions="Start"
-                    HeightRequest="{OnPlatform iOS=550,Android=550}"
-                    WidthRequest="{OnPlatform iOS=370,Android=370}">
+                    HeightRequest="{OnPlatform iOS=550,Android=550}">
 
-                    <Frame
-                        VerticalOptions="Center"
-                        CornerRadius="40"
-                        Padding="0">
+                    <ListView
+                        Grid.Row="1"
+                        ItemsSource="{Binding Incomes,Mode=TwoWay}"
+                        HasUnevenRows="True"
+                        SeparatorVisibility="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
 
-                        <StackLayout
-                            Margin="5,20">
-                            <Label
-                                Text="{Binding Total,StringFormat='${0:N}'}"
-                                FontSize="Medium"
-                                TextColor="Black"
-                                VerticalOptions="StartAndExpand"
-                                HorizontalOptions="CenterAndExpand"/>
-                            
-                            <Grid>
+                                    <Frame
+                                        Margin="5">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                Command="{Binding GoToEditItemPageCommand}"/>
+                                        </Frame.GestureRecognizers>
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                
-                                <Label
-                                    Grid.Column="0"
-                                    Grid.Row="0"
-                                    Text="Monto"
-                                    FontSize="Medium"
-                                    TextColor="Black"
-                                    VerticalOptions="Start"
-                                    HorizontalOptions="Center"/>
-                                
-                                <Label
-                                    Grid.Column="1"
-                                    Grid.Row="0"
-                                    Text="Fecha"
-                                    FontSize="Medium"
-                                    TextColor="Black"
-                                    VerticalOptions="Start"
-                                    HorizontalOptions="Center"/>
-                                
-                            </Grid>
-                            
-                            <ListView
-                                Grid.Row="1"
-                                ItemsSource="{Binding Incomes,Mode=TwoWay}"
-                                HasUnevenRows="True"
-                                SeparatorVisibility="None">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
+                                            <StackLayout
+                                                Grid.Column="0"
+                                                VerticalOptions="Center">
 
-                                            <Frame
-                                            Margin="5">
-                                                <Frame.GestureRecognizers>
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="Small"
+                                                    TextColor="Black"
+                                                    Text="{Binding Amount,StringFormat='${0:N}'}"/>
 
-                                                    <TapGestureRecognizer 
-                                                    Command="{Binding GoToEditItemPageCommand}"/>
+                                                <Label
+                                                    FontSize="Small"
+                                                    TextColor="Black"
+                                                    Text="{Binding Date}"/>
 
-                                                </Frame.GestureRecognizers>
+                                            </StackLayout>
 
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
+                                            <Image
+                                                Grid.Column="1"
+                                                HorizontalOptions="End"
+                                                Source="ic_chev"/>
+                                        </Grid>
+                                    </Frame>
 
-                                                    <StackLayout
-                                                    Grid.Column="0"
-                                                    VerticalOptions="Center">
-
-                                                        <Label
-                                                            FontAttributes="Bold"
-                                                            FontSize="Small"
-                                                            TextColor="Black"
-                                                            Text="{Binding Amount,StringFormat='${0:N}'}"/>
-
-                                                        <Label
-                                                            FontSize="Small"
-                                                            TextColor="Black"
-                                                            Text="{Binding Date}"/>
-
-                                                    </StackLayout>
-
-                                                    <Image
-                                                    Grid.Column="1"
-                                                    HorizontalOptions="End"
-                                                    Source="ic_chev"/>
-                                                </Grid>
-                                            </Frame>
-
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackLayout>
-
-                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
                 </StackLayout>
 
                 <!-- Activity indicator -->
                 <StackLayout 
-                    Grid.Row="3" 
+                    Grid.Row="2" 
                     HorizontalOptions="Center" 
                     Padding="0">
 

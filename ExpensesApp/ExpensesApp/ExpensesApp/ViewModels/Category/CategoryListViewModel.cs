@@ -80,6 +80,7 @@ namespace ExpensesApp.ViewModels
                     {
                         Id = x.Id,
                         Name = x.Name,
+                        Description = x.Description,
                         UserId = x.UserId
                     });
                 Categories =

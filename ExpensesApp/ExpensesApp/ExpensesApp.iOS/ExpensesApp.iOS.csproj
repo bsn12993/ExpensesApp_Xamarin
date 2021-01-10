@@ -231,4 +231,22 @@
   <ItemGroup>
     <BundleResource Include="Resources\background_profile.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_add_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_attach_money_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_payment_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_person_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_photo_camera_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_photo_library_white_18dp.png" />
+  </ItemGroup>
 </Project>

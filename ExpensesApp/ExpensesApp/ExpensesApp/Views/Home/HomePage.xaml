@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="ExpensesApp.Views.HomePage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Home">
@@ -14,138 +13,298 @@
                 RowSpacing="{OnPlatform iOS=25,Android=18}">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Title -->
+                <!-- Header -->
                 <StackLayout 
-                    Grid.Row="1" 
+                    Grid.Row="0"
+                    BackgroundColor="#2D2DA0"
                     HorizontalOptions="Center" 
-                    Orientation="Vertical" 
-                    Margin="0,0,0,10">
+                    Orientation="Vertical"
+                    WidthRequest="{OnPlatform iOS=450,Android=450}"
+                    HeightRequest="{OnPlatform iOS=200,Android=200}">
 
-                    <Label
-                        Text="Historial de gastos"
-                        FontAttributes="Bold"
-                        HorizontalOptions="Center"
-                        FontSize="26"
-                        Margin="0,0,0,5"
-                        WidthRequest="300"
-                        TextColor="{OnPlatform Android=Black}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                    <Label
-                        Text="{Binding Total,StringFormat='${0:N}'}"
-                        TextColor="Black"
-                        FontSize="15"
-                        WidthRequest="300"/>
+                        <!-- Profile -->
+                        <StackLayout
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="25,50">
+
+                            <Button
+                                WidthRequest="80"
+                                HeightRequest="80"
+                                CornerRadius="40"
+                                BackgroundColor="#EE5215"
+                                BorderColor="#EE5215"
+                                ImageSource="baseline_person_white_18dp"
+                                HorizontalOptions="Center"
+                                Command="{Binding GoToProfilePageCommand}"/>
+
+                            <Label
+                                HorizontalOptions="Center"
+                                TextColor="White"
+                                Text="Perfil"/>
+
+                        </StackLayout>
+
+                        <!-- Income -->
+                        <StackLayout
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="25,50">
+
+                            <Button
+                                WidthRequest="80"
+                                HeightRequest="80"
+                                CornerRadius="40"
+                                BackgroundColor="#EE5215"
+                                BorderColor="#EE5215"
+                                ImageSource="baseline_payment_white_18dp"
+                                HorizontalOptions="Center"
+                                Command="{Binding GoToIncomeListPageCommand}"/>
+
+                            <Label
+                                HorizontalOptions="Center"
+                                TextColor="White"
+                                Text="Ingresos"/>
+
+                        </StackLayout>
+
+                        <!-- Expense -->
+                        <StackLayout
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Margin="25,50">
+
+                            <Button
+                                WidthRequest="80"
+                                HeightRequest="80"
+                                CornerRadius="40"
+                                BackgroundColor="#EE5215"
+                                BorderColor="#EE5215"
+                                ImageSource="baseline_attach_money_white_18dp"
+                                HorizontalOptions="Center"
+                                Command="{Binding GoToExpenseListPageCommand}"/>
+
+                            <Label
+                                HorizontalOptions="Center"
+                                TextColor="White"
+                                Text="Gastos"/>
+
+                        </StackLayout>
+
+                    </Grid>
 
                 </StackLayout>
 
                 <!-- Data -->
                 <StackLayout
-                    Grid.Row="2"
+                    Grid.Row="1"
+                    TranslationY="-50"
                     HorizontalOptions="CenterAndExpand" 
-                    WidthRequest="{OnPlatform iOS=300,Android=300}" 
+                    HeightRequest="{OnPlatform iOS=550,Android=550}" 
+                    WidthRequest="{OnPlatform iOS=450,Android=450}"
                     Orientation="Vertical">
 
-                    <!-- Activity indicator -->
-                    <ActivityIndicator
-                        IsRunning="{Binding IsRunning}"
-                        RelativeLayout.XConstraint="{ConstraintExpression 
-                            Type=RelativeToParent, 
-                            Property=Width, 
-                            Factor=1, 
-                            Constant=-200}"  
-                        RelativeLayout.YConstraint="{ConstraintExpression 
-                            Type=RelativeToParent, 
-                            Property=Height, 
-                            Factor=1, 
-                            Constant=-300}"/>
+                    <Grid
+                        RowSpacing="{OnPlatform iOS=25,Android=18}">
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                    </Grid>
 
-                    <ContentView
-                        RelativeLayout.WidthConstraint="{ConstraintExpression 
-                            Type=RelativeToParent, 
-                            Property=Width, 
-                            Factor=1}"
-                        RelativeLayout.HeightConstraint="{ConstraintExpression 
-                            Type=RelativeToParent, 
-                            Property=Height, 
-                            Factor=1}">
+                    <!-- Income card -->
+                    <Frame
+                        BackgroundColor="White"
+                        HeightRequest="80"
+                        Grid.Row="0">
 
-                        <ScrollView>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                            <ListView
-                                ItemsSource="{Binding Expenses}"
-                                HasUnevenRows="True"
-                                SeparatorVisibility="Default">
+                            <!-- Title -->
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalOptions="Start">
 
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Title"
+                                    FontAttributes="Bold"
+                                    Text="Ingreso"/>
 
-                                                <!-- Category name -->
-                                                <Label
-                                                    Grid.Column="0"
-                                                    HorizontalOptions="StartAndExpand"
-                                                    FontAttributes="Bold"
-                                                    FontSize="Medium"
-                                                    Text="{Binding Category.Name}"/>
+                            </StackLayout>
 
-                                                <!-- Amount-->
-                                                <Label
-                                                    Grid.Column="1"
-                                                    HorizontalOptions="EndAndExpand"
-                                                    FontAttributes="Bold"
-                                                    FontSize="Medium"
-                                                    Text="{Binding Total}"/>
-                                            </Grid>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                            <!-- Subtitle -->
+                            <StackLayout
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalOptions="Start">
 
-                        </ScrollView>
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Small"
+                                    FontAttributes="None"
+                                    Text="Ultimo ingreso realizado"/>
+                            </StackLayout>
 
-                    </ContentView>
+                            <!-- Text -->
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Grid.RowSpan="2"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End">
 
-                </StackLayout>
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Medium"
+                                    FontAttributes="None"
+                                    Text="{Binding Total,StringFormat='${0:N}'}"/>
 
-                <!-- Button -->
-                <StackLayout
-                    Grid.Row="3"
-                    HorizontalOptions="Center"
-                    VerticalOptions="End"
-                    Orientation="Vertical" >
+                            </StackLayout>
 
-                    <Button
-                        Text="Nuevo"
-                        Command="{Binding AddIncomePageCommand}"             
-                        CornerRadius="50"
-                        TextColor="White"
-                        BackgroundColor="#EE5215"
-                        BorderColor="#EE5215"
-                        BorderWidth="1.5"
-                        WidthRequest="300"
-                        HeightRequest="50"
-                        TranslationY="-50"/>
+                        </Grid>
+                        
+                    </Frame>
+
+                    <!-- Expense card -->
+                    <Frame
+                        BackgroundColor="White"
+                        HeightRequest="80"
+                        Grid.Row="1">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Title -->
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalOptions="Start">
+
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Title"
+                                    FontAttributes="Bold"
+                                    Text="Gastos"/>
+
+                            </StackLayout>
+
+                            <!-- Subtitle -->
+                            <StackLayout
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalOptions="Start">
+
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Small"
+                                    FontAttributes="None"
+                                    Text="Ultimo gasto realizado"/>
+                            </StackLayout>
+
+                            <!-- Text -->
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Grid.RowSpan="2"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End">
+
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Medium"
+                                    FontAttributes="None"
+                                    Text="{Binding Total,StringFormat='${0:N}'}"/>
+
+                            </StackLayout>
+
+                        </Grid>
+
+                    </Frame>
+
+                    <!-- Category card -->
+                    <Frame
+                        BackgroundColor="White"
+                        HeightRequest="80"
+                        Grid.Row="2">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Title -->
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalOptions="Start">
+
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Title"
+                                    FontAttributes="Bold"
+                                    Text="Categorias"/>
+                            </StackLayout>
+
+                            <!-- Subtitle -->
+                            <StackLayout
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalOptions="Start">
+                                
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Small"
+                                    FontAttributes="None"
+                                    Text="Ultima categoria registrada hola"/>
+                            </StackLayout>
+
+                            <!-- Text -->
+                            <StackLayout
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End">
+
+                                <Label
+                                    TextColor="Black"
+                                    FontSize="Medium"
+                                    FontAttributes="None"
+                                    Text="$100"/>
+                            </StackLayout>
+
+                        </Grid>
+
+                    </Frame>
 
                 </StackLayout>
 
             </Grid>
 
-            
-            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

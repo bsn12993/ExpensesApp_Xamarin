@@ -123,7 +123,6 @@ namespace ExpensesApp.ViewModels
                 MainViewModel.GetInstance().ProfileViewModel = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
 
                 MainViewModel.GetInstance().HomeViewModel = new HomeViewModel();
-                MainViewModel.GetInstance().HomeViewModel.LoadCategories();
                 MainViewModel.GetInstance().HomeViewModel.LoadTotal();
 
                 Application.Current.MainPage = new MasterPage();

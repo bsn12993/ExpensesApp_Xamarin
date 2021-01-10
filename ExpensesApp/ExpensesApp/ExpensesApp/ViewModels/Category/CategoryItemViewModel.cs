@@ -95,6 +95,7 @@ namespace ExpensesApp.ViewModels
                     var createCategory = new CategoryItem
                     {
                         Name = category.Name,
+                        Description = category.Description,
                         UserId = MainViewModel.GetInstance().GetUser.Id
                     };
 
@@ -114,6 +115,7 @@ namespace ExpensesApp.ViewModels
                     {
                         Id = category.Id,
                         Name = category.Name,
+                        Description = category.Description,
                         UserId = MainViewModel.GetInstance().GetUser.Id
                     };
 
