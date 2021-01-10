@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ExpensesApp.Views.AddExpensePage"
+             x:Class="ExpensesApp.Views.ExpenseItemPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Add Expense">
     <ContentPage.Content>
         
         <StackLayout
-            BindingContext="{Binding AddExpenseViewModel}">
+            BindingContext="{Binding ExpenseItemViewModel}">
 
             <Grid
                 RowSpacing="{OnPlatform iOS=25,Android=18}">

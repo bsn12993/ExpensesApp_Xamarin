@@ -98,7 +98,7 @@ namespace ExpensesApp.ViewModels
             this.Expenses = new ObservableCollection<ExpenseItem>();
             for (var i = 1; i <= 20; i++)
             {
-                this.Expenses.Add(new ExpenseItemViewModel
+                this.Expenses.Add(new ExpenseItemSelectedViewModel
                 {
                     Amount = i,
                     Date = DateTime.Now.ToShortDateString(),

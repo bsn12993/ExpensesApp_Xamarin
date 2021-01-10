@@ -1,4 +1,5 @@
 ﻿using ExpensesApp.Models;
+using ExpensesApp.Models.Income;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,11 +16,11 @@ namespace ExpensesApp.Services.Income
         #endregion
 
         #region Attributes
-        private IncomeService instance;
+        private static IncomeService instance;
         #endregion
 
         #region Methods
-        public IncomeService GetInstance()
+        public static IncomeService GetInstance()
         {
             if (instance == null) instance = new IncomeService();
             return instance;
@@ -39,6 +40,37 @@ namespace ExpensesApp.Services.Income
                 throw e;
             }
         }
+
+        public async Task<Response> Create(IncomeItem incomeItem)
+        {
+            try
+            {
+                var response = await ApiService
+                    .GetInstance()
+                    .Create("api/incomes/create", incomeItem);
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<Response> Update(IncomeItem incomeItem)
+        {
+            try
+            {
+                var response = await ApiService
+                    .GetInstance()
+                    .Update("api/incomes/update", incomeItem, incomeItem.Id);
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         #endregion
     }
 }

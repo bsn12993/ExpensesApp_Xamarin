@@ -1,7 +1,6 @@
 ﻿using ExpensesApp.Exceptions;
 using ExpensesApp.Models;
-using ExpensesApp.Models.Category;
-using ExpensesApp.Services.Category;
+using ExpensesApp.Services.Income;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.ComponentModel;
@@ -10,22 +9,22 @@ using Xamarin.Forms;
 
 namespace ExpensesApp.ViewModels
 {
-    public class CategoryItemViewModel : INotifyPropertyChanged
+    public class IncomeItemViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public CategoryItem Category
+        public IncomeItem Income
         {
-            get { return category; }
+            get { return income; }
             set
             {
-                if (category != value)
+                if (income != value)
                 {
-                    category = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Category)));
+                    income = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Income)));
                 }
             }
         }
-
+        
         public bool IsRunning
         {
             get { return isRunning; }
@@ -38,10 +37,10 @@ namespace ExpensesApp.ViewModels
                 }
             }
         }
-        
+
         public bool IsEnable
         {
-            get { return IsEnable; }
+            get { return isEnable; }
             set
             {
                 if (isEnable != value)
@@ -53,52 +52,50 @@ namespace ExpensesApp.ViewModels
         }
         #endregion
 
-        #region Constructor
-        public CategoryItemViewModel(CategoryItem category)
-        {
-            Category = category;
-        }
-
-        public CategoryItemViewModel()
-        {
-            Category = new CategoryItem();
-        }
-        #endregion
-
         #region Attributes
-        private CategoryItem category;
+        private IncomeItem income;
         private bool isRunning;
         private bool isEnable;
-        #endregion
-
-        #region Events
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Commands
-        public ICommand CategoryCommand
+        public ICommand IncomeCommand
         {
-            get { return new RelayCommand(CategoryMethod); }
+            get { return new RelayCommand(IncomeMethod); }
+        }
+        #endregion
+
+        #region Constructor
+        public IncomeItemViewModel()
+        {
+            Income = new IncomeItem();
+        }
+
+        public IncomeItemViewModel(IncomeItem income)
+        {
+            Income = income;
         }
         #endregion
 
         #region Methods
-        public async void CategoryMethod()
+        private async void IncomeMethod()
         {
             try
             {
                 IsRunning = true;
                 IsEnable = false;
                 //Create
-                if (category.Id == 0)
+                if (Income.Id == 0)
                 {
-                    var createCategory = new CategoryItem
+                    var incomeItem = new IncomeItem
                     {
-                        Name = category.Name,
+                        Date = Income.Date,
+                        Amount=Income.Amount,
                         UserId = MainViewModel.GetInstance().GetUser.Id
                     };
 
-                    var response = await CategoryService.GetInstance().Create(createCategory);
+                    var response = await IncomeService.GetInstance().Create(incomeItem);
                     if (response.Code != (int)EnumCodeResponse.SUCCESS)
                     {
                         IsRunning = false;
@@ -110,14 +107,15 @@ namespace ExpensesApp.ViewModels
                 //Edit
                 else
                 {
-                    var updateCategory = new CategoryItem
+                    var incomeItem = new IncomeItem
                     {
-                        Id = category.Id,
-                        Name = category.Name,
+                        Id = income.Id,
+                        Date = Income.Date,
+                        Amount = Income.Amount,
                         UserId = MainViewModel.GetInstance().GetUser.Id
                     };
 
-                    var response = await CategoryService.GetInstance().Update(updateCategory);
+                    var response = await IncomeService.GetInstance().Update(incomeItem);
                     if (response.Code != (int)EnumCodeResponse.SUCCESS)
                     {
                         IsRunning = false;
@@ -129,10 +127,11 @@ namespace ExpensesApp.ViewModels
 
                 IsRunning = false;
                 IsEnable = true;
-                Category.Name = string.Empty;
-                if (MainViewModel.GetInstance().CategoryListViewModel == null)
-                    MainViewModel.GetInstance().CategoryListViewModel = new CategoryListViewModel();
-                MainViewModel.GetInstance().CategoryListViewModel.LoadCategoryList();
+                Income.Amount = 0;
+                income.Date = DateTime.Now;
+                if (MainViewModel.GetInstance().IncomeListViewModel == null)
+                    MainViewModel.GetInstance().IncomeListViewModel = new IncomeListViewModel();
+                MainViewModel.GetInstance().IncomeListViewModel.LoadIncomeList();
                 await App.Navigator.PopAsync();
             }
             catch (ErrorResponseServerException e)

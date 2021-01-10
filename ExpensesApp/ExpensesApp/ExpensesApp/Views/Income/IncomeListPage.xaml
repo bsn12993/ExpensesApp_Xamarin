@@ -58,7 +58,7 @@
                             BorderColor="#EE5215"
                             TextColor="White"
                             CornerRadius="50"
-                             Command="{Binding AddIncomeCommand}"
+                            Command="{Binding GoToAddIncomePageCommand}"
                             BorderWidth="1.5"
                             Margin="0,0,10,5"/>
 
@@ -127,26 +127,45 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Label
+
+                                            <Frame
+                                            Margin="5">
+                                                <Frame.GestureRecognizers>
+
+                                                    <TapGestureRecognizer 
+                                                    Command="{Binding GoToEditItemPageCommand}"/>
+
+                                                </Frame.GestureRecognizers>
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <StackLayout
                                                     Grid.Column="0"
-                                                    Text="{Binding Amount,StringFormat='${0:N}'}"
-                                                    FontSize="Default"
-                                                    TextColor="Black"
-                                                    VerticalOptions="CenterAndExpand"
-                                                    HorizontalOptions="CenterAndExpand"/>
-                                                <Label
+                                                    VerticalOptions="Center">
+
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontSize="Small"
+                                                            TextColor="Black"
+                                                            Text="{Binding Amount,StringFormat='${0:N}'}"/>
+
+                                                        <Label
+                                                            FontSize="Small"
+                                                            TextColor="Black"
+                                                            Text="{Binding Date}"/>
+
+                                                    </StackLayout>
+
+                                                    <Image
                                                     Grid.Column="1"
-                                                    Text="{Binding Date}"
-                                                    FontSize="Default"
-                                                    TextColor="Black"
-                                                    VerticalOptions="CenterAndExpand"
-                                                    HorizontalOptions="CenterAndExpand"/>
-                                            </Grid>
+                                                    HorizontalOptions="End"
+                                                    Source="ic_chev"/>
+                                                </Grid>
+                                            </Frame>
+
                                         </ViewCell>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

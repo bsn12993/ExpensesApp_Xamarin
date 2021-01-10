@@ -55,7 +55,7 @@
                             Grid.Row="1"
                             Grid.Column="2"
                             Text="Nuevo"
-                            Command="{Binding AddExpenseCommand}"
+                            Command="{Binding GoToAddExpensePageCommand}"
                             HorizontalOptions="End"
                             BackgroundColor="#EE5215"
                             BorderColor="#EE5215"

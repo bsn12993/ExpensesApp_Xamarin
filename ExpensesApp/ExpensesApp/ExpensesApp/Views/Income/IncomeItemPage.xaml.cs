@@ -5,9 +5,9 @@ using Xamarin.Forms.Xaml;
 namespace ExpensesApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AddIncomePage : ContentPage
+	public partial class IncomeItemPage : ContentPage
 	{
-		public AddIncomePage()
+		public IncomeItemPage()
 		{
 			InitializeComponent ();
 		}

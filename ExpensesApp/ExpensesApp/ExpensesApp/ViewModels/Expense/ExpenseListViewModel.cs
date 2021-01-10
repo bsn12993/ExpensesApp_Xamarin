@@ -14,7 +14,7 @@ namespace ExpensesApp.ViewModels
     public class ExpenseListViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public ObservableCollection<ExpenseItemViewModel> Expenses
+        public ObservableCollection<ExpenseItemSelectedViewModel> Expenses
         {
             get { return expenses; }
             set
@@ -55,7 +55,7 @@ namespace ExpensesApp.ViewModels
         #region Attributes
         private bool isRunning;
         private string noData;
-        private ObservableCollection<ExpenseItemViewModel> expenses;
+        private ObservableCollection<ExpenseItemSelectedViewModel> expenses;
         #endregion
 
         #region Events
@@ -65,15 +65,15 @@ namespace ExpensesApp.ViewModels
         #region Constructor
         public ExpenseListViewModel()
         {
-            this.NoData = string.Empty;
-            this.LoadExpenses();
+            NoData = string.Empty;
+            LoadExpenses();
         }
         #endregion
 
         #region Commands
-        public ICommand AddExpenseCommand
+        public ICommand GoToAddExpensePageCommand
         {
-            get { return new RelayCommand(AddExpense); }
+            get { return new RelayCommand(GoToAddPage); }
         }
         #endregion
 
@@ -90,7 +90,7 @@ namespace ExpensesApp.ViewModels
                     .GetInstance()
                     .FindAllByUser(user.Id);
                 IsRunning = false;
-                var expenses_aux = expenses.Select(x => new ExpenseItemViewModel
+                var expenses_aux = expenses.Select(x => new ExpenseItemSelectedViewModel
                 {
                     Id = x.Id,
                     Amount = x.Amount,
@@ -98,7 +98,7 @@ namespace ExpensesApp.ViewModels
                     Date = x.Date,
                     Description = x.Description
                 });
-                Expenses = new ObservableCollection<ExpenseItemViewModel>(expenses_aux);
+                Expenses = new ObservableCollection<ExpenseItemSelectedViewModel>(expenses_aux);
             }
             catch (ErrorResponseServerException e)
             {
@@ -121,12 +121,12 @@ namespace ExpensesApp.ViewModels
             } 
         }
 
-        private void AddExpense()
+        private void GoToAddPage()
         {
-            if (MainViewModel.GetInstance().AddExpenseViewModel == null)
-                MainViewModel.GetInstance().AddExpenseViewModel = new AddExpenseViewModel();
-            MainViewModel.GetInstance().AddExpenseViewModel.LoadCategories();
-            App.Navigator.PushAsync(new AddExpensePage());
+            if (MainViewModel.GetInstance().ExpenseItemViewModel == null)
+                MainViewModel.GetInstance().ExpenseItemViewModel = new ExpenseItemViewModel();
+            MainViewModel.GetInstance().ExpenseItemViewModel.LoadCategories();
+            App.Navigator.PushAsync(new ExpenseItemPage());
         }
         #endregion
     }

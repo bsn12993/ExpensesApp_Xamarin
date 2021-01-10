@@ -6,6 +6,5 @@
   <!--Pages can be added as references or inline-->
     <TabbedPage.Children>
         <tabs:HomePage/>
-        <tabs:EditCategoryPage/>
     </TabbedPage.Children>
 </TabbedPage>

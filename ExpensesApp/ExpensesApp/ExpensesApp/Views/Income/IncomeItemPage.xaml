@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ExpensesApp.Views.AddIncomePage"
+             x:Class="ExpensesApp.Views.IncomeItemPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Income">
     <ContentPage.Content>
         
         <StackLayout
-            BindingContext="{Binding AddIncomeViewModel}">
+            BindingContext="{Binding IncomeItemViewModel}">
 
             <Grid
                 RowSpacing="{OnPlatform iOS=25,Android=18}">
@@ -46,7 +46,8 @@
                     Grid.Row="2" 
                     HorizontalOptions="Center" 
                     VerticalOptions="Start"
-                    Orientation="Vertical" 
+                    Orientation="Vertical"
+                    WidthRequest="{OnPlatform iOS=370,Android=370}"
                     Margin="0,0,0,10">
 
                     <Label
@@ -61,23 +62,43 @@
 
                         <Entry
                             Placeholder="Ingresa un monto"
-                            Keyboard="Text"
+                            Keyboard="Numeric"
                             MaxLength="25"
-                             Text="{Binding Amount,Mode=TwoWay,StringFormat='{}{0:N}'}"
+                            Text="{Binding Income.Amount,Mode=TwoWay,StringFormat='{}{0:N}'}"
                             FontSize="{OnPlatform Android=15,iOS=16}"/>
 
                     </Frame>
 
                 </StackLayout>
 
+                <StackLayout
+                    Grid.Row="3" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Start"
+                    Orientation="Vertical"
+                    WidthRequest="{OnPlatform iOS=370,Android=370}"
+                    Margin="0,0,0,10">
+
+                    <Label
+                        Text="Monto"
+                        FontSize="{OnPlatform Android=13}"
+                        TextColor="Black"/>
+
+                    <DatePicker 
+                        MinimumDate="01/01/2021"
+                        MaximumDate="12/31/2021"
+                        Date="{Binding Income.Date,Mode=TwoWay}" />
+
+                </StackLayout>
+
                 <Button
-                    Grid.Row="3"
-                    Text="Guardar"
+                    Grid.Row="4"
+                    Text="Guardar1"
                     TextColor="White"
                     BackgroundColor="#EE5215"
                     BorderColor="#EE5215"
                     CornerRadius="20"
-                    Command="{Binding SaveIncomeCommand}"
+                    Command="{Binding IncomeCommand}"
                     VerticalOptions="End"
                     HorizontalOptions="Center"
                     IsEnabled="{Binding IsEnabled,Mode=TwoWay}"

@@ -1,14 +1,20 @@
-﻿using ExpensesApp.Models;
+﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Helpers;
+using ExpensesApp.Services.Income;
+using ExpensesApp.Views;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
 {
     public class IncomeListViewModel : INotifyPropertyChanged
     {
         #region Properties
-        public ObservableCollection<IncomeItem> Incomes
+        public ObservableCollection<IncomeItemSelectedViewModel> Incomes
         {
             get { return incomes; }
             set
@@ -49,7 +55,7 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Attributes
-        private ObservableCollection<IncomeItem> incomes;
+        private ObservableCollection<IncomeItemSelectedViewModel> incomes;
         private decimal total;
         private bool isRunning;
         #endregion
@@ -57,6 +63,7 @@ namespace ExpensesApp.ViewModels
         #region Constructors
         public IncomeListViewModel()
         {
+            LoadIncomeList();
         }
         #endregion
 
@@ -65,57 +72,59 @@ namespace ExpensesApp.ViewModels
         #endregion
 
         #region Methods
-        public async void LoadIncomesHistory()
+        public async void LoadIncomeList()
         {
-            /*
-            this.IsRunning = true;
-            this.Incomes = new ObservableCollection<Income>();
-            this.Incomes.Clear();
-            var connection = await ApiServices.GetInstance().CheckConnection();
-            if (!connection.IsSuccess)
+            try
             {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Ok");
-                return;
+                InternetConnectionHelper.GetInstance().CheckConnection();
+                IsRunning = true;
+                var user = MainViewModel.GetInstance().GetUser;
+                var incomes = await IncomeService
+                    .GetInstance()
+                    .FindAllByUser(user.Id);
+
+                var incomes_aux = incomes
+                    .Select(x => new IncomeItemSelectedViewModel
+                    {
+                        Id = x.Id,
+                        Amount = x.Amount,
+                        Date = x.Date
+                    });
+                Incomes =
+                new ObservableCollection<IncomeItemSelectedViewModel>(incomes_aux);
+                IsRunning = false;
             }
-
-            var incomes = await ApiServices.GetInstance().GetList<Income>($"api/incomes/history/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
-            if (!incomes.IsSuccess)
+            catch (ErrorResponseServerException e)
             {
-                this.IsRunning = false;
-                return;
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
             }
-
-            var expenses = await ApiServices.GetInstance().GetList<Expense>($"api/expenses/history/byuser/{MainViewModel.GetInstance().GetUser.User_Id}");
-            if (!expenses.IsSuccess)
+            catch (WarningResponseServerException e)
             {
-                this.IsRunning = false;
-                return;
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
             }
-
-            var lstIncomes = ((List<Income>)incomes.Result).Select(x => new Income
+            catch (NoInternetConnectionException e)
             {
-                Date = x.Date.Split('T')[0],
-                Amount = x.Amount
-            });
-
-            this.IsRunning = false;
-            this.Incomes = new ObservableCollection<Income>((IEnumerable<Income>)lstIncomes);
-            var totalExpenses = ((List<Expense>)expenses.Result).Sum(x => x.Amount);
-            this.Total = this.Incomes.Sum(x => x.Amount) - totalExpenses;
-            */
-            this.Incomes = new ObservableCollection<IncomeItem>();
-            for (var i = 1; i <= 20; i++)
-            {
-                this.Incomes.Add(new IncomeItem
-                {
-                    Amount = i,
-                    Date = DateTime.Now.ToShortDateString(),
-                    Income_Id = 1,
-                    User_Id = 1
-                });
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
             }
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+                IsRunning = false;
+            }
+        }
 
+        public ICommand GoToAddIncomePageCommand
+        {
+            get { return new RelayCommand(GoToAddPage); }
+        }
+
+        private void GoToAddPage()
+        {
+            MainViewModel.GetInstance().IncomeItemViewModel = new IncomeItemViewModel();
+            App.Navigator.PushAsync(new IncomeItemPage());
         }
         #endregion
     }

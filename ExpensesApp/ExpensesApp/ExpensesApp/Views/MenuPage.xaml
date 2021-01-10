@@ -71,7 +71,7 @@
             <StackLayout
                 Padding="5,20,5,5">
                 <ListView
-                    ItemsSource="{Binding Menu}"
+                    ItemsSource="{Binding MenuItemView}"
                     HasUnevenRows="True"
                     SeparatorVisibility="None">
                     <ListView.ItemTemplate>

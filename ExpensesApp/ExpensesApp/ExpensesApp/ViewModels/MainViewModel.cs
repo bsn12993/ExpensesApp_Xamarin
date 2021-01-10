@@ -20,11 +20,11 @@ namespace ExpensesApp.ViewModels
         #region Expense
         public ExpenseDetailViewModel ExpenseDetailViewModel { get; set; }
         public ExpenseListViewModel ExpenseListViewModel { get; set; }
-        public AddExpenseViewModel AddExpenseViewModel { get; set; }
+        public ExpenseItemViewModel ExpenseItemViewModel { get; set; }
         #endregion
 
         #region Income
-        public AddIncomeViewModel AddIncomeViewModel { get; set; }
+        public IncomeItemViewModel IncomeItemViewModel { get; set; }
         public IncomeListViewModel IncomeListViewModel { get; set; }
         #endregion
 
@@ -66,7 +66,6 @@ namespace ExpensesApp.ViewModels
             instance = this;
             LoginViewModel = new LoginViewModel();
             RegisterViewModel = new RegisterViewModel();
-            AddIncomeViewModel = new AddIncomeViewModel();
             ProfileViewModel = new ProfileViewModel();
             LoadMenu();
         }

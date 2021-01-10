@@ -1,14 +1,14 @@
-﻿using ExpensesApp.Models.Category;
+﻿using ExpensesApp.Models;
 using ExpensesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
 {
-    public class CategoryItemSelectedViewModel : CategoryItem
+    public class IncomeItemSelectedViewModel : IncomeItem
     {
         #region Properties
-        public ICommand GoToEditCategoryPageCommand
+        public ICommand GoToEditItemPageCommand
         {
             get { return new RelayCommand(GoToEditPage); }
         }
@@ -17,9 +17,9 @@ namespace ExpensesApp.ViewModels
         #region Methods
         private void GoToEditPage()
         {
-            CategoryItem category = this;
-            MainViewModel.GetInstance().CategoryItemViewModel = new CategoryItemViewModel(category);
-            App.Navigator.PushAsync(new CategoryItemPage());
+            IncomeItem income = this;
+            MainViewModel.GetInstance().IncomeItemViewModel = new IncomeItemViewModel(income);
+            App.Navigator.PushAsync(new IncomeItemPage());
         }
         #endregion
     }

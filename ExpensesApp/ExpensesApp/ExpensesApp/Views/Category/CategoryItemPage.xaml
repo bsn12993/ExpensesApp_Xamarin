@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ExpensesApp.Views.AddCategoryPage"
+             x:Class="ExpensesApp.Views.CategoryItemPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Add Category">
     <ContentPage.Content>
@@ -105,7 +105,7 @@
                     TextColor="White"
                     BackgroundColor="#EE5215"
                     BorderColor="#EE5215"
-                    Command="{Binding SaveEditCommand}"
+                    Command="{Binding CategoryCommand}"
                     VerticalOptions="End"
                     HorizontalOptions="Center"
                     IsEnabled="{Binding IsEnabled,Mode=TwoWay}"

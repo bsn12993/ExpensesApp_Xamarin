@@ -57,7 +57,7 @@
                             BackgroundColor="#EE5215"
                             BorderColor="#EE5215"
                             Text="Nuevo"
-                            Command="{Binding AddCategoryCommand}"
+                            Command="{Binding GoToAddCategoryPageCommand}"
                             HorizontalOptions="End"
                             CornerRadius="50"
                             BorderWidth="1.5"
@@ -98,7 +98,7 @@
                                             <Frame.GestureRecognizers>
 
                                                 <TapGestureRecognizer 
-                                                    Command="{Binding SelectCategoryCommand}"/>
+                                                    Command="{Binding GoToEditCategoryPageCommand}"/>
 
                                             </Frame.GestureRecognizers>
 

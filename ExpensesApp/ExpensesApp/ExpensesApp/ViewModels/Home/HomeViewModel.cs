@@ -138,7 +138,7 @@ namespace ExpensesApp.ViewModels
         {
             if (MainViewModel.GetInstance().IncomeListViewModel == null)
                 MainViewModel.GetInstance().IncomeListViewModel = new IncomeListViewModel();
-            MainViewModel.GetInstance().IncomeListViewModel.LoadIncomesHistory();
+            MainViewModel.GetInstance().IncomeListViewModel.LoadIncomeList();
             App.Navigator.PushAsync(new IncomeListPage());
         }
         #endregion

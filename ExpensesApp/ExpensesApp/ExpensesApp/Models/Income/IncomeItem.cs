@@ -1,11 +1,12 @@
-﻿namespace ExpensesApp.Models
+﻿using System;
+
+namespace ExpensesApp.Models
 {
     public class IncomeItem
     {
-        public int Income_Id { get; set; }
-        public string Date { get; set; }
+        public int Id { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public decimal Amount { get; set; }
-        public int User_Id { get; set; }
-        public FindUser User { get; set; }
+        public int UserId { get; set; }
     }
 }
