@@ -1,5 +1,8 @@
-﻿using ExpensesApp.Helpers;
+﻿using ExpensesApp.Exceptions;
+using ExpensesApp.Helpers;
 using ExpensesApp.Models;
+using ExpensesApp.Models.User;
+using ExpensesApp.Services.User;
 using GalaSoft.MvvmLight.Command;
 using Plugin.Media;
 using System;
@@ -106,6 +109,19 @@ namespace ExpensesApp.ViewModels
             }
         }
 
+        public bool IsEnable
+        {
+            get { return isEnable; }
+            set
+            {
+                if (isEnable != value)
+                {
+                    isEnable = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnable)));
+                }
+            }
+        }
+
         public ImageSource Image
         {
             get { return image; }
@@ -127,6 +143,7 @@ namespace ExpensesApp.ViewModels
         private string email;
         private string password;
         private bool isRunning;
+        private bool isEnable;
         private bool isVisible;
         private ImageSource image;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -185,49 +202,49 @@ namespace ExpensesApp.ViewModels
 
         private async void UpdateUser()
         {
-            /*
-            var id = MainViewModel.GetInstance().GetUser.User_Id;
-            var name = MainViewModel.GetInstance().GetUser.Name;
-            this.IsRunning = true;
-            var connection = await ApiServices.GetInstance().CheckConnection();
-            if (!connection.IsSuccess) 
+            try
             {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", "Configura el acceso a internet", "Ok");
-                return;
+                IsRunning = true;
+                IsEnable = false;
+                var updateUser = new UpdateUser
+                {
+                    Id = MainViewModel.GetInstance().GetUser.Id,
+                    Email = Email,
+                    Name = Name,
+                    LastName = LastName,
+                    Image = FileHelper.ImageSourceToBase64(Image)
+                };
+
+                var response = await UserService.GetInstance().Update(updateUser);
+                if (response.Code != (int)EnumCodeResponse.SUCCESS)
+                {
+                    IsRunning = false;
+                    await Application.Current.MainPage.DisplayAlert("Advertencia", response.Message, "Aceptar");
+                    return;
+                }
+                await Application.Current.MainPage.DisplayAlert("Exito", response.Message, "Aceptar");
+                IsRunning = false;
+                IsEnable = true;
+              
             }
-
-            var user = new User
+            catch (ErrorResponseServerException e)
             {
-                User_Id = MainViewModel.GetInstance().GetUser.User_Id,
-                Name = this.Name,
-                LastName = this.LastName,
-                Email = this.Email,
-                Password = this.Password
-            };
-
-            var updateUser = await ApiServices.GetInstance().PutItem("api/users/update/", user, MainViewModel.GetInstance().GetUser.User_Id);
-            if (!updateUser.IsSuccess)
-            {
-                this.IsRunning = false;
-                await Application.Current.MainPage.DisplayAlert("Error", updateUser.Message, "Ok");
-                return;
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+                IsRunning = false;
+                IsEnable = true;
             }
-
-            this.IsRunning = false;
-            var getUser = await ApiServices.GetInstance().GetItem<User>($"api/users/byid/{MainViewModel.GetInstance().GetUser.User_Id}");
-            if (!getUser.IsSuccess)
+            catch (WarningResponseServerException e)
             {
-                return;
+                await App.Current.MainPage.DisplayAlert("Advertencia", e.Message, "Aceptar");
+                IsRunning = false;
+                IsEnable = true;
             }
-
-            MainViewModel.GetInstance().GetUser = (User)getUser.Result;
-            await Application.Current.MainPage.DisplayAlert("Success", updateUser.Message, "Ok");
-            this.Name = MainViewModel.GetInstance().GetUser.Name;
-            this.LastName = MainViewModel.GetInstance().GetUser.LastName;
-            this.Email = MainViewModel.GetInstance().GetUser.Email;
-            this.Password = MainViewModel.GetInstance().GetUser.Password;
-            */
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+                IsRunning = false;
+                IsEnable = true;
+            }
         }
 
          

@@ -1,7 +1,9 @@
 ﻿using ExpensesApp.Models;
-using ExpensesApp.Models.Category;
+using ExpensesApp.Views;
+using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace ExpensesApp.ViewModels
 {
@@ -79,7 +81,13 @@ namespace ExpensesApp.ViewModels
             {
                 Icon = "ic_home",
                 PageName = "HomePage",
-                Title = "Dashboard"
+                Title = "Inicio"
+            });
+            MenuItemView.Add(new MenuItemViewModel
+            {
+                Icon = "ic_list",
+                PageName = "CategoryListPage",
+                Title = "Categoias"
             });
             MenuItemView.Add(new MenuItemViewModel
             {
@@ -88,6 +96,19 @@ namespace ExpensesApp.ViewModels
                 Title = "Salir"
             });
         }
+
+        public ICommand GoToProfilePage
+        {
+            get { return new RelayCommand(GoToPage); }
+        }
+
+        private void GoToPage()
+        {
+            GetInstance().ProfileViewModel = new ProfileViewModel(GetInstance().GetUser);
+            App.Navigator.PushAsync(new ProfilePage());
+        }
+
+
         #endregion
     }
 }

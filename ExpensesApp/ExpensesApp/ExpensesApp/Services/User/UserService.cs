@@ -36,7 +36,37 @@ namespace ExpensesApp.Services.User
                 };
                 var response = await ApiService
                     .GetInstance()
-                    .Create<LoginUser>($"api/users/validate", login);
+                    .Create($"api/users/validate", login);
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<Response> Create(CreateUser createUser)
+        {
+            try
+            {
+                var response = await ApiService
+                    .GetInstance()
+                    .Create("api/user/create", createUser);
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<Response> Update(UpdateUser updateUser)
+        {
+            try
+            {
+                var response = await ApiService
+                    .GetInstance()
+                    .Update("api/user/update", updateUser, updateUser.Id);
                 return response;
             }
             catch (Exception e)
