@@ -24,15 +24,15 @@ namespace ExpensesApp.ViewModels
             }
         }
 
-        public CategoryItem CategoySelected
+        public CategoryItem CategorySelected
         {
-            get { return category; }
+            get { return categorySelected; }
             set
             {
-                if (category != value)
+                if (categorySelected != value)
                 {
-                    category = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CategoySelected)));
+                    categorySelected = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CategorySelected)));
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace ExpensesApp.ViewModels
 
         #region Attributes
         private string amount;
-        private CategoryItem category;
+        private CategoryItem categorySelected;
         private ObservableCollection<CategoryItem> categories { get; set; }
         private bool isRunning;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -91,13 +91,13 @@ namespace ExpensesApp.ViewModels
         {
             /*
             this.IsRunning = true;
-            if (!string.IsNullOrEmpty(this.Amount) && !string.IsNullOrEmpty(this.CategoySelected.Name))
+            if (!string.IsNullOrEmpty(this.Amount) && !string.IsNullOrEmpty(this.CategorySelected.Name))
             {
                 var expense = new Expense
                 {
                     Amount = Convert.ToDecimal(this.Amount),
                     Date = DateTime.Now.ToShortDateString(),
-                    Category_Id = this.CategoySelected.Id,
+                    Category_Id = this.CategorySelected.Id,
                     User_Id = MainViewModel.GetInstance().GetUser.User_Id
                 };
 
@@ -118,7 +118,7 @@ namespace ExpensesApp.ViewModels
                 this.IsRunning = false;
                 await Application.Current.MainPage.DisplayAlert("OK", "se agrego un nuevo gasto", "Accept");
                 this.Amount = string.Empty;
-                this.CategoySelected.Name = string.Empty;
+                this.CategorySelected.Name = string.Empty;
                 if (MainViewModel.GetInstance().Expenses == null)
                     MainViewModel.GetInstance().Expenses = new ExpensesViewModel();
                 MainViewModel.GetInstance().Expenses.LoadExpenses();
@@ -148,6 +148,7 @@ namespace ExpensesApp.ViewModels
                     UserId = x.UserId
                 });
             Categories = new ObservableCollection<CategoryItem>(categories_aux);
+             
         }
         #endregion
     }

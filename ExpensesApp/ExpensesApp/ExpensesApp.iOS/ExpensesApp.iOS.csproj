@@ -155,7 +155,7 @@
       <Version>2018.1.5</Version>
     </PackageReference>
     <PackageReference Include="Unity">
-      <Version>5.11.9</Version>
+      <Version>5.11.10</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Connectivity">
       <Version>3.2.0</Version>
@@ -173,7 +173,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.8.0.1687</Version>
+      <Version>5.0.0.1931</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms.PancakeView">
       <Version>2.3.0.759</Version>

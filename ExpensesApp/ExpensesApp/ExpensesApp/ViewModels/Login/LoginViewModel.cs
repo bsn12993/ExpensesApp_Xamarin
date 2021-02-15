@@ -121,7 +121,6 @@ namespace ExpensesApp.ViewModels
                 var findUser = JsonConvert.DeserializeObject<FindUser>(validateUser.Result.ToString());
                 MainViewModel.GetInstance().GetUser = findUser;
                 MainViewModel.GetInstance().ProfileViewModel = new ProfileViewModel(MainViewModel.GetInstance().GetUser);
-
                 MainViewModel.GetInstance().HomeViewModel = new HomeViewModel();
                 MainViewModel.GetInstance().HomeViewModel.LoadTotal();
 
